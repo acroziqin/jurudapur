@@ -5,13 +5,15 @@
 	<title>@yield('title')</title>
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i" rel="stylesheet">
 
 	<!-- Optional untuk halaman lain. Halaman ini butuh slick -->
 
-	<link rel="stylesheet" href="css/owl.carousel.min.css">
-	<link rel="stylesheet" href="css/owl.theme.green.min.css">
+	<link rel="stylesheet" href="{{ URL::asset('css/owl.carousel.min.css') }}">
+	<link rel="stylesheet" href="{{ URL::asset('css/owl.theme.green.min.css') }}">
+
+	@yield('cssTambahan')
 </head>
 
 <body>
@@ -42,7 +44,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<!-- Logo -->
 				<a class="navbar-brand" href="/">
-					<img class="logo" src="images/logo.png" alt="logo" />
+					<img class="logo" src="{{ URL::asset('images/logo.png') }}" alt="logo" />
 				</a>
 				<div class="row nav-menu">
 					<!-- Search -->
@@ -124,11 +126,11 @@
             </div>
         </footer>
         <!-- Footer -->
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
+        <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
         <!-- Halaman ini membutuhkan slick, tapi halaman lain belum tentu butuh slick -->
         <!-- <script type="text/javascript" src="js/slick.min.js"></script> -->
-        <script src="js/owl.carousel.min.js"></script>
+        <script src="{{ URL::asset('js/owl.carousel.min.js') }}"></script>
         <script>
             $(document).ready(function () {
                 $(".owl-carousel").owlCarousel({
@@ -147,7 +149,8 @@
                     }
                 });
             });
-        </script>
+		</script>
+		@yield('jsTambahan')
 </body>
 
 </html>

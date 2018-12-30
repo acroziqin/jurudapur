@@ -20,3 +20,5 @@ Route::get('/', 'BerandaController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/products/{productId}/detail', 'ProductController@detail')->name('products.detail');

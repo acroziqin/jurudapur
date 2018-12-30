@@ -1,6 +1,5 @@
 @extends('layouts.master')
 
-
 @section('title', 'Jurudapur')
 
 @section('content')
@@ -35,7 +34,7 @@
             </div>
             <div class="owl-carousel">
                 @for ($i = 0; $i < 8; $i++)
-                    <a href="#" class="menu-item">
+                    <a href="{{ URL::route('products.detail', $i) }}" class="menu-item">
                         <div>
                             <img class="img lazy owl-lazy" src="https://placehold.it/200x150&text=1" data-src="https://craftlog.com/m/i/1939076=s1280=h960"
                             alt="">
