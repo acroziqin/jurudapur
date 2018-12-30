@@ -1,77 +1,46 @@
-@extends('layouts.app')
+@extends('layouts.master')
+
+@section('title', 'Jurudapur')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+<main class="container d-flex align-items-center">
+		<div class="row justify-content-center align-items-center" style="flex: 1;">
+			<div class="col-12 col-sm-8 col-md-6 col-lg-5">
+				<div class="card w-100 p-4">
+					<h3>Registrasi</h3>
+					<form action="/login">
+						<div class="form-group">
+							<input type="text" name="name" class="form-control" id="inputName" aria-describedby="name" placeholder="Nama Anda">
+						</div>
+						<div class="form-group">
+							<input type="email" name="email" class="form-control" id="inputEmail" aria-describedby="email" placeholder="Your Email">
+						</div>
+						<div class="form-group">
+							<input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
+						</div>
+						<div class="form-group">
+							<input type="text" name="address" class="form-control" id="inputAddress" aria-describedby="address" placeholder="Alamat">
+						</div>
+						<div class="form-group">
+							<input type="tel" name="phone" class="form-control" id="inputPhone" aria-describedby="phone" placeholder="Nomor HP">
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="lk" id="inputLk" value="lk">
+							<label class="form-check-label" for="inlineRadio1">Laki-laki</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="pr" id="inpurPr" value="pr">
+							<label class="form-check-label" for="inlineRadio2">Perempuan</label>
+						</div>
+						<div class="custom-file" style="margin: 1rem 0;">
+							<label class="custom-file-label" for="inputPhoto">Pilih Foto</label><br>
+							<input type="file" class="custom-file-input" id="inputPhoto" name="photo">
+						</div>
+						<button type="submit" class="btn btn-primary">Daftar</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection

@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'Jurudapur')
+
 @section('content')
 <main class="container d-flex align-items-center">
 		<div class="row justify-content-center align-items-center" style="flex: 1;">
