@@ -65,10 +65,10 @@
 								</div>
 							</li>
 							<li class="nav-item active col-4">
-								<a class="nav-link" href="#">Masuk</a>
+								<a class="nav-link" href="{{ route('login') }}">Masuk</a>
 							</li>
 							<li class="nav-item active col-4">
-								<a class="nav-link" href="#">Daftar</a>
+								<a class="nav-link" href="{{ route('register') }}">Daftar</a>
 							</li>
 						</ul>
 					</div>
