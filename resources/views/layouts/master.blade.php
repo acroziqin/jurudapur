@@ -32,13 +32,6 @@
 						<button class="form-control search-btn" type="submit"><i class="fas fa-search"></i></button>
 					</form>
 				</div>
-				<div class="cart-container d-md-none">
-					<a href="#" class="nav-link active">
-						<div class="cart-icon">
-							<i class="fas fa-shopping-cart"></i>
-						</div>
-					</a>
-				</div>
 			</div>
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -48,29 +41,20 @@
 				</a>
 				<div class="row nav-menu">
 					<!-- Search -->
-					<div class="col-12 col-md-7 d-none d-md-flex">
+					<div class="col-12 col-md-8 d-none d-md-flex">
 						<form class="form-inline my-2 my-lg-0 mx-0 mx-lg-3 w-lg-50 w-100 d-flex">
 							<input class="form-control search-input" type="search" placeholder="Cari Menu" aria-label="Search">
 							<button class="form-control search-btn" type="submit"><i class="fas fa-search"></i></button>
 						</form>
 					</div>
 					<!-- Right Menu -->
-					<div class="col-12 col-md-5 d-flex justify-content-end">
-						<ul class="navbar-nav align-items-baseline d-flex row justify-content-around w-100">
-							<li class="nav-item col-4 d-none d-md-block">
-								<div class="cart-container">
-									<a href="#" class="nav-link active">
-										<div class="cart-icon">
-											<i class="fas fa-shopping-cart"></i>
-										</div>
-									</a>
-								</div>
+					<div class="col-12 col-md-4 d-flex">
+						<ul class="navbar-nav d-flex">
+							<li class="nav-item active col-6  align-items-center d-flex">
+								<a class="nav-link" href="{{ route('login')}}">Masuk</a>
 							</li>
-							<li class="nav-item active col-4">
-								<a class="nav-link" href="{{ route('login') }}">Masuk</a>
-							</li>
-							<li class="nav-item active col-4">
-								<a class="nav-link" href="{{ route('register') }}">Daftar</a>
+							<li class="nav-item active col-6 align-items-center d-flex">
+								<a class="nav-link" href="{{ route('register')}}">Daftar</a>
 							</li>
 						</ul>
 					</div>
