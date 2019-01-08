@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Makanan;
+use App\Dapur;
 
 class BerandaController extends Controller
 {
@@ -27,6 +30,26 @@ class BerandaController extends Controller
             'icon' => ['utensils', 'medal', 'user-shield', 'user-tie'],
             'name' => ['Ahlinya dapur', 'Kualitas Terbaik', 'Terpercaya', 'Profesional']
         ];
-        return view('blog/home', ['characteristics' => $characteristics]);
+
+        $nasibungkus = Makanan::where('jenis', 'Nasi Bungkus')->get();
+        $dapur_nasbung = [];
+        foreach ($nasibungkus as $nasbung) {
+            $dapur = Dapur::where('id', $nasbung->id_dapur)->pluck('nama')->toArray();
+            array_push($dapur_nasbung, $dapur[0]);
+        }
+        if (Auth::check())
+        {
+            $verified = Auth::user()->email_verified_at;
+        }else {
+            $verified = NULL;
+        }
+
+        $data = [
+            'characteristics' => $characteristics,
+            'nasibungkus' => $nasibungkus,
+            'dapnasbung' => $dapur_nasbung,
+            'verified' => $verified
+        ];
+        return view('blog/home')->with($data);
     }
 }

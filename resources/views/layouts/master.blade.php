@@ -6,12 +6,10 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
-	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i" rel="stylesheet">
+    
 	<!-- Optional untuk halaman lain. Halaman ini butuh slick -->
-
-	<link rel="stylesheet" href="{{ URL::asset('css/owl.carousel.min.css') }}">
-	<link rel="stylesheet" href="{{ URL::asset('css/owl.theme.green.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}"> --}}
 
 	@yield('cssTambahan')
 </head>
@@ -50,18 +48,51 @@
 					<!-- Right Menu -->
 					<div class="col-12 col-md-4 d-flex">
 						<ul class="navbar-nav d-flex">
-							<li class="nav-item active col-6  align-items-center d-flex">
-								<a class="nav-link" href="{{ route('login')}}">Masuk</a>
-							</li>
-							<li class="nav-item active col-6 align-items-center d-flex">
-								<a class="nav-link" href="{{ route('register')}}">Daftar</a>
-							</li>
+                            @auth
+                                <li class="nav-item active col-6  align-items-center d-flex">
+                                    <div class="cart-container">
+                                        <a href="#" class="nav-link active">
+                                            <div class="cart-icon">
+                                                <i class="fas fa-shopping-cart"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="nav-item active col-6  align-items-center d-flex">
+                                    <ul class="navbar-nav ml-auto">
+                                        <li class="nav-item dropdown">
+                                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                {{ Auth::user()->name }} <span class="caret"></span>
+                                            </a>
+            
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();
+                                                                    document.getElementById('logout-form').submit();">
+                                                    {{ __('Logout') }}
+                                                </a>
+            
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                    @csrf
+                                                </form>
+                                            </div>
+                                        </li>
+                                    <ul class="navbar-nav ml-auto">
+                                </li>
+                            @else
+                                <li class="nav-item active col-6  align-items-center d-flex">
+                                    <a class="nav-link" href="{{ route('login')}}">Masuk</a>
+                                </li>
+                                <li class="nav-item active col-6 align-items-center d-flex">
+                                    <a class="nav-link" href="{{ route('register')}}">Daftar</a>
+                                </li>
+                            @endauth
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
-	</nav>
+    </nav>
 
     @yield('content')
 
@@ -112,28 +143,6 @@
         <!-- Footer -->
         <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
-        <!-- Halaman ini membutuhkan slick, tapi halaman lain belum tentu butuh slick -->
-        <!-- <script type="text/javascript" src="js/slick.min.js"></script> -->
-        <script src="{{ URL::asset('js/owl.carousel.min.js') }}"></script>
-        <script>
-            $(document).ready(function () {
-                $(".owl-carousel").owlCarousel({
-                    items: 6,
-                    autoWidth: true,
-                    lazyLoad: true,
-                    nav: true,
-                    navText: ['<i class="fas fa-angle-left"></i>', '<i class="fas fa-angle-right"></i>'],
-                    responsive: {
-                        0: {
-                            nav: false,
-                        },
-                        768: {
-                            nav: true,
-                        },
-                    }
-                });
-            });
-		</script>
 		@yield('jsTambahan')
 </body>
 

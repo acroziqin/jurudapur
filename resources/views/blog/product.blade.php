@@ -3,6 +3,8 @@
 @section('title', 'Jurudapur')
 
 @section('cssTambahan')
+    <link rel="stylesheet" href="{{ URL::asset('css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/owl.theme.green.min.css') }}">
 	<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" />
 	<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-minima.css" />
     <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/rating.min.css') }}">
@@ -40,27 +42,28 @@
             <div id="detail" class="row px-3" style="position: relative;">
                 <div class="col-12 col-md-7 content vl">
                     <p class="title" style="font-size: 1.4rem" title="Menu ayam bakar Lorem ipsum dolor lorem ipsum s sd asdas sd Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt beatae praesentium commodi odit illum architecto nam fugiat quisquam qui molestias?">
-                        Menu ayam bakar Lorem ipsum dolor lorem ipsum s sd asdas sd Lorem ipsum dolor sit amet consectetur adipisicing
-                        elit. Sunt beatae praesentium commodi odit illum architecto nam fugiat quisquam qui molestias?
+                        {{ $makanan['nama'] }}
                     </p>
                     <div class="block-mini-title">
-                        <div class="ui star rating" data-rating="4"></div>
-                        <i class="fas fa-share-alt share-ico"></i>
+                        {{-- <div class="ui star rating" data-rating="4"></div> --}}
+                        {{-- <i class="fas fa-share-alt share-ico"></i> --}}
                         <div id="share"></div>
                     </div>
-                    <div class="price ori">Rp.50.000</div>
-                    <div class="price dis" style="font-size: 1.6rem">Rp.20.000</div>
+                    {{-- <div class="price ori">Rp.50.000</div> --}}
+                    <div class="price dis" style="font-size: 1.6rem">Rp. {{ $makanan['harga'] }}</div>
                     <hr>
-                    <div><i class="fas fa-shopping-cart text-main"></i> Minimal Pemesanan 100 Pax</div>
-                    <div><i class="fas fa-share-square text-main"></i> Gratis ongkir (Min. Pemesanan 100 Box)</div>
+                    <div><i class="fas fa-shopping-cart text-main"></i> Minimal Pemesanan 20 Pax</div>
+                    <div><i class="fas fa-share-square text-main"></i> Gratis ongkir (Min. Pemesanan 20 Box)</div>
                     <hr>
                     <div class="d-flex" style="align-items:center; flex-wrap: wrap;">
                         <div>Kuantitas</div>
                         <div id='np'></div>
                     </div>
-                    <div class="d-flex justify-content-center align-items-center" style="flex-wrap: wrap;">
-                        <button class="btn btn-primary m-2" type="button" style="flex:1">Pesan sekarang</button>
-                    </div>
+                    <a href="{{ URL::route('products.order', $makanan['id']) }}">
+                        <div class="d-flex justify-content-center align-items-center" style="flex-wrap: wrap;">
+                            <button class="btn btn-primary m-2" type="button" style="flex:1" @auth @else disabled @endauth>Pesan sekarang</button>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-12 col-md-5">
                     <table>
@@ -69,19 +72,19 @@
                                 <img class="small-pic-dapur" src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png"
                                 alt="">
                             </td>
-                            <td>Dapur Bu Doni</td>
+                            <td>{{ $dapur }}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>
-                                <div class="ui star rating" data-rating="5"></div>
+                                {{-- <div class="ui star rating" data-rating="5"></div> --}}
                             </td>
                         </tr>
                     </table>
                 </div>
             </div>
         </div>
-        <div class="card my-3 p-4 col-12 col-md-9">
+        {{-- <div class="card my-3 p-4 col-12 col-md-9">
             <h3 class="title">Deskripsi Produk</h3>
             <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut nobis vero eligendi accusantium blanditiis, asperiores
@@ -134,16 +137,16 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- INI hanya jika sudah login dan sudah pernah membeli produk -->
-        <div class="review card my-3 p-4 col-12 col-md-9">
+        {{-- <div class="review card my-3 p-4 col-12 col-md-9">
             <h3>Beri Review</h3>
             <form action="">
                 <textarea class="form-control form-group" name="review" rows="3" placeholder="Wah enak, sesaui sama harganya."></textarea>
                 <button class="btn btn-primary" type="submit" >Kirim</button>
             </form>
-        </div>
+        </div> --}}
         <section class="popular-menu">
             <div class="header">
                 <h3>Orang Lain Juga Melihat</h3>
@@ -276,8 +279,8 @@
 					interactive: false,
 				});
 			dpUI.numberPicker("#np", {
-				start: 100, // GANTI DENGAN MINIMAL PEMESANAN
-				min: 100, // GANTI DENGAN MINIMAL PEMESANAN
+				start: 20, // GANTI DENGAN MINIMAL PEMESANAN
+				min: 20, // GANTI DENGAN MINIMAL PEMESANAN
 				step: 1,
 			});
 			$(".owl-carousel").owlCarousel({
