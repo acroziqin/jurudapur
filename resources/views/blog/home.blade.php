@@ -49,22 +49,22 @@
 
         <section class="popular-menu">
             <div class="header">
-                <h3>Nasi Bungkus</h3>
+                <h3>Makanan</h3>
             </div>
             <div class="owl-carousel">
                 @php $i = 0 @endphp
-                @foreach ($nasibungkus as $key => $makan)
+                @foreach ($makanan as $makan)
                     <a href="{{ URL::route('products.detail', $makan->id) }}" class="menu-item">
                         <div>
                             <img class="img lazy owl-lazy" src="https://placehold.it/200x150&text=1" data-src="https://craftlog.com/m/i/1939076=s1280=h960"
                             alt="">
                             <div class="content">
                                 <div class="title">{{ $makan->nama }}</div>
-                                {{-- <div class="price ori">Rp.50.000</div> --}}
-                                <div class="price dis">Rp.{{ $makan->harga }}
+                                <div class="price ori">{{ $makan->jenis }}</div>
+                                <div class="price dis">Rp. {{ $makan->harga }}
                                     <div class="ket"> / Pax</div>
                                 </div>
-                                <div class="kitchen"><i class="far fa-star"></i> {{ $dapnasbung[$i] }}</div>
+                                <div class="kitchen"><i class="far fa-star"></i> {{ $dapmakanan[$i] }}</div>
                             </div>
                         </div>
                     </a>
@@ -74,26 +74,55 @@
         </section>
         <section class="popular-dapur">
             <div class="header">
-                <h3>Dapur Populer</h3>
+                <h3>Minuman</h3>
             </div>
             <div class="owl-carousel">
-                @for ($i = 0; $i < 8; $i++)
-                    <a href="#" class="menu-item">
+                @php $i = 0 @endphp
+                @foreach ($minuman as $minum)
+                    <a href="{{ URL::route('products.detail', $minum->id) }}" class="menu-item">
                         <div>
                             <img class="img lazy owl-lazy" src="https://placehold.it/200x150&text=1" data-src="https://craftlog.com/m/i/1939076=s1280=h960"
                             alt="">
                             <div class="content">
-                                <div class="title">Jagung bakar spesial akhir tahun yang bagus banget</div>
-                                <div class="price ori">Rp.50.000</div>
-                                <div class="price dis">Rp.50.000<div class="ket"> / Pax</div>
+                                <div class="title">{{ $minum->nama }}</div>
+                                <div class="price ori">{{ $minum->jenis }}</div>
+                                <div class="price dis">Rp. {{ $minum->harga }}
+                                    <div class="ket"> / Pax</div>
                                 </div>
-                                <div class="kitchen"><i class="far fa-star"></i> Dapur Bu Eni</div>
+                                <div class="kitchen"><i class="far fa-star"></i> {{ $dapminuman[$i] }}</div>
                             </div>
                         </div>
                     </a>
-                @endfor
+                    @php $i++ @endphp
+                @endforeach
             </div>
         </section>
+        <section class="popular-dapur">
+            <div class="header">
+                <h3>Kue</h3>
+            </div>
+            <div class="owl-carousel">
+                @php $i = 0 @endphp
+                @foreach ($kue as $kuwe)
+                    <a href="{{ URL::route('products.detail', $kuwe->id) }}" class="menu-item">
+                        <div>
+                            <img class="img lazy owl-lazy" src="https://placehold.it/200x150&text=1" data-src="https://craftlog.com/m/i/1939076=s1280=h960"
+                            alt="">
+                            <div class="content">
+                                <div class="title">{{ $kuwe->nama }}</div>
+                                <div class="price ori">{{ $kuwe->jenis }}</div>
+                                <div class="price dis">Rp. {{ $kuwe->harga }}
+                                    <div class="ket"> / Pax</div>
+                                </div>
+                                <div class="kitchen"><i class="far fa-star"></i> {{ $dapkue[$i] }}</div>
+                            </div>
+                        </div>
+                    </a>
+                    @php $i++ @endphp
+                @endforeach
+            </div>
+        </section>
+
     </main>
 
 @endsection
@@ -105,7 +134,7 @@
     <script>
         $(document).ready(function () {
             $(".owl-carousel").owlCarousel({
-                items: 6,
+                items: 5,
                 autoWidth: true,
                 lazyLoad: true,
                 nav: true,

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Makanan;
 use App\Dapur;
+use App\Makanan;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -12,10 +13,17 @@ class ProductController extends Controller
     {
         $makanan = Makanan::where('id', $id)->get()->toArray()[0];
         $dapur = Dapur::where('id', $makanan['id_dapur'])->pluck('nama')->toArray()[0];
-        // dd($makanan['id_dapur']);
+        if (Auth::check())
+        {
+            $verified = Auth::user()->email_verified_at;
+        }else {
+            $verified = NULL;
+        }
+        
         $data = [
             'makanan' => $makanan,
-            'dapur' => $dapur
+            'dapur' => $dapur,
+            'verified' => $verified
         ];
         return view('blog/product')->with($data);
     }

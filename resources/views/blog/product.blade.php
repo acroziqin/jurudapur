@@ -61,9 +61,23 @@
                     </div>
                     <a href="{{ URL::route('products.order', $makanan['id']) }}">
                         <div class="d-flex justify-content-center align-items-center" style="flex-wrap: wrap;">
-                            <button class="btn btn-primary m-2" type="button" style="flex:1" @auth @else disabled @endauth>Pesan sekarang</button>
+                            <button class="btn btn-primary m-2" type="button" style="flex:1" @auth @if (is_null($verified)) disabled @endif @else disabled @endauth>Pesan sekarang</button>
                         </div>
                     </a>
+                    @auth
+                        @if (is_null($verified))
+                        <header style="padding: 20px; background-color: yellow">
+                            @if (session('resent'))
+                                <div style="background-color: chartreuse">
+                                    {{ __('A fresh verification link has been sent to your email address.') }}
+                                </div>
+                            @endif
+
+                            {{ __('Agar bisa memesan. Anda harus verifikasi email Anda terlebih dahulu. please check your email for a verification link.') }}
+                            {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
+                        </header>
+                        @endif
+                    @endauth
                 </div>
                 <div class="col-12 col-md-5">
                     <table>

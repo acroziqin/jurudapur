@@ -60,13 +60,14 @@ class LoginController extends Controller
     public function handleProviderCallback($service)
     {
         $user = Socialite::driver($service)->stateless()->user();
+        // dd($user);
         $findUser = User::where('email', $user->getEmail())->first();
         if (!$findUser)
         {
             $newUser = new User;
             $newUser->email = $user->getEmail();
             $newUser->name = $user->getName();
-            $newUser->password = bcrypt(123456);
+            $newUser->password = NULL;
             $newUser->email_verified_at = Carbon::now();;
             $newUser->save();
         }

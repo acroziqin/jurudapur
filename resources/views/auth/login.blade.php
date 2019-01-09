@@ -35,6 +35,8 @@
                         </div>
                         <button type="submit" class="btn btn-primary">{{ __('Login') }}</button>
                     </form>
+                    atau
+                    <a href="{{ url('login/google') }}" class="btn btn-danger">{{ __('Masuk dengan Google') }}</a>
                 </div>
             </div>
         </div>

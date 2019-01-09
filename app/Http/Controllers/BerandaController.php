@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Kue;
+use App\Dapur;
+use App\Makanan;
+use App\Minuman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Makanan;
-use App\Dapur;
 
 class BerandaController extends Controller
 {
@@ -31,11 +33,37 @@ class BerandaController extends Controller
             'name' => ['Ahlinya dapur', 'Kualitas Terbaik', 'Terpercaya', 'Profesional']
         ];
 
-        $nasibungkus = Makanan::where('jenis', 'Nasi Bungkus')->get();
-        $dapur_nasbung = [];
-        foreach ($nasibungkus as $nasbung) {
-            $dapur = Dapur::where('id', $nasbung->id_dapur)->pluck('nama')->toArray();
-            array_push($dapur_nasbung, $dapur[0]);
+        $makanan = Makanan::limit(10)->get();
+        $dapur_makanan = [];
+        foreach ($makanan as $makan) {
+            $dapur = Dapur::where('id', $makan->id_dapur)->pluck('nama')->toArray();
+            array_push($dapur_makanan, $dapur[0]);
+        }
+        if (Auth::check())
+        {
+            $verified = Auth::user()->email_verified_at;
+        }else {
+            $verified = NULL;
+        }
+
+        $minuman = Minuman::limit(10)->get();
+        $dapur_minuman = [];
+        foreach ($minuman as $minum) {
+            $dapur = Dapur::where('id', $minum->id_dapur)->pluck('nama')->toArray();
+            array_push($dapur_minuman, $dapur[0]);
+        }
+        if (Auth::check())
+        {
+            $verified = Auth::user()->email_verified_at;
+        }else {
+            $verified = NULL;
+        }
+
+        $kue = Kue::limit(10)->get();
+        $dapur_kue = [];
+        foreach ($kue as $kuwe) {
+            $dapur = Dapur::where('id', $kuwe->id_dapur)->pluck('nama')->toArray();
+            array_push($dapur_kue, $dapur[0]);
         }
         if (Auth::check())
         {
@@ -46,8 +74,12 @@ class BerandaController extends Controller
 
         $data = [
             'characteristics' => $characteristics,
-            'nasibungkus' => $nasibungkus,
-            'dapnasbung' => $dapur_nasbung,
+            'makanan' => $makanan,
+            'dapmakanan' => $dapur_makanan,
+            'minuman' => $minuman,
+            'dapminuman' => $dapur_minuman,
+            'kue' => $kue,
+            'dapkue' => $dapur_kue,
             'verified' => $verified
         ];
         return view('blog/home')->with($data);

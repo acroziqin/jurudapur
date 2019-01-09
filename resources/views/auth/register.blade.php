@@ -43,6 +43,8 @@
                         </div>
                         <button type="submit" class="btn btn-primary">{{ __('Daftar') }}</button>
                     </form>
+                    atau
+                    <a href="{{ url('login/google') }}" class="btn btn-danger">{{ __('Daftar dengan Google') }}</a>
                 </div>
             </div>
         </div>
