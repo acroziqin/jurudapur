@@ -126,17 +126,6 @@ main.container {
 			color: $white;
 		}
 	}
-
-	.cart-container {
-		display: flex;
-		flex-direction: row;
-		color: $gray-800;
-
-		.cart-icon {
-			font-size: 1.5em;
-			color: $gray-800;
-		}
-	}
 }
 
 
@@ -419,7 +408,93 @@ main.container {
 	width: 50px;
 	margin-right: 1rem;
 }
+.review{
+	.rate{
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		.number{
+			font-size: 3rem;
+			margin-right: 1rem;
+		}
+	}
+}
+.review-item-container{
+	display: block;
+}
+.review-item{
+	display: flex;
+	flex-flow: column wrap;
+	border-top: 1px solid rgba(0,0,0,.1);
+	.user-rev{
+		display: flex;
+		flex: 1;
+		align-items: center;
+		.user-i-rev{
+			margin: 10px;
+			width: 40px;
+			height: 40px;
+			flex-grow: 0;
+		}
+		.user-n-rev{
+			display: flex;
+			flex-flow: column wrap;
+		}
+	}
+	.user-c-rev{
+		margin-left: 60px;
+	}
+}
 
+// ORDER Page
+.mini-img{
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	margin-right: 10px;
+}
+.item-order{
+	@extend .card;
+	display: flex;
+	flex-direction: row;
+	.title{
+		flex: 1;
+	}
+}
+.c-datepicker__day--disabled{
+	color: gray !important;
+}
+
+// DASHBOARD Page
+.profile{
+	display: inline-flex;
+	padding-bottom: 10px;
+	border-bottom: 1px solid rgb(200, 200, 200);
+	.img-profile{
+		border-radius: 50%;
+		width: 100px;
+		height: 100px;
+		flex: 0;
+		object-fit: cover;
+		margin-right: 2rem;
+		background-color: rgba(0,0,0,0.05);
+		border: 1px solid rgba(0, 0, 0, 0.2);
+	}
+	.detail{
+		flex: 1;
+		.name{
+			font-weight: bold;
+		}
+
+	}
+}
+.my-orders,
+.my-reviews{
+	margin-top: 1rem;
+}
+th {
+    white-space: nowrap;
+}
 // FOOTER =======================================
 footer {
 	clear: both;

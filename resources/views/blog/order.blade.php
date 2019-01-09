@@ -10,7 +10,8 @@
 
 @section('content')
     <main class="container">
-		<div class="card p-3">
+		<div class="row">
+			<div class="card p-3 col-8">
 			<form action="" method="post">
 				<div>
 					<h3>Pesan</h3>
@@ -21,8 +22,8 @@
 					<div id='np' style="align-self:center;"></div>
 				</div>
 				<div class="form-group">
-					<h3>Waktu dan Tempat</h3>
-					<input id="date" type="text" name="c-datepicker-btn" class="form-control">
+					<h3>Waktu</h3>
+					<input id="date" type="text" name="date" class="form-control" placeholder="HH:mm DD/MM/YYYY" required>
 				</div>
 				<div class="form-group payment">
 					<h3>Metode Pembayaran</h3>
@@ -35,11 +36,9 @@
 							<div class="card card-body">
 								<div class="row">
 									<div class="col-12">
-										{{-- <center> --}}
-											<h3>Transfer Bank</h3>
-											<h5>Bank Mandiri</h5>
-											<b>102-00-0526387-3</b> <span>(Contoh)</span>
-										{{-- </center> --}}
+										<h3>Transfer Bank</h3>
+										<h5>Bank Mandiri</h5>
+										<b>102-00-0526387-3</b> <span>(Contoh)</span>
 									</div>
 								</div>
 							</div>
@@ -50,9 +49,19 @@
 						<label class="form-check-label" for="cod">
 							Cash On Delivery <b>(COD)</b>
 						</label>
+						<div class="collapse" id="collapseCOD">
+							<div class="card card-body">
+								<div class="form-group">
+									<label for="exampleInputEmail1">Lokasi Ketemuan</label>
+									<input type="email" class="form-control" id="lokasi-ketemuan" name="lokasi-ketemuan">
+									<small id="emailHelp" class="form-text text-muted">Pembayaran DP minimal 50%. Pembayaran DP dilakukan sebelum
+										hari H.</small>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group shipment">
 					<h3>Metode Pengantaran</h3>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="shipment" id="antar" value="antar" required>
@@ -71,6 +80,14 @@
 												<option>Sukun</option>
 											</select>
 										</div>
+										<div>
+											Ongkir : <b>Rp.20.000</b>
+											// ONGKIR dihitung di backend.
+											Misal dapur berada di kecamatan Blimbing. Lalu pengantaran di kec. Sukun.
+											Maka langsung ambil dari database kita Blimbing ke Sukun.
+											Blimbing ke Sukun != Sukun ke Blimbing.
+											Membuat relasi many to many
+										</div>
 									</div>
 								</div>
 							</div>
@@ -81,10 +98,37 @@
 						<label class="form-check-label" for="ambil">
 							Ambil Sendiri
 						</label>
+						<div class="collapse" id="collapseAmbil">
+							<div class="card card-body">
+								Pengambilan di alamat : Jl. Blimbing No.100, Kota Malang
+							</div>
+						</div>
 					</div>
 				</div>
-				<button type="submit">Kirim</button>
-			</form>
+				<button type="submit" class="btn btn-primary btn-block" role="button">Pesan</button>
+				</form>
+			</div>
+			<div class="card p-3 col-4">
+				<table class="table">
+					<tr>
+						<td>Menu Ayam Bakar Z</td>
+						<td>100x</td>
+						<td>Rp.20.000</td>
+					</tr>
+					<tr>
+						<td colspan="2">Sub total</td>
+						<td><b>Rp.2.000.000</b></td>
+					</tr>
+					<tr>
+						<td colspan="2">Ongkir</td>
+						<td>Rp.30.000</td>
+					</tr>
+					<tr>
+						<td colspan="2"><b>Total</b></td>
+						<td><b>Rp.2.030.000</b></td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</main>
 @endsection
@@ -106,33 +150,41 @@
 			});
 			const input = document.querySelector('#date');
 			const picker = new MaterialDatetimePicker({
-					dateValidator: function (d) {
-						var m = moment(d);
-						var y = m.year();
-						var f = 'MM-DD-YYYY';
-						var start = moment().add(10, 'years').endOf('day');
-						var end = moment().endOf('day');
-						return m.isBefore(start) && m.isAfter(end);
-					},
-				})
-				.on('submit', (val) => {
+				default: moment().add(2,'days'),
+				dateValidator: function (d) {
+					var m = moment(d);
+					var y = m.year();
+					var f = 'MM-DD-YYYY';
+					var start = moment().add(10, 'years').endOf('day');
+					var end = moment().add(2,'days');
+					return m.isBefore(start) && m.isAfter(end);
+				},
+			})
+			.on('submit', (val) => {
+				if(val.isAfter(moment().add(2,'days')))
 					input.value = val.format("HH:mm - DD/MM/YYYY");
-				});
-			input.addEventListener('focus', () => {
+				else
+					alert("Hari H setidaknya 2 hari setelah tanggal pesan (hari ini)");
+			});
+			input.addEventListener('click', () => {
 				picker.open();
 			});
 			$('[name="payment"]').on('change', function () {
 				if ($(this).val() === "bank-transfer") {
 					$('#collapseBT').collapse('show');
+					$('#collapseCOD').collapse('hide');
 				} else {
 					$('#collapseBT').collapse('hide');
+					$('#collapseCOD').collapse('show');
 				}
 			});
 			$('[name="shipment"]').on('change', function () {
 				if ($(this).val() === "antar") {
 					$('#collapseAntar').collapse('show');
-				} else {
+					$('#collapseAmbil').collapse('hide');
+				} else if ($(this).val() == "ambil") {
 					$('#collapseAntar').collapse('hide');
+					$('#collapseAmbil').collapse('show');
 				}
 			});
 		});

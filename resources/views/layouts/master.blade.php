@@ -2,6 +2,7 @@
 <html class="no-js" lang="en">
 
 <head>
+    <link rel="icon" href="{{ URL::asset('images/favicon.png') }}">
 	<title>@yield('title')</title>
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -46,35 +47,25 @@
 						</form>
 					</div>
 					<!-- Right Menu -->
-					<div class="col-12 col-md-4 d-flex">
-						<ul class="navbar-nav d-flex">
+					<div class="col-12 col-md-4 d-flex justify-content-start justify-content-md-end">
+						<ul class="navbar-nav">
                             @auth
-                                <li class="nav-item active col-6  align-items-center d-flex">
-                                    <div class="cart-container">
-                                        <a href="#" class="nav-link active">
-                                            <div class="cart-icon">
-                                                <i class="fas fa-shopping-cart"></i>
-                                            </div>
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+								 aria-expanded="false" style="padding-top: 8px;display: inline-block;">
+									<i class="fas fa-user" style="font-size: 1.2rem; margin-right: .5rem;"></i>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ URL::route('dashboard') }}"><i class="fas fa-user"></i> Profil</a>
+                                        <!-- <a class="dropdown-item" href="#"><i class="fas fa-shopping-cart"></i> Pemesanan</a> -->
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
                                         </a>
-                                    </div>
-                                </li>
-                                <li class="nav-item active col-6  align-items-center d-flex">
-                                    <ul class="navbar-nav ml-auto">
-                                        <li class="nav-item dropdown">
-                                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                                {{ Auth::user()->name }} <span class="caret"></span>
-                                            </a>
-            
-                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                                    onclick="event.preventDefault();
-                                                                    document.getElementById('logout-form').submit();">
-                                                    {{ __('Logout') }}
-                                                </a>
-            
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                    @csrf
-                                                </form>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
                                             </div>
                                         </li>
                                     <ul class="navbar-nav ml-auto">
@@ -98,52 +89,53 @@
 
 	<!-- Footer -->
 	<footer>
-            <div class="container-fluid footer-top">
-                <div class="row">
-                    <div class="col-6 d-flex">
-                        <div style="align-self: center;">Follow Us On</div>
-                    </div>
-                    <div class="col-6 d-flex" style="flex-direction: row-reverse;">
-                        <div class="social-media">
-                            <a href="https://www.instagram.com/jurudapur/"><i class="fab fa-instagram"></i></a>
-                            <a href=""><i class="fab fa-line"></i></a>
-                            <a href=""><i class="fab fa-whatsapp"></i></a>
-                        </div>
+        <div class="container-fluid footer-top">
+            <div class="row">
+                <div class="col-6 d-flex">
+                    <div style="align-self: center;">{{ __('Ikut Kami di') }}</div>
+                </div>
+                <div class="col-6 d-flex" style="flex-direction: row-reverse;">
+                    <div class="social-media">
+                        <a href="https://www.instagram.com/jurudapur/"><i class="fab fa-instagram"></i></a>
+                        <a href=""><i class="fab fa-line"></i></a>
+                        <a href=""><i class="fab fa-whatsapp"></i></a>
+                        <a href=""><i class="fab fa-facebook"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="container footer-main">
-                <div class="row">
-                    <div class="col-6 col-md-4 d-flex justify-content-center">
-                        <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Katering</a></li>
-                            <li><a href="#">Camilan</a></li>
-                            <li><a href="#">Menu Siap Bakar</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md-4 d-flex justify-content-center">
-                        <ul>
-                            <li><a href="#">Term & Condition</a></li>
-                            <li><a href="#">FAQ</a></li>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Join Us</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <img src="/images/logo.png" alt="" class="logo">
-                    </div>
+        </div>
+        <div class="container footer-main">
+            <div class="row">
+                <div class="col-6 col-md-4 d-flex justify-content-center">
+                    <ul>
+                        <li><a href="{{ URL::route('beranda') }}">{{ __('Beranda') }}</a></li>
+                        <li><a href="#">{{ __('Makanan') }}</a></li>
+                        <li><a href="#">{{ __('Minuman') }}</a></li>
+                        <li><a href="#">{{ __('Kue') }}</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-4 d-flex justify-content-center">
+                    <ul>
+                        <li><a href="#">{{ __('Dapur') }}</a></li>
+                        <li><a href="#">{{ __('Syarat dan Ketentuan') }}</a></li>
+                        <li><a href="#">{{ __('Kebijakan Privasi') }}</a></li>
+                        <li><a href="#">{{ __('Tentang Kami') }}</a></li>
+                        <li><a href="#">{{ __('Hubungi Kami') }}</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4">
+                    <img src="/images/logo.png" alt="" class="logo">
                 </div>
             </div>
-            <div class="footer-bottom">
-                JuruDapur &copy; 2018 | Made with ❤️ IT Team of JuruDapur
-            </div>
-        </footer>
-        <!-- Footer -->
-        <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
-        <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
-		@yield('jsTambahan')
+        </div>
+        <div class="footer-bottom">
+            JuruDapur &copy; 2019 | Made with ❤️ IT Team of JuruDapur
+        </div>
+    </footer>
+    <!-- Footer -->
+    <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
+    <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
+    @yield('jsTambahan')
 </body>
 
 </html>

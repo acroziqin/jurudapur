@@ -7,7 +7,7 @@
         <div class="row justify-content-center align-items-center" style="flex: 1;">
             <div class="col-12 col-sm-8 col-md-6 col-lg-5">
                 <div class="card w-100 p-4">
-                    <h3>{{ __('Login') }}</h3>
+                    <h3>{{ __('Masuk') }}</h3>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -33,7 +33,9 @@
                             <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                             <label class="form-check-label" for="exampleCheck1">{{ __('Ingat Saya') }}</label>
                         </div>
-                        <button type="submit" class="btn btn-primary">{{ __('Login') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Masuk') }}</button>
+                        Belum mempunyai akun? klik 
+                        <a href="{{ route('register')}}">di sini</a>
                     </form>
                     atau
                     <a href="{{ url('login/google') }}" class="btn btn-danger">{{ __('Masuk dengan Google') }}</a>

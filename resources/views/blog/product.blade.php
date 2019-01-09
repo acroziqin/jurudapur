@@ -59,9 +59,9 @@
                         <div>Kuantitas</div>
                         <div id='np'></div>
                     </div>
-                    <a href="{{ URL::route('products.order', $makanan['id']) }}">
+                    <a href="@auth {{ URL::route('products.order', $makanan['id']) }} @else {{ route('login') }} @endauth">
                         <div class="d-flex justify-content-center align-items-center" style="flex-wrap: wrap;">
-                            <button class="btn btn-primary m-2" type="button" style="flex:1" @auth @if (is_null($verified)) disabled @endif @else disabled @endauth>Pesan sekarang</button>
+                            <button class="btn btn-primary m-2" type="button" style="flex:1" @auth @if (is_null($verified)) disabled @endif @endauth>Pesan sekarang</button>
                         </div>
                     </a>
                     @auth

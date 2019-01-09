@@ -7,7 +7,7 @@
         <div class="row justify-content-center align-items-center" style="flex: 1;">
             <div class="col-12 col-sm-8 col-md-6 col-lg-5">
                 <div class="card w-100 p-4">
-                    <h3>Registrasi</h3>
+                    <h3>{{ __('Daftar') }} </h3>
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -42,6 +42,8 @@
                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="{{ __('Konfirmasi Kata Sandi') }}">
                         </div>
                         <button type="submit" class="btn btn-primary">{{ __('Daftar') }}</button>
+                        Sudah mempunyai akun? klik 
+                        <a href="{{ route('login') }}">di sini</a>
                     </form>
                     atau
                     <a href="{{ url('login/google') }}" class="btn btn-danger">{{ __('Daftar dengan Google') }}</a>
