@@ -161,7 +161,7 @@
                 <button class="btn btn-primary" type="submit" >Kirim</button>
             </form>
         </div> --}}
-        <section class="popular-menu">
+        <section class="menu">
             <div class="header">
                 <h3>Orang Lain Juga Melihat</h3>
             </div>
