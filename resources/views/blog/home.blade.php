@@ -47,7 +47,7 @@
             </div>
         </div>
 
-        <section class="popular-menu">
+        <section class="menu">
             <div class="header">
                 <h3>Makanan</h3>
             </div>
@@ -60,7 +60,10 @@
                             alt="">
                             <div class="content">
                                 <div class="title">{{ $makan->nama }}</div>
-                                <div class="price ori">{{ $makan->jenis }}</div>
+                                <div class="desc">
+                                    <div>{{ $makan->jenis }}</div>
+                                </div>
+                                {{-- <div class="price ori">{{ $makan->jenis }}</div> --}}
                                 <div class="price dis">Rp. {{ $makan->harga }}
                                     <div class="ket"> / Pax</div>
                                 </div>
@@ -72,7 +75,7 @@
                 @endforeach
             </div>
         </section>
-        <section class="popular-dapur">
+        <section class="menu">
             <div class="header">
                 <h3>Minuman</h3>
             </div>
@@ -85,7 +88,10 @@
                             alt="">
                             <div class="content">
                                 <div class="title">{{ $minum->nama }}</div>
-                                <div class="price ori">{{ $minum->jenis }}</div>
+                                <div class="desc">
+                                    <div>{{ $makan->jenis }}</div>
+                                </div>
+                                {{-- <div class="price ori">{{ $minum->jenis }}</div> --}}
                                 <div class="price dis">Rp. {{ $minum->harga }}
                                     <div class="ket"> / Pax</div>
                                 </div>
@@ -97,7 +103,7 @@
                 @endforeach
             </div>
         </section>
-        <section class="popular-dapur">
+        <section class="menu">
             <div class="header">
                 <h3>Kue</h3>
             </div>
@@ -110,7 +116,10 @@
                             alt="">
                             <div class="content">
                                 <div class="title">{{ $kuwe->nama }}</div>
-                                <div class="price ori">{{ $kuwe->jenis }}</div>
+                                <div class="desc">
+                                    <div>{{ $makan->jenis }}</div>
+                                </div>
+                                {{-- <div class="price ori">{{ $kuwe->jenis }}</div> --}}
                                 <div class="price dis">Rp. {{ $kuwe->harga }}
                                     <div class="ket"> / Pax</div>
                                 </div>
