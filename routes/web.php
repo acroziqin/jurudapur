@@ -23,8 +23,9 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('verified'
 
 // Route::get('/product/create', 'ProductController@create');
 
-Route::post('/product', 'ProductController@store');
+// Route::post('/product', 'ProductController@store');
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::put('/profil/edit', 'ProfilController@update')->name('profil.edit');
 
 Route::get('/products/{productId}/detail', 'ProductController@detail')->name('products.detail');
 Route::get('/products/{productId}/order', 'ProductController@order')->name('products.order');

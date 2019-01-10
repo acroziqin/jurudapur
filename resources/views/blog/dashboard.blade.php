@@ -13,12 +13,12 @@
 		<div class="row justify-content-center">
 			<div class="col-11 col-md-8 card p-2 p-md-3">
 				<div class="profile accordion" id="profile">
-					<img src="https://marketplace.canva.com/MACCp5vBVqY/1/thumbnail_large/canva-male-avatar-MACCp5vBVqY.png" alt=""
+					<img src="https://marketplace.canva.com/MACCp5vBVqY/1/thumbnail_large/canva-male-avatar-MACCp5vBVqY.png" alt="foto-profile"
 					 class="img-profile">
 					<div class="detail">
 						<div class="collapse show" id="prof" data-parent="#profile">
-							<div class="name">Nama User</div>
-							<p class="font-weight-normal">email@email.com</p>
+							<div class="name">{{ Auth::user()->name }}</div>
+							<p class="font-weight-normal">{{ Auth::user()->email }}</p>
 							<p class="font-weight-normal">Detail Lainnya</p>
 						</div>
 						<button id="btn-edit-profile" type="button" class="btn btn-block btn-outline-primary" data-toggle="collapse"
@@ -26,20 +26,37 @@
 						<br>
 						<div class="collapse" id="edit-profile" data-parent="#profile">
 							<div class="card card-body">
-								<form action="/" method="post" enctype="multipart/form-data">
+								<form action="{{ URL::route('profil.edit') }}" method="post" enctype="multipart/form-data">
 									<div class="form-group">
-										<label for="name">Nama Anda</label>
+										<label for="name">{{ __('Nama Anda') }}</label>
 										<input type="text" class="form-control" name="name" id="name" aria-describedby="emailHelp" placeholder="Nama">
 									</div>
 									<div class="form-group">
-										<label for="photo">Ganti Foto</label>
-										<input type="file" name="photo" class="form-control-file" id="photo">
+										<label for="foto">{{ __('Ganti Foto') }}</label>
+										<input type="file" name="foto" class="form-control-file" id="photo">
 									</div>
 									<div class="form-group">
-										<label for="password">Password</label>
-										<input type="password" class="form-control" id="password" placeholder="Biarkan kosong jika tidak ingin diganti">
+										<label for="password">{{ __('Password') }}</label>
+										<input name="password" type="password" class="form-control" id="password" placeholder="Biarkan kosong jika tidak ingin diganti">
 									</div>
-									<button type="submit" class="btn btn-primary">Submit</button>
+									<div class="form-group">
+										<label for="name">{{ __('Alamat') }}</label>
+										<input type="text" class="form-control" name="alamat" id="name" aria-describedby="emailHelp" placeholder="Alamat">
+									</div>
+									<div class="form-group">
+										<label for="name">{{ __('No. HP') }}</label>
+										<input type="text" class="form-control" name="no-hp" id="name" aria-describedby="emailHelp" placeholder="No. HP">
+									</div>
+									<div class="form-group">
+										<label for="name">{{ __('Jenis Kelamin') }}</label><br>
+										<input type="radio" name="jenis-kelamin" id="lk" aria-describedby="emailHelp">
+										<label for = "lk">{{ __('Laki-laki') }}</label>
+										<input type="radio" name="jenis-kelamin" id="pr" aria-describedby="emailHelp">
+										<label for = "pr">{{ __('Perempuan') }}</label>
+									</div>
+									<button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+									{{ csrf_field() }}
+									<input type="hidden" name="_method" value="PUT">
 								</form>
 							</div>
 						</div>

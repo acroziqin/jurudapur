@@ -27,7 +27,7 @@
 				<!-- Search -->
 				<div class="d-flex" style="flex: 1; margin: 0 10px">
 					<form class="form-inline">
-						<input class="form-control search-input" type="search" placeholder="Cari Menu" aria-label="Search">
+						<input class="form-control search-input" type="search" placeholder="{{ __('Cari Menu') }}" aria-label="Search">
 						<button class="form-control search-btn" type="submit"><i class="fas fa-search"></i></button>
 					</form>
 				</div>
