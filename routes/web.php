@@ -29,5 +29,7 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('/products/{productId}/detail', 'ProductController@detail')->name('products.detail');
 Route::get('/products/{productId}/order', 'ProductController@order')->name('products.order');
 
+Route::get('/dapur/{dapur_name}', 'DapurController@show')->name('dapur.show');
+
 Route::get('login/{sevice}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{sevice}/callback', 'Auth\LoginController@handleProviderCallback');

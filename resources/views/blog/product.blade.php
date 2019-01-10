@@ -3,12 +3,12 @@
 @section('title', 'Jurudapur')
 
 @section('cssTambahan')
-    <link rel="stylesheet" href="{{ URL::asset('css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('css/owl.theme.green.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/owl.theme.green.min.css') }}">
 	<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" />
 	<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-minima.css" />
-    <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/rating.min.css') }}">
-    <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/dpNumberPicker-2.x-skin.grey.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/rating.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/dpNumberPicker-2.x-skin.grey.css') }}">
 @endsection
 
 @section('content')
@@ -39,7 +39,7 @@
                     <i class="fas fa-chevron-right icon-right" id="next-img"></i>
                 </div>
             </div>
-            <div id="detail" class="row px-3" style="position: relative;">
+            <div id="detail" class="row px-3">
                 <div class="col-12 col-md-7 content vl">
                     <p class="title" style="font-size: 1.4rem" title="Menu ayam bakar Lorem ipsum dolor lorem ipsum s sd asdas sd Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt beatae praesentium commodi odit illum architecto nam fugiat quisquam qui molestias?">
                         {{ $makanan['nama'] }}
@@ -50,7 +50,7 @@
                         <div id="share"></div>
                     </div>
                     {{-- <div class="price ori">Rp.50.000</div> --}}
-                    <div class="price dis" style="font-size: 1.6rem">Rp. {{ $makanan['harga'] }}</div>
+                    <div class="price dis" style="font-size: 1.6rem">Rp.{{ number_format($makanan['harga'], 0, ",", ".") }}</div>
                     <hr>
                     <div><i class="fas fa-shopping-cart text-main"></i> Minimal Pemesanan 20 Pax</div>
                     <div><i class="fas fa-share-square text-main"></i> Gratis ongkir (Min. Pemesanan 20 Box)</div>
@@ -153,7 +153,7 @@
             </div>
         </div> --}}
 
-        <!-- INI hanya jika sudah login dan sudah pernah membeli produk -->
+        {{-- <!-- INI hanya jika sudah login dan sudah pernah membeli produk --> --}}
         {{-- <div class="review card my-3 p-4 col-12 col-md-9">
             <h3>Beri Review</h3>
             <form action="">
