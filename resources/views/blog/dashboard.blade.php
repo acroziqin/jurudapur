@@ -13,13 +13,23 @@
 		<div class="row justify-content-center">
 			<div class="col-11 col-md-8 card p-2 p-md-3">
 				<div class="profile accordion" id="profile">
-					<img src="https://marketplace.canva.com/MACCp5vBVqY/1/thumbnail_large/canva-male-avatar-MACCp5vBVqY.png" alt="foto-profile"
-					 class="img-profile">
+					{{-- <img src="https://marketplace.canva.com/MACCp5vBVqY/1/thumbnail_large/canva-male-avatar-MACCp5vBVqY.png" alt="foto-profile" --}}
+					<img src="{{ url('storage/avatars/'.Auth::user()->foto) }}" alt="foto-profile" class="img-profile">
 					<div class="detail">
 						<div class="collapse show" id="prof" data-parent="#profile">
 							<div class="name">{{ Auth::user()->name }}</div>
 							<p class="font-weight-normal">{{ Auth::user()->email }}</p>
 							<p class="font-weight-normal">Detail Lainnya</p>
+							@if (count($errors) > 0)
+								<div class="alert alert-danger">
+									Upload Validation Error<br><br>
+									<ul>
+										@foreach ($errors->all() as $error)
+											<li>{{ $error }}</li>
+										@endforeach
+									</ul>
+								</div>
+							@endif
 						</div>
 						<button id="btn-edit-profile" type="button" class="btn btn-block btn-outline-primary" data-toggle="collapse"
 						 data-target="#edit-profile, #prof" aria-expanded="false" aria-controls="edit-profile">Edit Profile</button>
@@ -45,13 +55,13 @@
 									</div>
 									<div class="form-group">
 										<label for="name">{{ __('No. HP') }}</label>
-										<input type="text" class="form-control" name="no-hp" id="name" aria-describedby="emailHelp" placeholder="No. HP">
+										<input type="text" class="form-control" name="no_hp" id="name" aria-describedby="emailHelp" placeholder="No. HP">
 									</div>
 									<div class="form-group">
 										<label for="name">{{ __('Jenis Kelamin') }}</label><br>
-										<input type="radio" name="jenis-kelamin" id="lk" aria-describedby="emailHelp">
+										<input type="radio" name="jenis_kelamin" id="lk" aria-describedby="emailHelp" value="laki-laki">
 										<label for = "lk">{{ __('Laki-laki') }}</label>
-										<input type="radio" name="jenis-kelamin" id="pr" aria-describedby="emailHelp">
+										<input type="radio" name="jenis_kelamin" id="pr" aria-describedby="emailHelp" value="perempuan">
 										<label for = "pr">{{ __('Perempuan') }}</label>
 									</div>
 									<button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
