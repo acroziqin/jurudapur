@@ -34,12 +34,12 @@
                             <label class="form-check-label" for="exampleCheck1">{{ __('Ingat Saya') }}</label>
                         </div>
                         <button type="submit" class="btn btn-primary">{{ __('Masuk') }}</button>
-                        {{-- @if (Route::has('password.request'))
+                        @if (Route::has('password.request'))
                             <a class="btn btn-link" href="{{ route('password.request') }}">
                                 {{ __('Lupa Password Anda?') }}
                             </a>
                         @endif
-                        <br> --}}
+                        <br>
                         {{ __('Belum mempunyai akun? klik') }} 
                         <a href="{{ route('register')}}">{{ __('di sini') }}</a>
                     </form>
