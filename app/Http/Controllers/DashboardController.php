@@ -15,6 +15,9 @@ class DashboardController extends Controller
     
     public function index()
     {
-        return view('blog/dashboard');
+        $data = [
+            'cek_password' => NULL
+        ];
+        return view('blog/dashboard')->with($data);
     }
 }

@@ -21,7 +21,7 @@
                             @endif
                         </div>
                         <div class="form-group">
-                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="{{ __('Password') }}">
+                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="{{ __('Kata Sandi') }}">
 
                             @if ($errors->has('password'))
                                 <span class="invalid-feedback" role="alert">
@@ -36,7 +36,7 @@
                         <button type="submit" class="btn btn-primary">{{ __('Masuk') }}</button>
                         @if (Route::has('password.request'))
                             <a class="btn btn-link" href="{{ route('password.request') }}">
-                                {{ __('Lupa Password Anda?') }}
+                                {{ __('Lupa kata sandi Anda?') }}
                             </a>
                         @endif
                         <br>

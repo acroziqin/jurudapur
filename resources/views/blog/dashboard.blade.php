@@ -13,8 +13,11 @@
 		<div class="row justify-content-center">
 			<div class="col-11 col-md-8 card p-2 p-md-3">
 				<div class="profile accordion" id="profile">
-					{{-- <img src="https://marketplace.canva.com/MACCp5vBVqY/1/thumbnail_large/canva-male-avatar-MACCp5vBVqY.png" alt="foto-profile" --}}
-					<img src="{{ url('storage/avatars/'.Auth::user()->foto) }}" alt="foto-profile" class="img-profile">
+					@if (is_null(Auth::user()->foto))
+						<img src="https://marketplace.canva.com/MACCp5vBVqY/1/thumbnail_large/canva-male-avatar-MACCp5vBVqY.png" alt="foto-profile" class="img-profile">
+					@else
+						<img src="{{ url('storage/avatars/'.Auth::user()->foto) }}" alt="foto-profile" class="img-profile">
+					@endif
 					<div class="detail">
 						<div class="collapse show" id="prof" data-parent="#profile">
 							<div class="name">{{ Auth::user()->name }}</div>
@@ -31,6 +34,7 @@
 								</div>
 							@endif
 						</div>
+
 						<button id="btn-edit-profile" type="button" class="btn btn-block btn-outline-primary" data-toggle="collapse"
 						 data-target="#edit-profile, #prof" aria-expanded="false" aria-controls="edit-profile">Edit Profile</button>
 						<br>
@@ -38,24 +42,34 @@
 							<div class="card card-body">
 								<form action="{{ URL::route('profil.edit') }}" method="post" enctype="multipart/form-data">
 									<div class="form-group">
-										<label for="name">{{ __('Nama Anda') }}</label>
-										<input type="text" class="form-control" name="name" id="name" aria-describedby="emailHelp" placeholder="Nama">
+										{{-- <label for="name">{{ __('Nama') }}</label> --}}
+										<input type="text" class="form-control" name="name" id="name" aria-describedby="emailHelp" placeholder="{{ __('Nama') }}">
 									</div>
 									<div class="form-group">
-										<label for="foto">{{ __('Ganti Foto') }}</label>
+										<label for="foto">{{ __('Foto Profil') }}</label>
 										<input type="file" name="foto" class="form-control-file" id="photo">
 									</div>
+
 									<div class="form-group">
-										<label for="password">{{ __('Password') }}</label>
-										<input name="password" type="password" class="form-control" id="password" placeholder="Biarkan kosong jika tidak ingin diganti">
+										<input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Kata Sandi') }}">
+			
+										@if ($errors->has('password'))
+											<span class="invalid-feedback" role="alert">
+												<strong>{{ $errors->first('password') }}</strong>
+											</span>
+										@endif
 									</div>
 									<div class="form-group">
-										<label for="name">{{ __('Alamat') }}</label>
-										<input type="text" class="form-control" name="alamat" id="name" aria-describedby="emailHelp" placeholder="Alamat">
+										<input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="{{ __('Konfirmasi Kata Sandi') }}">
+									</div>
+
+									<div class="form-group">
+										{{-- <label for="name">{{ __('Alamat') }}</label> --}}
+										<input type="text" class="form-control" name="alamat" id="name" aria-describedby="emailHelp" placeholder="{{ __('Alamat') }}">
 									</div>
 									<div class="form-group">
-										<label for="name">{{ __('No. HP') }}</label>
-										<input type="text" class="form-control" name="no_hp" id="name" aria-describedby="emailHelp" placeholder="No. HP">
+										{{-- <label for="name">{{ __('No. HP') }}</label> --}}
+										<input type="text" class="form-control" name="no_hp" id="name" aria-describedby="emailHelp" placeholder="{{ __('No. HP') }}">
 									</div>
 									<div class="form-group">
 										<label for="name">{{ __('Jenis Kelamin') }}</label><br>
@@ -186,4 +200,14 @@
 			});
 		});
 	</script>
+	@if (Session::has('cek_password'))
+		<script src="https://unpkg.com/sweetalert2@7.17.0/dist/sweetalert2.all.js"></script>
+		<script>
+		swal({
+			type: 'error',
+			title: 'Ups...',
+			text: 'Kata sandi Anda tidak sama!'
+		})
+		</script>
+	@endif
 @endsection
