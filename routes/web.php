@@ -35,3 +35,5 @@ Route::get('/dapur/{dapur_name}', 'DapurController@show')->name('dapur.show');
 
 Route::get('login/{sevice}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{sevice}/callback', 'Auth\LoginController@handleProviderCallback');
+
+Route::post('/kecamatan', 'ProductController@kecamatanAjax')->name('kecamatan');

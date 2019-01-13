@@ -97,9 +97,9 @@
                 <div class="col-6 d-flex" style="flex-direction: row-reverse;">
                     <div class="social-media">
                         <a href="https://www.instagram.com/jurudapur/"><i class="fab fa-instagram"></i></a>
-                        <a href=""><i class="fab fa-line"></i></a>
+                        {{-- <a href=""><i class="fab fa-line"></i></a>
                         <a href=""><i class="fab fa-whatsapp"></i></a>
-                        <a href=""><i class="fab fa-facebook"></i></a>
+                        <a href=""><i class="fab fa-facebook"></i></a> --}}
                     </div>
                 </div>
             </div>

@@ -49,16 +49,18 @@
                         {{-- <i class="fas fa-share-alt share-ico"></i> --}}
                         <div id="share"></div>
                     </div>
-                    {{-- <div class="price ori">Rp.50.000</div> --}}
+                    <div class="desc">
+                        <div>{{ $makanan['jenis'] }}</div>
+                    </div>
                     <div class="price dis" style="font-size: 1.6rem">Rp.{{ number_format($makanan['harga'], 0, ",", ".") }}</div>
                     <hr>
-                    <div><i class="fas fa-shopping-cart text-main"></i> Minimal Pemesanan 20 Pax</div>
+                    <div><i class="fas fa-shopping-cart text-main"></i> Minimal Pemesanan 20 Porsi</div>
                     <div><i class="fas fa-share-square text-main"></i> Gratis ongkir (Min. Pemesanan 20 Box)</div>
                     <hr>
-                    <div class="d-flex" style="align-items:center; flex-wrap: wrap;">
+                    {{-- <div class="d-flex" style="align-items:center; flex-wrap: wrap;">
                         <div>Kuantitas</div>
                         <div id='np'></div>
-                    </div>
+                    </div> --}}
                     <a href="@auth {{ URL::route('products.order', $makanan['id']) }} @else {{ route('login') }} @endauth">
                         <div class="d-flex justify-content-center align-items-center" style="flex-wrap: wrap;">
                             <button class="btn btn-primary m-2" type="button" style="flex:1" @auth @if (is_null($verified)) disabled @endif @endauth>Pesan sekarang</button>
@@ -86,11 +88,12 @@
                                 <img class="small-pic-dapur" src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png"
                                 alt="">
                             </td>
-                            <td>{{ $dapur }}</td>
+                            <td>{{ $dapur['nama'] }}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>
+                                <div><i class="fas fa-shopping-cart text-main"></i> Maks. {{ $dapur['kuota'] }} Porsi</div>
                                 {{-- <div class="ui star rating" data-rating="5"></div> --}}
                             </td>
                         </tr>
@@ -295,6 +298,7 @@
 			dpUI.numberPicker("#np", {
 				start: 20, // GANTI DENGAN MINIMAL PEMESANAN
 				min: 20, // GANTI DENGAN MINIMAL PEMESANAN
+                max: {{ $dapur['kuota'] }},
 				step: 1,
 			});
 			$(".owl-carousel").owlCarousel({
