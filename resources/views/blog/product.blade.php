@@ -83,10 +83,16 @@
                     <table>
                         <tr>
                             <td>
-                                <img class="small-pic-dapur" src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png"
-                                alt="">
+                                <a href="{{ route('dapur.show', ['dapur_name'=> str_replace(' ','-',strtolower($dapur))]) }}">
+                                    <img class="small-pic-dapur" src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png"
+                                    alt="">
+                                </a>
                             </td>
-                            <td>{{ $dapur }}</td>
+                            <td>
+                                <a href="{{ route('dapur.show', ['dapur_name'=> str_replace(' ','-',strtolower($dapur))]) }}">
+                                    {{ $dapur }}
+                                </a>
+                            </td>
                         </tr>
                         <tr>
                             <td></td>

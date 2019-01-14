@@ -14,7 +14,6 @@ class DapurController extends Controller
         
         // data dapur
         $dapur = Dapur::whereRaw("upper(nama) = '". $dapur_name."'")->firstOrFail()->toArray();
-
         $menus = Makanan::where('id_dapur', $dapur['id'])->get()->toArray();
 
         $data = [
