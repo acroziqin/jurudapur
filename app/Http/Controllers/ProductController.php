@@ -47,7 +47,7 @@ class ProductController extends Controller
         }else {
             $verified = NULL;
         }
-        
+
         $data = [
             'makanan' => $makanan,
             'dapur' => $dapur,
@@ -67,7 +67,7 @@ class ProductController extends Controller
         // $makanan = Makanan::all();
         // $dapur = "halo";
         // $makanan = Makanan::where('id', $request->id_dapur)->get()->toArray()[0];
-        $dapur = Dapur::where('id', $request->id_dapur)->pluck('alamat')->toArray()[0];
+        $dapur = Dapur::where('id', $request->id_dapur)->pluck('lokasi')->toArray()[0];
         $harga = Ongkir::where([
             ['dapur', $dapur],
             ['lokasi', $request->kecamatan]
