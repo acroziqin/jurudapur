@@ -13,33 +13,74 @@
 		<div class="row justify-content-center">
 			<div class="col-11 col-md-8 card p-2 p-md-3">
 				<div class="profile accordion" id="profile">
-					<img src="https://marketplace.canva.com/MACCp5vBVqY/1/thumbnail_large/canva-male-avatar-MACCp5vBVqY.png" alt=""
-					 class="img-profile">
+					@if (is_null(Auth::user()->foto))
+						<img src="https://marketplace.canva.com/MACCp5vBVqY/1/thumbnail_large/canva-male-avatar-MACCp5vBVqY.png" alt="foto-profile" class="img-profile">
+					@else
+						<img src="{{ url('storage/avatars/'.Auth::user()->foto) }}" alt="foto-profile" class="img-profile">
+					@endif
 					<div class="detail">
 						<div class="collapse show" id="prof" data-parent="#profile">
-							<div class="name">Nama User</div>
-							<p class="font-weight-normal">email@email.com</p>
+							<div class="name">{{ Auth::user()->name }}</div>
+							<p class="font-weight-normal">{{ Auth::user()->email }}</p>
 							<p class="font-weight-normal">Detail Lainnya</p>
+							@if (count($errors) > 0)
+								<div class="alert alert-danger">
+									Upload Validation Error<br><br>
+									<ul>
+										@foreach ($errors->all() as $error)
+											<li>{{ $error }}</li>
+										@endforeach
+									</ul>
+								</div>
+							@endif
 						</div>
+
 						<button id="btn-edit-profile" type="button" class="btn btn-block btn-outline-primary" data-toggle="collapse"
 						 data-target="#edit-profile, #prof" aria-expanded="false" aria-controls="edit-profile">Edit Profile</button>
 						<br>
 						<div class="collapse" id="edit-profile" data-parent="#profile">
 							<div class="card card-body">
-								<form action="/" method="post" enctype="multipart/form-data">
+								<form action="{{ URL::route('profil.edit') }}" method="post" enctype="multipart/form-data">
 									<div class="form-group">
-										<label for="name">Nama Anda</label>
-										<input type="text" class="form-control" name="name" id="name" aria-describedby="emailHelp" placeholder="Nama">
+										{{-- <label for="name">{{ __('Nama') }}</label> --}}
+										<input type="text" class="form-control" name="name" id="name" aria-describedby="emailHelp" placeholder="{{ __('Nama') }}">
 									</div>
 									<div class="form-group">
-										<label for="photo">Ganti Foto</label>
-										<input type="file" name="photo" class="form-control-file" id="photo">
+										<label for="foto">{{ __('Foto Profil') }}</label>
+										<input type="file" name="foto" class="form-control-file" id="photo">
+									</div>
+
+									<div class="form-group">
+										<input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Kata Sandi') }}">
+			
+										@if ($errors->has('password'))
+											<span class="invalid-feedback" role="alert">
+												<strong>{{ $errors->first('password') }}</strong>
+											</span>
+										@endif
 									</div>
 									<div class="form-group">
-										<label for="password">Password</label>
-										<input type="password" class="form-control" id="password" placeholder="Biarkan kosong jika tidak ingin diganti">
+										<input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="{{ __('Konfirmasi Kata Sandi') }}">
 									</div>
-									<button type="submit" class="btn btn-primary">Submit</button>
+
+									<div class="form-group">
+										{{-- <label for="name">{{ __('Alamat') }}</label> --}}
+										<input type="text" class="form-control" name="alamat" id="name" aria-describedby="emailHelp" placeholder="{{ __('Alamat') }}">
+									</div>
+									<div class="form-group">
+										{{-- <label for="name">{{ __('No. HP') }}</label> --}}
+										<input type="text" class="form-control" name="no_hp" id="name" aria-describedby="emailHelp" placeholder="{{ __('No. HP') }}">
+									</div>
+									<div class="form-group">
+										<label for="name">{{ __('Jenis Kelamin') }}</label><br>
+										<input type="radio" name="jenis_kelamin" id="lk" aria-describedby="emailHelp" value="laki-laki">
+										<label for = "lk">{{ __('Laki-laki') }}</label>
+										<input type="radio" name="jenis_kelamin" id="pr" aria-describedby="emailHelp" value="perempuan">
+										<label for = "pr">{{ __('Perempuan') }}</label>
+									</div>
+									<button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+									{{ csrf_field() }}
+									<input type="hidden" name="_method" value="PUT">
 								</form>
 							</div>
 						</div>
@@ -159,4 +200,14 @@
 			});
 		});
 	</script>
+	@if (Session::has('cek_password'))
+		<script src="https://unpkg.com/sweetalert2@7.17.0/dist/sweetalert2.all.js"></script>
+		<script>
+		swal({
+			type: 'error',
+			title: 'Ups...',
+			text: 'Kata sandi Anda tidak sama!'
+		})
+		</script>
+	@endif
 @endsection

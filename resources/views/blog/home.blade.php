@@ -64,7 +64,7 @@
                                     <div>{{ $makan->jenis }}</div>
                                 </div>
                                 {{-- <div class="price ori">{{ $makan->jenis }}</div> --}}
-                                <div class="price dis">Rp. {{ $makan->harga }}
+                                <div class="price dis">Rp. {{ number_format($makan->harga, 0, ",", ".") }}
                                     <div class="ket"> / Pax</div>
                                 </div>
                                 <div class="kitchen"><i class="far fa-star"></i> {{ $dapmakanan[$i] }}</div>
@@ -92,7 +92,7 @@
                                     <div>{{ $makan->jenis }}</div>
                                 </div>
                                 {{-- <div class="price ori">{{ $minum->jenis }}</div> --}}
-                                <div class="price dis">Rp. {{ $minum->harga }}
+                                <div class="price dis">Rp. {{ number_format($minum->harga, 0, ",", ".") }}
                                     <div class="ket"> / Pax</div>
                                 </div>
                                 <div class="kitchen"><i class="far fa-star"></i> {{ $dapminuman[$i] }}</div>
@@ -120,7 +120,7 @@
                                     <div>{{ $makan->jenis }}</div>
                                 </div>
                                 {{-- <div class="price ori">{{ $kuwe->jenis }}</div> --}}
-                                <div class="price dis">Rp. {{ $kuwe->harga }}
+                                <div class="price dis">Rp. {{ number_format($kuwe->harga, 0, ",", ".") }}
                                     <div class="ket"> / Pax</div>
                                 </div>
                                 <div class="kitchen"><i class="far fa-star"></i> {{ $dapkue[$i] }}</div>

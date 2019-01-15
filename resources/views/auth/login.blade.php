@@ -21,7 +21,7 @@
                             @endif
                         </div>
                         <div class="form-group">
-                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="{{ __('Password') }}">
+                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="{{ __('Kata Sandi') }}">
 
                             @if ($errors->has('password'))
                                 <span class="invalid-feedback" role="alert">
@@ -34,8 +34,14 @@
                             <label class="form-check-label" for="exampleCheck1">{{ __('Ingat Saya') }}</label>
                         </div>
                         <button type="submit" class="btn btn-primary">{{ __('Masuk') }}</button>
-                        Belum mempunyai akun? klik 
-                        <a href="{{ route('register')}}">di sini</a>
+                        @if (Route::has('password.request'))
+                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                {{ __('Lupa kata sandi Anda?') }}
+                            </a>
+                        @endif
+                        <br>
+                        {{ __('Belum mempunyai akun? klik') }} 
+                        <a href="{{ route('register')}}">{{ __('di sini') }}</a>
                     </form>
                     atau
                     <a href="{{ url('login/google') }}" class="btn btn-danger">{{ __('Masuk dengan Google') }}</a>
