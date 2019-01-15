@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Dapur;
 use App\Makanan;
+use App\Minuman;
+use App\Kue;
 
 class DapurController extends Controller
 {
@@ -13,13 +15,15 @@ class DapurController extends Controller
         $dapur_name = strtoupper($dapur_name);
         
         // data dapur
-        $dapur = Dapur::whereRaw("upper(nama) = '". $dapur_name."'")->firstOrFail()->toArray();
-        $menus = Makanan::where('id_dapur', $dapur['id'])->get()->toArray();
-
+        $dapur = Dapur::whereRaw("upper(nama) = '". $dapur_name."'")->firstOrFail();
+        $makanan = Makanan::where('id_dapur', $dapur->id)->get()->toArray();
+        $minuman = Minuman::where('id_dapur', $dapur->id)->get()->toArray();
+        $kue = Kue::where('id_dapur', $dapur->id)->get()->toArray();
+        $menus = array_merge($makanan, $minuman, $kue);
         $data = [
             'dapur'=> $dapur,
             'menus' => $menus,
         ];
-        return view('blog/dapur')->with($data);
+        return view('blog/dapur', $data);
     }
 }

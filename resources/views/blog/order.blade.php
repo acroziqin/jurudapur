@@ -61,7 +61,7 @@
 							<div class="card card-body">
 								<div class="form-group">
 									<label for="exampleInputEmail1">Lokasi Ketemuan</label>
-									<input type="text" class="form-control" id="lokasi-ketemuan" name="lokasi-ketemuan">
+									<input type="text" class="form-control" id="lokasi-ketemuan" name="lokasi-ketemuan" required>
 									<small id="emailHelp" class="form-text text-muted">Pembayaran DP minimal 50%. Pembayaran DP dilakukan sebelum
 										hari H.</small>
 								</div>
@@ -116,26 +116,42 @@
 						</div>
 					</div>
 				</div>
-				<button type="submit" class="btn btn-primary btn-block" role="button">Pesan</button>
+				@auth
+					@if (is_null($verified))
+						@if (session('resent'))
+							<div class="alert alert-success" role="alert">
+								{{ __('A fresh verification link has been sent to your email address.') }}
+								{{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
+							</div>
+						@else 
+							<header class="alert alert-warning" role="alert">
+								{{ __('Agar bisa memesan. Anda harus verifikasi email Anda terlebih dahulu. please check your email for a verification link.') }}
+								{{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
+							</header>
+						@endif
+					@else
+						<button type="submit" class="btn btn-primary btn-block" role="button">Pesan</button>
+					@endif
+				@endauth
 				</form>
 			</div>
 			<div class="card p-3 col-4">
-				<table class="table">
+				<table id="invoice" class="table table-borderless">
 					<tr>
 						<td>{{ $makanan['nama'] }}</td>
 						<td id="np"><span class="kuantitas">20</span>x</td>
 						<td>Rp.</td>
 						<td>{{ number_format($makanan['harga'], 0, ",", ".") }}</td>
 					</tr>
-					<tr>
+					<tr style="border-top:1pt solid black;">
 						<td colspan="2">Sub total</td>
 						<td><b>Rp.</b></td>
 						<td><b class="subtotal"></b></td>
 					</tr>
-					<tr>
+					<tr style="display: none">
 						<td colspan="2">Ongkir</td>
 						<td>Rp.</td>
-						<td class="ongkir"></td>
+						<td class="ongkir">-</td>
 					</tr>
 					<tr>
 						<td colspan="2"><b>Total</b></td>
@@ -192,7 +208,17 @@
             }
         });
     });
-    
+    $('input[name="shipment"]').change(function(e){
+		let me = $(this);
+		if(me.val() == 'ambil'){
+			$(".ongkir").html('0');
+			$('#total').html($('.subtotal').html());
+			$('#kecamatan').val('');
+			$('#invoice tr:nth-child(3)').css('display','none');
+		}else{
+			$('#invoice tr:nth-child(3)').css('display','table-row');
+		}
+	})
     $(document).ready(function () {
         dpUI.numberPicker("#np", {
             start: 20, // GANTI DENGAN MINIMAL PEMESANAN
@@ -202,7 +228,7 @@
         });
         const input = document.querySelector('#date');
         const picker = new MaterialDatetimePicker({
-            default: moment().add(2,'days'),
+            default: moment().add(3,'days'),
             dateValidator: function (d) {
                 var m = moment(d);
                 var y = m.year();

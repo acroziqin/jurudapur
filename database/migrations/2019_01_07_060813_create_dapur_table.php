@@ -20,6 +20,8 @@ class CreateDapurTable extends Migration
             $table->double('rating')->nullable();
             $table->string('deskripsi')->nullable();
             $table->integer('kuota')->nullable();
+            $table->string('foto')->nullable();
+            $table->string('foto-header')->nullable();
             $table->timestamps();
         });
     }

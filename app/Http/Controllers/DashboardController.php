@@ -15,8 +15,14 @@ class DashboardController extends Controller
     
     public function index()
     {
+        if (Auth::check()) {
+            $verified = Auth::user()->email_verified_at;
+        }else {
+            $verified = NULL;
+        }
         $data = [
-            'cek_password' => NULL
+            'cek_password' => NULL,
+            'verified' => $verified,
         ];
         return view('blog/dashboard')->with($data);
     }

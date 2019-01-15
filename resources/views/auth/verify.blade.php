@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<main class="container d-flex align-items-center">
+    <div class="row justify-content-center align-items-center" style="flex: 1;">
+        <div class="col-12 col-sm-8 col-md-6">
             <div class="card">
                 <div class="card-header">{{ __('Verify Your Email Address') }}</div>
 
@@ -20,5 +20,5 @@
             </div>
         </div>
     </div>
-</div>
+</main>
 @endsection

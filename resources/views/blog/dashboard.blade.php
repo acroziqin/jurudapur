@@ -9,6 +9,25 @@
 @endsection
 
 @section('content')
+@auth
+	@if (is_null($verified))
+		@if (session('resent'))
+		<div class="alert alert-success" role="alert" style="margin:0;">
+			<header class="container text-center">
+				{{ __('A fresh verification link has been sent to your email address.') }}
+				{{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
+			</header>
+		</div>
+		@else
+		<div class="alert alert-warning" role="alert" style="margin:0;">
+			<header class="container text-center">
+				{{ __('Before proceeding, please check your email for a verification link.') }}
+				{{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
+			</header>
+		</div>
+		@endif
+	@endif
+@endauth
 	<main class="container">
 		<div class="row justify-content-center">
 			<div class="col-11 col-md-8 card p-2 p-md-3">

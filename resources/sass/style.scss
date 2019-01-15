@@ -627,7 +627,7 @@ footer {
 		height: 80px;
 	}
 	main.container {
-		min-height: calc(100vh - 73px);
+		min-height: calc(100vh - 73px - 55px);
 		padding-top: 0;
 	}
 	#detail-prod{

@@ -20,7 +20,9 @@ Route::get('/', 'BerandaController@index')->name('beranda');
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
-
+Route::get('/syarat-ketentuan', ['as'=>'sdk', function(){
+	return view('blog.syarat_ketentuan');
+}]);
 // Route::get('/product/create', 'ProductController@create');
 
 // Route::post('/product', 'ProductController@store');
