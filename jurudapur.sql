@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 09 Jan 2019 pada 02.02
+-- Waktu pembuatan: 15 Jan 2019 pada 11.40
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.2.12
 
@@ -35,6 +35,7 @@ CREATE TABLE `dapur` (
   `rating` double DEFAULT NULL,
   `deskripsi` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `kuota` int(11) DEFAULT NULL,
+  `lokasi` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -43,11 +44,11 @@ CREATE TABLE `dapur` (
 -- Dumping data untuk tabel `dapur`
 --
 
-INSERT INTO `dapur` (`id`, `nama`, `alamat`, `rating`, `deskripsi`, `kuota`, `created_at`, `updated_at`) VALUES
-(1, 'Bu Sri', NULL, NULL, 'Dapur berpengalaman, banyak menu pilihan dan harga terjangkau. Cocok buat kamu yang cari kateringan low budget dengan variasi menu yang bermacam-macam.', NULL, NULL, NULL),
-(2, 'Bu Rini', NULL, NULL, 'Dapur berpengalaman dan harga terjangkau banget cocok buat kamu yang cari kateringan low budget.', NULL, NULL, NULL),
-(3, 'Aufar', NULL, NULL, 'Dapur spesialis jajan-jajan yang berpengalaman dan terjangkau.', NULL, NULL, NULL),
-(4, 'Pak Angga', NULL, NULL, 'Dapur berpengalaman dengan masakan yang berkelas.', NULL, NULL, NULL);
+INSERT INTO `dapur` (`id`, `nama`, `alamat`, `rating`, `deskripsi`, `kuota`, `lokasi`, `created_at`, `updated_at`) VALUES
+(1, 'Bu Sri', NULL, NULL, 'Dapur berpengalaman, banyak menu pilihan dan harga terjangkau. Cocok buat kamu yang cari kateringan low budget dengan variasi menu yang bermacam-macam.', 100, 'Lowokwaru', NULL, NULL),
+(2, 'Bu Rini', NULL, NULL, 'Dapur berpengalaman dan harga terjangkau banget cocok buat kamu yang cari kateringan low budget.', NULL, '', NULL, NULL),
+(3, 'Aufar', NULL, NULL, 'Dapur spesialis jajan-jajan yang berpengalaman dan terjangkau.', NULL, '', NULL, NULL),
+(4, 'Pak Angga', NULL, NULL, 'Dapur berpengalaman dengan masakan yang berkelas.', NULL, '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -261,6 +262,50 @@ INSERT INTO `minuman` (`id`, `nama`, `harga`, `jenis`, `id_dapur`, `created_at`,
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `ongkir`
+--
+
+CREATE TABLE `ongkir` (
+  `id` int(11) NOT NULL,
+  `dapur` varchar(50) NOT NULL,
+  `lokasi` varchar(50) NOT NULL,
+  `ongkos` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `ongkir`
+--
+
+INSERT INTO `ongkir` (`id`, `dapur`, `lokasi`, `ongkos`) VALUES
+(1, 'Blimbing', 'Blimbing', 0),
+(2, 'Blimbing', 'Kedungkandang', 19800),
+(3, 'Blimbing', 'Klojen', 9800),
+(4, 'Blimbing', 'Lowokwaru', 11600),
+(5, 'Blimbing', 'Sukun', 15800),
+(6, 'Kedungkandang', 'Blimbing', 19600),
+(7, 'Kedungkandang', 'Kedungkandang', 0),
+(8, 'Kedungkandang', 'Klojen', 14400),
+(9, 'Kedungkandang', 'Lowokwaru', 26800),
+(10, 'Kedungkandang', 'Sukun', 17400),
+(11, 'Klojen', 'Blimbing', 9800),
+(12, 'Klojen', 'Kedungkandang', 13800),
+(13, 'Klojen', 'Klojen', 0),
+(14, 'Klojen', 'Lowokwaru', 14400),
+(15, 'Klojen', 'Sukun', 8200),
+(16, 'Lowokwaru', 'Blimbing', 12000),
+(17, 'Lowokwaru', 'Kedungkandang', 26600),
+(18, 'Lowokwaru', 'Klojen', 13200),
+(19, 'Lowokwaru', 'Lowokwaru', 0),
+(20, 'Lowokwaru', 'Sukun', 20600),
+(21, 'Sukun', 'Blimbing', 16000),
+(22, 'Sukun', 'Kedungkandang', 17000),
+(23, 'Sukun', 'Klojen', 7000),
+(24, 'Sukun', 'Lowokwaru', 17400),
+(25, 'Sukun', 'Sukun', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `password_resets`
 --
 
@@ -269,6 +314,13 @@ CREATE TABLE `password_resets` (
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `password_resets`
+--
+
+INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
+('achmadchoirurroziqin@gmail.com', '$2y$10$5X1t/CEKwskmzrfRHgvmYeMsT6mOvhvJZDeZwv6VXVjOpoB58XVbG', '2019-01-09 18:52:03');
 
 -- --------------------------------------------------------
 
@@ -311,16 +363,19 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `alamat`, `no_hp`, `jenis_kelamin`, `foto`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Roziqin', 'roziqin@jurudapur.com', NULL, '$2y$10$XbMMh80VcT11zcnj470RnOiar9Ij6nySfFvyS64uosYh4Be8u0Jc2', NULL, NULL, NULL, NULL, 'V4IgOgxZC3bddV7ydilx2bnB71ttYz70dqPNGNWUGutCloNDNfK7UbUhlJNA', '2019-01-06 23:28:45', '2019-01-06 23:28:45'),
-(9, 'Achmad', 'achmad@jurudapur.com', NULL, '$2y$10$8VRwjYGAd0fjR9A3V7biyux2XUSNXXzXbIaGZJFwlghJrYmZtcsoG', NULL, NULL, NULL, NULL, 'FgjRkR0VMxb8Ic3UKa0ETt2aU73LdCB1rmv3CXOjpRWPb8XwP2tawhTCCGIA', '2019-01-07 08:14:04', '2019-01-07 08:14:04'),
-(10, 'Choirur', 'choirur@jurudapur.com', NULL, '$2y$10$mU31k3YqHas4qsglXugMMe0lXRh0gRXJX9ydXHbgkEkJCMJAwfTy6', NULL, NULL, NULL, NULL, NULL, '2019-01-07 08:15:11', '2019-01-07 08:15:11'),
+(1, 'Niqizor', 'roziqin@jurudapur.com', NULL, '$2y$10$rsYEsXr4Bsf9iJ5guWXVYe3cxSPM5zBOC5U1J6Kfv8VdaL/1S/AJK', 'Jl. Melati', '081234', 'laki-laki', 0x756c43316d493832416f506d7a787931366e553979636e4f46486d62424b7450376a53706d4f73732e706e67, 'Gjsue6sDnAFJ3nVEmB97hnD2DWjysAEDOcqkvXedI1n6ClCzDMnrj8Y4qCcG', '2019-01-06 23:28:45', '2019-01-11 02:52:39'),
+(9, 'Achmad', 'achmad@jurudapur.com', NULL, '$2y$10$VF0GXi6lG3VfxmdwDDP8XuQZRhKuhDkLwAmAax7QqZpJ/ncEXjqG.', NULL, NULL, NULL, 0x4a6e766743376a4f704851326538513665796962615354303455335a4143513674463644577a37302e706e67, 'IzLkKlqUc6HfLsRMbNMHuRk7NbvcqEVyDBmdDFkFRuprPntN47B9ClAeNGUI', '2019-01-07 08:14:04', '2019-01-10 19:40:15'),
+(10, 'Choirur', 'choirur@jurudapur.com', NULL, '$2y$10$kqp.gHe2yd/TVN8AaS4QleqUf4HB5xCYcf78oW/w/EkvUoGML5sou', NULL, NULL, NULL, NULL, 'ZrcDHXna24N4AediNVBwDPfmKq5YmfIaRi2FQNl5DE1w1Rcu06u5xYU6YcWu', '2019-01-07 08:15:11', '2019-01-10 09:42:22'),
 (11, 'Choirur', 'hoirur@jurudapur.com', NULL, '$2y$10$Kd48viaCYuu8YeMw9V0PGe22PtPkdI8kygL2F9VQDu9KMHn2//Vbi', NULL, NULL, NULL, NULL, 'ISs4rPKB1oVSfkhzX4xecGTf89pmFNdot8xNznoTNKGZs5WeuUW53pK2cKFe', '2019-01-07 08:15:57', '2019-01-07 08:15:57'),
 (12, 'Ilham', 'ilham@jurudapur.com', NULL, '$2y$10$POJMU3BJVggM3YCcEEWvv.ERZate.48Y6LSQ5VybaVM5bD9wmE6xq', NULL, NULL, NULL, NULL, 'KGdYqJE7WiqJcf1ZhBKGLRDjhwbtvddPzptTUatOfhss6l08jfGvOmxYGa0K', '2019-01-07 08:27:14', '2019-01-07 08:27:14'),
-(13, 'Ach', 'ach@jurudapur.com', '2019-01-07 08:31:00', '$2y$10$oLYh.dgS0vb.KzRcfszvdu2M1uik5EhWYz7/N9fnYhoudKdk7ilqe', NULL, NULL, NULL, NULL, 'xi2GUlaxl8q12QbvKWCv7w4oVT7Mtm4q42kPHMgPKhAtyhSuoFDx7FMwmKqP', '2019-01-07 08:28:28', '2019-01-07 08:31:00'),
+(13, 'Ach', 'ach@jurudapur.com', '2019-01-07 08:31:00', '$2y$10$oLYh.dgS0vb.KzRcfszvdu2M1uik5EhWYz7/N9fnYhoudKdk7ilqe', NULL, NULL, NULL, NULL, 'VhsI4NKMiHnTHolyfJG7MVwCl5TxdBDmheoxlZZPKEoMZS4SYOuV5P1mdb8N', '2019-01-07 08:28:28', '2019-01-07 08:31:00'),
 (14, 'Chm', 'chm@jurudapur.com', '2019-01-07 08:37:13', '$2y$10$ZXbDDDUsTAfTgjS1ceHIr.O9UKXf6RwcfUx73T8M2cFyUfH1Bchj2', NULL, NULL, NULL, NULL, 'xpvSterA8HZ86QYedJK0PPS5EZ3hUD8BdAm2bpfoTb79N7YGjBtVHlpOhHdj', '2019-01-07 08:36:58', '2019-01-07 08:37:13'),
 (15, 'Hma', 'hma@jurudapur.com', '2019-01-07 08:42:09', '$2y$10$62Yb5budcRoQ4rZ5bvR7Q.jI99qtRdOgQ50F9uXFFBC7tODAJNqm.', NULL, NULL, NULL, NULL, 'JhU5Ta5I9RWxdaP6FNK0tqRRZp57ST5rHA54QI4uQ5wWcoV3Cz01mraXO2cN', '2019-01-07 08:41:49', '2019-01-07 08:42:09'),
 (16, 'Mad', 'mad@jurudapur.com', NULL, '$2y$10$qz/7VOfSmPn1O9fYaNHUhOw8XRaV6D0X4nhILVR.HdGMAib/VBnTq', NULL, NULL, NULL, NULL, 'VYcoBsYenXac9oe1t6srXjAvKnLmglvJwMqRSYTmRSUmcYXiih6z6bPxJzE9', '2019-01-07 19:05:47', '2019-01-07 19:05:47'),
-(33, 'Achmad Choirur Roziqin', 'achmadchoirurroziqin@gmail.com', '2019-01-08 03:54:36', NULL, NULL, NULL, NULL, NULL, 'jzMzr48hGFfeTNMz3geJLjSAjkurBhUZDDVys4uQ1UjoApDLGYfC7eFGPxrI', '2019-01-08 03:54:36', '2019-01-08 03:54:36');
+(37, 'ACR', 'afd@ju.com', NULL, '$2y$10$PUo1PfOUnOdbU/2v3YrmQOzTQLGoNBjXaMDoFdBuhX8Y1sB4/1xRC', NULL, NULL, NULL, NULL, NULL, '2019-01-09 06:50:57', '2019-01-09 06:50:57'),
+(38, 'Juru', 'juru@jurudapur.com', NULL, '$2y$10$MFci8oxObmBBFcl3RlqnVeOoIQyjHYqj5I3ZqIHa9gyt.ksxKEA9.', NULL, NULL, NULL, NULL, 'X67PJDJk4ApDnpB8H0q5RsL03eE8HTv8MRPQHkGbYgsyDYbNhHzfqRNZVSql', '2019-01-09 16:27:05', '2019-01-09 16:27:05'),
+(40, 'Halo', 'achmadchoirurroziqin@jurudapurl.com', NULL, '$2y$10$dBcy3.q8HgCKeQI8u0j8AeQ6S2bsErl0Ne//RlQ3Izat8gR2yOfm2', NULL, NULL, NULL, NULL, NULL, '2019-01-09 16:56:42', '2019-01-09 16:56:42'),
+(41, 'Danang', 'achmadchoirurroziqin@gmail.com', NULL, '$2y$10$iNlBznf6DCa4w6fTFnhBjeUPMR82rzCaBllETeQufUMq45YKaBouu', NULL, NULL, NULL, NULL, NULL, '2019-01-10 09:59:06', '2019-01-10 09:59:06');
 
 --
 -- Indexes for dumped tables
@@ -370,6 +425,12 @@ ALTER TABLE `migrations`
 ALTER TABLE `minuman`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_dapur` (`id_dapur`);
+
+--
+-- Indeks untuk tabel `ongkir`
+--
+ALTER TABLE `ongkir`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `password_resets`
@@ -438,6 +499,12 @@ ALTER TABLE `minuman`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT untuk tabel `ongkir`
+--
+ALTER TABLE `ongkir`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
 -- AUTO_INCREMENT untuk tabel `tambahan`
 --
 ALTER TABLE `tambahan`
@@ -447,7 +514,7 @@ ALTER TABLE `tambahan`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

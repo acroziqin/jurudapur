@@ -14,7 +14,7 @@
     <main class="container">
 		<div class="row">
 			<div class="card p-3 col-8">
-			<form action="" method="post">
+			<form action="/" method="post">
 				<div>
 					<h3>Pesan</h3>
 				</div>
@@ -26,7 +26,7 @@
 					<div id='np' style="align-self:center;"></div>
 				</div>
 
-				{{-- waktu --}}
+				{{-- date --}}
 				<div class="form-group">
 					<h3>Waktu</h3>
 					<input id="date" type="text" name="date" class="form-control" placeholder="HH:mm DD/MM/YYYY" required>
@@ -84,7 +84,7 @@
 									<div class="col-12">
 										<div class="form-group">
 											<label for="kecamatan">Kecamatan</label>
-											<select class="form-control" id="kecamatan">
+											<select class="form-control" id="kecamatan" name="kecamatan">
 												<option value="" selected>-- Pilih Kecamatan --</option>
 												<option value="Blimbing">Blimbing</option>
 												<option value="Kedungkandang">Kedungkandang</option>
@@ -113,11 +113,12 @@
 						</label>
 						<div class="collapse" id="collapseAmbil">
 							<div class="card card-body">
-								Pengambilan di alamat : Jl. Blimbing No.100, Kota Malang
+								Pengambilan langsung di Rumah {{ $dapur['nama'] }}
 							</div>
 						</div>
 					</div>
 				</div>
+
 				<button type="submit" class="btn btn-primary btn-block" role="button">Pesan</button>
 				</form>
 			</div>

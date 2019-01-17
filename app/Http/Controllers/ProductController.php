@@ -49,15 +49,6 @@ class ProductController extends Controller
 
     public function kecamatanAjax(Request $request)
     {
-        
-        // if($request->ajax()){
-    		// $states = DB::table('users')->where('id_country',$request->id_country)->pluck("name")->all();
-    		// $data = view('ajax-select',compact('states'))->render();
-            // return response()->json(['options'=>$data]);
-            // $dapur = Dapur::where('id', $makanan['id_dapur'])->pluck('lokasi')->toArray()[0];
-        // $makanan = Makanan::all();
-        // $dapur = "halo";
-        // $makanan = Makanan::where('id', $request->id_dapur)->get()->toArray()[0];
         $dapur = Dapur::where('id', $request->id_dapur)->pluck('lokasi')->toArray()[0];
         $harga = Ongkir::where([
             ['dapur', $dapur],
@@ -70,6 +61,10 @@ class ProductController extends Controller
             'total'   => $total
         ];
         return response()->json($data);
-    	// }
+    }
+
+    public function checkout(Request $request)
+    {
+        
     }
 }
