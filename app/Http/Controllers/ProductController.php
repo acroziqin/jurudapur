@@ -14,8 +14,8 @@ class ProductController extends Controller
     {
         $makanan = Makanan::where('id', $id)->get()->toArray()[0];
         // $dapur = Dapur::where('id', $makanan['id_dapur'])->pluck('nama')->toArray()[0];
-        $dapur = Dapur::where('id', $makanan['id_dapur'])->get()->toArray()[0];
-        // dd($dapur['lokasi']);
+        $dapur = Dapur::where('id', $makanan['id_dapur'])->first()->toArray();
+        // dd($dapur);
         if (Auth::check())
         {
             $verified = Auth::user()->email_verified_at;
@@ -40,9 +40,18 @@ class ProductController extends Controller
         $dapur = Dapur::where('id', $makanan['id_dapur'])->get()->toArray()[0];
         // dd($dapur);
         // dd($makanan['id_dapur']);
+
+        if (Auth::check())
+        {
+            $verified = Auth::user()->email_verified_at;
+        }else {
+            $verified = NULL;
+        }
+
         $data = [
             'makanan' => $makanan,
-            'dapur' => $dapur
+            'dapur' => $dapur,
+            'verified' => $verified
         ];
         return view('blog/order')->with($data);
     }

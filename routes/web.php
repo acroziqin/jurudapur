@@ -20,7 +20,9 @@ Route::get('/', 'BerandaController@index')->name('beranda');
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
-
+Route::get('/syarat-ketentuan', ['as'=>'sdk', function(){
+	return view('blog.syarat_ketentuan');
+}]);
 // Route::get('/product/create', 'ProductController@create');
 
 // Route::post('/product', 'ProductController@store');
@@ -37,4 +39,4 @@ Route::get('/dapur/{dapur_name}', 'DapurController@show')->name('dapur.show');
 Route::get('login/{sevice}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{sevice}/callback', 'Auth\LoginController@handleProviderCallback');
 
-Route::post('/kecamatan', 'ProductController@kecamatanAjax')->name('kecamatan');
+Route::get('/kecamatan', 'ProductController@kecamatanAjax')->name('kecamatan');

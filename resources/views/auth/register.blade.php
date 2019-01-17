@@ -41,12 +41,20 @@
                         <div class="form-group">
                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="{{ __('Konfirmasi Kata Sandi') }}">
                         </div>
-                        <button type="submit" class="btn btn-primary">{{ __('Daftar') }}</button>
+                        <div class="my-3">
+                            {{__('Dengan mendaftar di JuruDapur Anda menyetujui semua ') }}
+                            <a href="{{ route('sdk') }}">{{ __('Syarat dan Ketentuan') }}</a> JuruDapur
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">{{ __('Daftar') }}</button>
+                        <div class="text-center text-secondary m-3">atau</div>
+                        <a href="{{ url('login/google') }}" class="btn btn-danger btn-block">
+                            <i class="fab fa-google mr-3"></i> {{ __('Daftar dengan Google') }}
+                        </a>
+                        <br>
+                        <hr>
                         Sudah mempunyai akun? klik 
                         <a href="{{ route('login') }}">di sini</a>
                     </form>
-                    atau
-                    <a href="{{ url('login/google') }}" class="btn btn-danger">{{ __('Daftar dengan Google') }}</a>
                 </div>
             </div>
         </div>

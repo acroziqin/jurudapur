@@ -10,16 +10,21 @@
 @section('content')
     @auth
         @if (is_null($verified))
-        <header style="padding: 20px; background-color: yellow">
             @if (session('resent'))
-                <div style="background-color: chartreuse">
+            <div class="alert alert-success" role="alert" style="margin:0;">
+                <header class="container text-center">
                     {{ __('A fresh verification link has been sent to your email address.') }}
-                </div>
+                    {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
+                </header>
+            </div>
+            @else
+            <div class="alert alert-warning" role="alert" style="margin:0;">
+                <header class="container text-center">
+                    {{ __('Before proceeding, please check your email for a verification link.') }}
+                    {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
+                </header>
+            </div>
             @endif
-
-            {{ __('Before proceeding, please check your email for a verification link.') }}
-            {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
-        </header>
         @endif
     @endauth
     <div class="super-container">

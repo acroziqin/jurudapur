@@ -68,16 +68,17 @@
                     </a>
                     @auth
                         @if (is_null($verified))
-                        <header style="padding: 20px; background-color: yellow">
                             @if (session('resent'))
-                                <div style="background-color: chartreuse">
+                                <div class="alert alert-success" role="alert">
                                     {{ __('A fresh verification link has been sent to your email address.') }}
+                                    {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
                                 </div>
+                            @else 
+                                <header class="alert alert-warning" role="alert">
+                                    {{ __('Agar bisa memesan. Anda harus verifikasi email Anda terlebih dahulu. please check your email for a verification link.') }}
+                                    {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
+                                </header>
                             @endif
-
-                            {{ __('Agar bisa memesan. Anda harus verifikasi email Anda terlebih dahulu. please check your email for a verification link.') }}
-                            {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
-                        </header>
                         @endif
                     @endauth
                 </div>
@@ -85,10 +86,16 @@
                     <table>
                         <tr>
                             <td>
-                                <img class="small-pic-dapur" src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png"
-                                alt="">
+                                <a href="{{ route('dapur.show', ['dapur_name'=> str_replace(' ','-',$dapur['nama'])]) }}">
+                                    <img class="small-pic-dapur" src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png"
+                                    alt="">
+                                </a>
                             </td>
-                            <td>{{ $dapur['nama'] }}</td>
+                            <td>
+                                <a href="{{ route('dapur.show', ['dapur_name'=> str_replace(' ','-',$dapur['nama'])]) }}">
+                                    {{ $dapur['nama'] }}
+                                </a>
+                            </td>
                         </tr>
                         <tr>
                             <td></td>
@@ -298,7 +305,7 @@
 			dpUI.numberPicker("#np", {
 				start: 20, // GANTI DENGAN MINIMAL PEMESANAN
 				min: 20, // GANTI DENGAN MINIMAL PEMESANAN
-                max: {{ $dapur['kuota'] }},
+                max: {{ $dapur['kuota'] == '' ? 0 : $dapur['kuota'] }},
 				step: 1,
 			});
 			$(".owl-carousel").owlCarousel({

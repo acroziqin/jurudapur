@@ -3,11 +3,9 @@
 @section('title', 'Jurudapur')
 
 @section('cssTambahan')
-    <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/dpNumberPicker-2.x-skin.grey.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('css/material-datetime-picker.css') }}">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<meta name="csrf-token" content="{{ csrf_token() }}" />
+<link type="text/css" rel="stylesheet" href="{{ URL::asset('css/dpNumberPicker-2.x-skin.grey.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('css/material-datetime-picker.css') }}">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -63,7 +61,7 @@
 							<div class="card card-body">
 								<div class="form-group">
 									<label for="exampleInputEmail1">Lokasi Ketemuan</label>
-									<input type="text" class="form-control" id="lokasi-ketemuan" name="lokasi-ketemuan">
+									<input type="text" class="form-control" id="lokasi-ketemuan" name="lokasi-ketemuan" required>
 									<small id="emailHelp" class="form-text text-muted">Pembayaran DP minimal 50%. Pembayaran DP dilakukan sebelum
 										hari H.</small>
 								</div>
@@ -123,22 +121,22 @@
 				</form>
 			</div>
 			<div class="card p-3 col-4">
-				<table class="table">
+				<table id="invoice" class="table table-borderless">
 					<tr>
 						<td>{{ $makanan['nama'] }}</td>
 						<td id="np"><span class="kuantitas">20</span>x</td>
 						<td>Rp.</td>
 						<td>{{ number_format($makanan['harga'], 0, ",", ".") }}</td>
 					</tr>
-					<tr>
+					<tr style="border-top:1pt solid black;">
 						<td colspan="2">Sub total</td>
 						<td><b>Rp.</b></td>
 						<td><b class="subtotal"></b></td>
 					</tr>
-					<tr>
+					<tr style="display: none">
 						<td colspan="2">Ongkir</td>
 						<td>Rp.</td>
-						<td class="ongkir"></td>
+						<td class="ongkir">-</td>
 					</tr>
 					<tr>
 						<td colspan="2"><b>Total</b></td>
@@ -152,124 +150,135 @@
 @endsection
 
 @section('jsTambahan')
-	<!-- Optional script -->
-	<script src="{{ URL::asset('js/dpNumberPicker-2.x.min.js') }}"></script>
-	<script src="{{ URL::asset('js/owl.carousel.min.js') }}"></script>
+<!-- Optional script -->
+<script src="{{ URL::asset('js/dpNumberPicker-2.x.min.js') }}"></script>
+<script src="{{ URL::asset('js/owl.carousel.min.js') }}"></script>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/rome/2.1.22/rome.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.js"></script>
-	<script src="{{ URL::asset('js/material-datetime-picker.js') }}" charset="utf-8"></script>
-	<script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rome/2.1.22/rome.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.js"></script>
+<script src="{{ URL::asset('js/material-datetime-picker.js') }}" charset="utf-8"></script>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Accept' : 'Application/JSON'
+        }
+    });
+
+    function rupiah(uang) {
+        var	number_string = uang.toString(),
+            sisa 	= number_string.length % 3,
+            rupiah 	= number_string.substr(0, sisa),
+            ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+        return rupiah;
+    }
+    
+    $("#kecamatan").change(function(e){
+        e.preventDefault();
+        var id_dapur = "{{ $makanan['id_dapur'] }}";
+        var kecamatan = $(this).val();
+        var sub_total = $('#np input').val() * {{ $makanan['harga'] }};
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('kecamatan') }}",
+            data: {id_dapur:id_dapur, kecamatan:kecamatan, sub_total:sub_total},
+            success:function(data){
+                $(".ongkir").html(data.success);
+                $('#total').html(data.total);
             }
-		});
-
-		function rupiah(uang) {
-			var	number_string = uang.toString(),
-				sisa 	= number_string.length % 3,
-				rupiah 	= number_string.substr(0, sisa),
-				ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
-			if (ribuan) {
-				separator = sisa ? '.' : '';
-				rupiah += separator + ribuan.join('.');
-			}
-			return rupiah;
+        });
+    });
+    $('input[name="shipment"]').change(function(e){
+		let me = $(this);
+		if(me.val() == 'ambil'){
+			$(".ongkir").html('0');
+			$('#total').html($('.subtotal').html());
+			$('#kecamatan').val('');
+			$('#invoice tr:nth-child(3)').css('display','none');
+		}else{
+			$('#invoice tr:nth-child(3)').css('display','table-row');
 		}
-		
-        $("#kecamatan").change(function(e){
-            e.preventDefault();
-            var id_dapur = "{{ $makanan['id_dapur'] }}";
-			var kecamatan = $(this).val();
-			var sub_total = $('[name="kuantitas"]').val() * "{{ $makanan['harga'] }}";
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('kecamatan') }}",
-                data: {id_dapur:id_dapur, kecamatan:kecamatan, sub_total:sub_total},
-                success:function(data){
-                    // alert(data.success);
-					$(".ongkir").html(data.success);
-					$('#total').html(data.total);
-                }
-			});
-		});
-		
-		$(document).ready(function () {
-			dpUI.numberPicker("#np", {
-				start: 20, // GANTI DENGAN MINIMAL PEMESANAN
-				min: 20, // GANTI DENGAN MINIMAL PEMESANAN
-				max: "{{ $dapur['kuota'] }}",
-				step: 1,
-			});
-			const input = document.querySelector('#date');
-			const picker = new MaterialDatetimePicker({
-				default: moment().add(2,'days'),
-				dateValidator: function (d) {
-					var m = moment(d);
-					var y = m.year();
-					var f = 'MM-DD-YYYY';
-					var start = moment().add(10, 'years').endOf('day');
-					var end = moment().add(2,'days');
-					return m.isBefore(start) && m.isAfter(end);
-				},
-			})
-			.on('submit', (val) => {
-				if(val.isAfter(moment().add(2,'days')))
-					input.value = val.format("HH:mm - DD/MM/YYYY");
-				else
-					alert("Hari H setidaknya 2 hari setelah tanggal pesan (hari ini)");
-			});
-			input.addEventListener('click', () => {
-				picker.open();
-			});
-			$('[name="payment"]').on('change', function () {
-				if ($(this).val() === "bank-transfer") {
-					$('#collapseBT').collapse('show');
-					$('#collapseCOD').collapse('hide');
-				} else {
-					$('#collapseBT').collapse('hide');
-					$('#collapseCOD').collapse('show');
-				}
-			});
-			$('[name="shipment"]').on('change', function () {
-				if ($(this).val() === "antar") {
-					$('#collapseAntar').collapse('show');
-					$('#collapseAmbil').collapse('hide');
-				} else if ($(this).val() == "ambil") {
-					$('#collapseAntar').collapse('hide');
-					$('#collapseAmbil').collapse('show');
-				}
-			});
-			var subtotal = $('[name="kuantitas"]').val() * "{{ $makanan['harga'] }}";
-			$('.subtotal').html(rupiah(subtotal));
-			$('#total').html(rupiah(subtotal));
-			$('.dpui-numberPicker-increase').on('click', function () {
-				$('.kuantitas').html($('[name="kuantitas"]').val());
-				var subtotal = $('[name="kuantitas"]').val() * "{{ $makanan['harga'] }}";
-				$('.subtotal').html(rupiah(subtotal));
-				if(ongkir != null){
-					var ongkir = $('#ong').text(),
-						ongkir = parseInt(ongkir.replace('.', ''));
-						total = subtotal + ongkir;
-				} else {
-					var total = subtotal;
-				}
-				$('#total').html(rupiah(total));
-			});
-			$('.dpui-numberPicker-decrease').on('click', function () {
-				$('.kuantitas').html($('[name="kuantitas"]').val());
-				var subtotal = $('[name="kuantitas"]').val() * "{{ $makanan['harga'] }}";
-				$('.subtotal').html(rupiah(subtotal));
-				if(ongkir != null){
-					var ongkir = $('#ong').text(),
-						ongkir = parseInt(ongkir.replace('.', ''));
-						total = subtotal + ongkir;
-				} else {
-					var total = subtotal;
-				}
-				$('#total').html(rupiah(total));
-			});
-		});
-	</script>
+	})
+    $(document).ready(function () {
+        dpUI.numberPicker("#np", {
+            start: 20, // GANTI DENGAN MINIMAL PEMESANAN
+            min: 20, // GANTI DENGAN MINIMAL PEMESANAN
+            max: {{ $dapur['kuota'] == '' ? 0 : $dapur['kuota']}},
+            step: 1,
+        });
+        const input = document.querySelector('#date');
+        const picker = new MaterialDatetimePicker({
+            default: moment().add(3,'days'),
+            dateValidator: function (d) {
+                var m = moment(d);
+                var y = m.year();
+                var f = 'MM-DD-YYYY';
+                var start = moment().add(10, 'years').endOf('day');
+                var end = moment().add(2,'days');
+                return m.isBefore(start) && m.isAfter(end);
+            },
+        })
+        .on('submit', (val) => {
+            if(val.isAfter(moment().add(2,'days')))
+                input.value = val.format("HH:mm - DD/MM/YYYY");
+            else
+                alert("Hari H setidaknya 2 hari setelah tanggal pesan (hari ini)");
+        });
+        input.addEventListener('click', () => {
+            picker.open();
+        });
+        $('[name="payment"]').on('change', function () {
+            if ($(this).val() === "bank-transfer") {
+                $('#collapseBT').collapse('show');
+                $('#collapseCOD').collapse('hide');
+            } else {
+                $('#collapseBT').collapse('hide');
+                $('#collapseCOD').collapse('show');
+            }
+        });
+        $('[name="shipment"]').on('change', function () {
+            if ($(this).val() === "antar") {
+                $('#collapseAntar').collapse('show');
+                $('#collapseAmbil').collapse('hide');
+            } else if ($(this).val() == "ambil") {
+                $('#collapseAntar').collapse('hide');
+                $('#collapseAmbil').collapse('show');
+            }
+        });
+        var subtotal = $('[name="kuantitas"]').val() * "{{ $makanan['harga'] }}";
+        $('.subtotal').html(rupiah(subtotal));
+        $('#total').html(rupiah(subtotal));
+        $('.dpui-numberPicker-increase').on('click', function () {
+            $('.kuantitas').html($('[name="kuantitas"]').val());
+            var subtotal = $('[name="kuantitas"]').val() * "{{ $makanan['harga'] }}";
+            $('.subtotal').html(rupiah(subtotal));
+            if(ongkir != null){
+                var ongkir = $('#ong').text(),
+                    ongkir = parseInt(ongkir.replace('.', ''));
+                    total = subtotal + ongkir;
+            } else {
+                var total = subtotal;
+            }
+            $('#total').html(rupiah(total));
+        });
+        $('.dpui-numberPicker-decrease').on('click', function () {
+            $('.kuantitas').html($('[name="kuantitas"]').val());
+            var subtotal = $('[name="kuantitas"]').val() * "{{ $makanan['harga'] }}";
+            $('.subtotal').html(rupiah(subtotal));
+            if(ongkir != null){
+                var ongkir = $('#ong').text(),
+                    ongkir = parseInt(ongkir.replace('.', ''));
+                    total = subtotal + ongkir;
+            } else {
+                var total = subtotal;
+            }
+            $('#total').html(rupiah(total));
+        });
+    });
+</script>
 @endsection
