@@ -44,14 +44,14 @@
                     <p class="title" style="font-size: 1.4rem" title="Menu ayam bakar Lorem ipsum dolor lorem ipsum s sd asdas sd Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt beatae praesentium commodi odit illum architecto nam fugiat quisquam qui molestias?">
                         {{ $makanan['nama'] }}
                     </p>
-                    <div class="block-mini-title">
-                        {{-- <div class="ui star rating" data-rating="4"></div> --}}
-                        {{-- <i class="fas fa-share-alt share-ico"></i> --}}
-                        <div id="share"></div>
-                    </div>
                     <div class="desc">
                         <div>{{ $makanan['jenis'] }}</div>
                     </div>
+                    <div class="block-mini-title">
+                            Pilihan Isi : <br>
+                            {{ $isi }}
+                            <div id="share"></div>
+                        </div>
                     <div class="price dis" style="font-size: 1.6rem">Rp.{{ number_format($makanan['harga'], 0, ",", ".") }}</div>
                     <hr>
                     <div><i class="fas fa-shopping-cart text-main"></i> Minimal Pemesanan 20 Porsi</div>

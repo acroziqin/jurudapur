@@ -29,9 +29,7 @@
     @endauth
     <div class="super-container">
         <div class="jumbotron">
-            <div class="container">
-                Promo disini
-            </div>
+            <div class="container"></div>
         </div>
     </div>
 

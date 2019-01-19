@@ -20,6 +20,44 @@ class CreateTambahanTable extends Migration
             $table->integer('id_dapur');
             $table->timestamps();
         });
+
+        DB::table('tambahan')->insert(array(
+            ['nama'     => 'Nasi Putih',
+             'harga'    => 2500,
+             'id_dapur' => 1],
+            ['nama'     => 'Tumis Tahu',
+             'harga'    => 1200,
+             'id_dapur' => 1],
+            ['nama'     => 'Tumis Tempe',
+             'harga'    => 1200,
+             'id_dapur' => 1],
+            ['nama'     => 'Sayur',
+             'harga'    => 4200,
+             'id_dapur' => 1],
+            ['nama'     => 'Telur Dadar',
+             'harga'    => 3200,
+             'id_dapur' => 1],
+            ['nama'     => 'Telur Ceplok',
+             'harga'    => 3200,
+             'id_dapur' => 1],
+            ['nama'     => 'Ayam Suwir',
+             'harga'    => 6000,
+             'id_dapur' => 1],
+            ['nama'     => 'Ayam Goreng',
+             'harga'    => 6000,
+             'id_dapur' => 1],
+            ['nama'     => 'Ayam Crispy',
+             'harga'    => 6000,
+             'id_dapur' => 1],
+            ['nama'     => 'Kerupuk',
+             'harga'    => 500,
+             'id_dapur' => 1],
+            ['nama'     => 'Buah',
+             'harga'    => 2500,
+             'id_dapur' => 1]
+        ));
+
+        DB::disableQueryLog();
     }
 
     /**
