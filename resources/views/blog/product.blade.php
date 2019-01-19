@@ -42,17 +42,20 @@
             <div id="detail" class="row px-3">
                 <div class="col-12 col-md-7 content vl">
                     <p class="title" style="font-size: 1.4rem" title="Menu ayam bakar Lorem ipsum dolor lorem ipsum s sd asdas sd Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt beatae praesentium commodi odit illum architecto nam fugiat quisquam qui molestias?">
-                        {{ $makanan['nama'] }}
+                        {{ $menu['nama'] }}
                     </p>
                     <div class="desc">
-                        <div>{{ $makanan['jenis'] }}</div>
+                        <div>{{ $menu['jenis'] }}</div>
                     </div>
                     <div class="block-mini-title">
-                            Pilihan Isi : <br>
-                            {{ $isi }}
-                            <div id="share"></div>
-                        </div>
-                    <div class="price dis" style="font-size: 1.6rem">Rp.{{ number_format($makanan['harga'], 0, ",", ".") }}</div>
+                        @if ($jenis_menu == 'makanan')
+                            Pilihan Isi :
+                        @endif
+                        <br>
+                        {{ $isi }}
+                        <div id="share"></div>
+                    </div>
+                    <div class="price dis" style="font-size: 1.6rem">Rp.{{ number_format($menu['harga'], 0, ",", ".") }}</div>
                     <hr>
                     <div><i class="fas fa-shopping-cart text-main"></i> Minimal Pemesanan 20 Porsi</div>
                     <div><i class="fas fa-share-square text-main"></i> Gratis ongkir (Min. Pemesanan 20 Box)</div>
@@ -61,7 +64,8 @@
                         <div>Kuantitas</div>
                         <div id='np'></div>
                     </div> --}}
-                    <a href="@auth {{ URL::route('products.order', $makanan['id']) }} @else {{ route('login') }} @endauth">
+                    {{-- <a href="@auth {{ URL::route('products.order', $menu['id']) }} @else {{ route('login') }} @endauth"> --}}
+                    <a href="@auth /products/{{$jenis_menu}}/{{$menu['id']}}/order @else {{ route('login') }} @endauth">
                         <div class="d-flex justify-content-center align-items-center" style="flex-wrap: wrap;">
                             <button class="btn btn-primary m-2" type="button" style="flex:1" @auth @if (is_null($verified)) disabled @endif @endauth>Pesan sekarang</button>
                         </div>

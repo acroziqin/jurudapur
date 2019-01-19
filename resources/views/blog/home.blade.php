@@ -57,7 +57,7 @@
             <div class="owl-carousel">
                 @php $i = 0 @endphp
                 @foreach ($makanan as $makan)
-                    <a href="{{ URL::route('products.detail', $makan->id) }}" class="menu-item">
+                    <a href="/products/makanan/{{$makan->id}}/detail" class="menu-item">
                         <div>
                             <img class="img lazy owl-lazy" src="https://placehold.it/200x150&text=1" data-src="https://craftlog.com/m/i/1939076=s1280=h960"
                             alt="">
@@ -85,7 +85,7 @@
             <div class="owl-carousel">
                 @php $i = 0 @endphp
                 @foreach ($minuman as $minum)
-                    <a href="{{ URL::route('products.detail', $minum->id) }}" class="menu-item">
+                    <a href="/products/minuman/{{$minum->id}}/detail" class="menu-item">
                         <div>
                             <img class="img lazy owl-lazy" src="https://placehold.it/200x150&text=1" data-src="https://craftlog.com/m/i/1939076=s1280=h960"
                             alt="">
@@ -113,7 +113,7 @@
             <div class="owl-carousel">
                 @php $i = 0 @endphp
                 @foreach ($kue as $kuwe)
-                    <a href="{{ URL::route('products.detail', $kuwe->id) }}" class="menu-item">
+                    <a href="/products/kue/{{$kuwe->id}}/detail" class="menu-item">
                         <div>
                             <img class="img lazy owl-lazy" src="https://placehold.it/200x150&text=1" data-src="https://craftlog.com/m/i/1939076=s1280=h960"
                             alt="">

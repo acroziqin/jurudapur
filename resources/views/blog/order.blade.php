@@ -12,7 +12,7 @@
     <main class="container">
 		<div class="row">
 			<div class="card p-3 col-8">
-			<form action="{{ URL::route('products.checkout', $makanan['id']) }}" method="post">
+			<form action="{{ URL::route('products.checkout', $menu['id']) }}" method="post">
 				<div>
 					<h3>Pesan</h3>
 				</div>
@@ -20,9 +20,11 @@
 				{{-- kuantitas --}}
 				<div class="p-1 p-md-3 mb-3 item-order">
 					<img src="https://www.bing.com/th?id=OIP.JTajyakNyf3yl72b6cmBAgHaE8&pid=Api&w=5616&h=3744&rs=1&p=0" alt="" class="mini-img">
-					<div class="title">{{ $makanan['nama'] }}
+					<div class="title">{{ $menu['nama'] }}
 						<br>
-						Pilhan Isi :
+						@if ($jenis_menu == 'makanan')
+                            Pilihan Isi :
+                        @endif
 						<br>
 						@for ($i = 0; $i < count($isi); $i++)
 							@if ($input_type[$i] == 'x')
@@ -31,7 +33,7 @@
 								@php $type = 'radio'; $name = 'isio' . $input_type[$i] @endphp
 							@endif
 							@if ($i < count($isi)-1)
-								@if ($makanan['kode_isi'][$i] == '1')
+								@if ($menu['kode_isi'][$i] == '1')
 									@php $hr = '<hr>' @endphp
 								@else
 									@php $hr = '' @endphp
@@ -151,10 +153,10 @@
 			<div class="card p-3 col-4">
 				<table id="invoice" class="table table-borderless">
 					<tr>
-						<td>{{ $makanan['nama'] }}</td>
+						<td>{{ $menu['nama'] }}</td>
 						<td id="np"><span class="kuantitas">20</span>x</td>
 						<td>Rp.</td>
-						<td>{{ number_format($makanan['harga'], 0, ",", ".") }}</td>
+						<td>{{ number_format($menu['harga'], 0, ",", ".") }}</td>
 					</tr>
 					<tr style="border-top:1pt solid black;">
 						<td colspan="2">Sub total</td>
@@ -207,9 +209,9 @@
 		
 		$("#kecamatan").change(function(e){
 			e.preventDefault();
-			var id_dapur = "{{ $makanan['id_dapur'] }}";
+			var id_dapur = "{{ $menu['id_dapur'] }}";
 			var kecamatan = $(this).val();
-			var sub_total = $('#np input').val() * {{ $makanan['harga'] }};
+			var sub_total = $('#np input').val() * {{ $menu['harga'] }};
 
 			$.ajax({
 				type: 'GET',
@@ -236,7 +238,7 @@
 			dpUI.numberPicker("#np", {
 				start: 20, // GANTI DENGAN MINIMAL PEMESANAN
 				min: 20, // GANTI DENGAN MINIMAL PEMESANAN
-				max: {{ $dapur['kuota'] == '' ? 0 : $dapur['kuota']}},
+				max: 100,
 				step: 1,
 			});
 			const input = document.querySelector('#date');
@@ -278,12 +280,12 @@
 					$('#collapseAmbil').collapse('show');
 				}
 			});
-			var subtotal = $('[name="kuantitas"]').val() * "{{ $makanan['harga'] }}";
+			var subtotal = $('[name="kuantitas"]').val() * "{{ $menu['harga'] }}";
 			$('.subtotal').html(rupiah(subtotal));
 			$('#total').html(rupiah(subtotal));
 			$('.dpui-numberPicker-increase').on('click', function () {
 				$('.kuantitas').html($('[name="kuantitas"]').val());
-				var subtotal = $('[name="kuantitas"]').val() * "{{ $makanan['harga'] }}";
+				var subtotal = $('[name="kuantitas"]').val() * "{{ $menu['harga'] }}";
 				$('.subtotal').html(rupiah(subtotal));
 				if(ongkir != null){
 					var ongkir = $('#ong').text(),
@@ -296,7 +298,7 @@
 			});
 			$('.dpui-numberPicker-decrease').on('click', function () {
 				$('.kuantitas').html($('[name="kuantitas"]').val());
-				var subtotal = $('[name="kuantitas"]').val() * "{{ $makanan['harga'] }}";
+				var subtotal = $('[name="kuantitas"]').val() * "{{ $menu['harga'] }}";
 				$('.subtotal').html(rupiah(subtotal));
 				if(ongkir != null){
 					var ongkir = $('#ong').text(),

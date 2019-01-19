@@ -30,8 +30,8 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::put('/dashboard', 'ProfilController@update')->name('profil.edit');
 
-Route::get('/products/{productId}/detail', 'ProductController@detail')->name('products.detail');
-Route::get('/products/{productId}/order', 'ProductController@order')->name('products.order');
+Route::get('/products/{menu}/{productId}/detail', 'ProductController@detail')->name('products.detail');
+Route::get('/products/{menu}/{productId}/order', 'ProductController@order')->name('products.order');
 Route::put('/products/{productId}/checkout', 'ProductController@checkout')->name('products.checkout');
 
 Route::get('/dapur/{dapur_name}', 'DapurController@show')->name('dapur.show');
