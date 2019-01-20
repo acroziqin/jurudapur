@@ -12,7 +12,8 @@
     <main class="container">
 		<div class="row">
 			<div class="card p-3 col-8">
-			<form action="{{ URL::route('products.checkout', $menu['id']) }}" method="post">
+			{!! Form::open(['route' => 'orders.store']) !!}
+			{{-- <form action="{{ URL::route('orders.store') }}" method="post"> --}}
 				<div>
 					<h3>Pesan</h3>
 				</div>
@@ -26,28 +27,36 @@
                             Pilihan Isi :
                         @endif
 						<br>
+						@php $j = 0 @endphp
 						@for ($i = 0; $i < count($isi); $i++)
 							@if ($input_type[$i] == 'x')
-								@php $type = 'checkbox'; $name = 'isix'. $i @endphp
+								@php $type = 'checkbox'; $name = 'isix'. $i; $checked = true @endphp
 							@else
 								@php $type = 'radio'; $name = 'isio' . $input_type[$i] @endphp
+								@if ($j == 0)
+									@php $checked = true @endphp
+								@else
+									@php $checked = false @endphp
+								@endif	
 							@endif
+							{!! Form::$type($name, $isi[$i], $checked, ['id' => 'isi'.$i]) !!}
+							@php $j++ @endphp
+							<label class="form-check-label" for="isi{{ $i }}">{{ $isi[$i] }}</label><br>
 							@if ($i < count($isi)-1)
 								@if ($menu['kode_isi'][$i] == '1')
-									@php $hr = '<hr>' @endphp
+									@php $hr = '<hr>'; $j = 0 @endphp
 								@else
 									@php $hr = '' @endphp
 								@endif
 							@endif
-							<input type="{{ $type }}" name="{{ $name }}" id="isi{{ $i }}" value="{{ $isi[$i] }}" checked>
-							<label class="form-check-label" for="isi{{ $i }}">{{ $isi[$i] }}</label><br>
+							{{-- <input type="{{ $type }}" name="{{ $name }}" id="isi{{ $i }}" value="{{ $isi[$i] }}" checked> --}}
 							{!! $hr !!}
 						@endfor
 					</div>
 					<div id='np' style="align-self:center;"></div>
 				</div>
 
-				{{-- No HP --}}
+				{{-- no_hp --}}
 				<div class="form-group">
 					<h3>Nomor HP</h3>
 					<input id="no_hp" type="tel" name="no_hp" class="form-control" placeholder="Nomor Handphone" required>
@@ -148,7 +157,9 @@
 				<button type="submit" class="btn btn-primary btn-block" role="button">Pesan</button>
 				{{ csrf_field() }}
 				<input type="hidden" name="_method" value="PUT">
-				</form>
+				<input type="hidden" name="_method" value="PUT">
+				{{-- </form> --}}
+				{!! Form::close() !!}
 			</div>
 			<div class="card p-3 col-4">
 				<table id="invoice" class="table table-borderless">
@@ -239,6 +250,7 @@
 				start: 20, // GANTI DENGAN MINIMAL PEMESANAN
 				min: 20, // GANTI DENGAN MINIMAL PEMESANAN
 				max: 100,
+				// max: {{ $dapur['kuota'] == '' ? 0 : $dapur['kuota']}},
 				step: 1,
 			});
 			const input = document.querySelector('#date');
