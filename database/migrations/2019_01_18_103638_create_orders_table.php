@@ -14,20 +14,20 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
-            $table->string('menu_type');
-            $table->integer('menu_id');
+            $table->increments('id');//Ada
+            $table->integer('user_id');//Ada
+            $table->string('menu_type');//Ada
+            $table->integer('menu_id');//Ada
             $table->string('order_number');
             $table->string('ingredients_code')->nullable();
-            $table->integer('quantity');
-            $table->string('phone_number');
-            $table->string('delivery_date');
-            $table->string('payment_method');
-            $table->string('payment_location');
-            $table->string('shipment_method');
-            $table->string('shipment_sub-district');
-            $table->string('shipment_location');
+            $table->integer('quantity');//Ada
+            $table->string('phone_number');//Ada
+            $table->string('delivery_date');//Ada
+            $table->string('payment_method');//Ada
+            $table->string('payment_location');//Ada
+            $table->string('shipment_method');//Ada
+            $table->string('shipment_subdistrict')->nullable();//Ada
+            $table->string('shipment_location');//Ada
             $table->timestamps();
         });
     }

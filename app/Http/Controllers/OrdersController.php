@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 
 class OrdersController extends Controller
 {
@@ -16,12 +20,61 @@ class OrdersController extends Controller
     {
         $profil  = Auth::user();
         $this->validate($request, [
-            'kuantitas' => 'required',
-            'title' => 'required',
             'no_hp' => 'required',
             'date' => 'required',
-            'payment' => 'required',
+            'lokasi_ketemuan' => 'required',
+            'shipment' => 'required',
         ]);
+
+        // Order Number
+        $now = Carbon::now()->format('ymd');
+        if (strlen($profil->name) > 1) {
+            $name = $profil->name;
+        } else {
+            $name = $profil->name.'Z';
+        }
+        $nama = strtoupper(substr($name, 0, 2));
+        $hp = substr($request->no_hp, -2);
+        $jenis = strtoupper(substr($request->menu_type, 0, 2));
+        $idmenu = substr($request->menu_id, -1);
+        $order_number = 'JD'.$now.$nama.$hp.$jenis.$idmenu;
+
+        // Ingredients Code
+        $a = '';
+        for ($i=0; $i < 5; $i++) { 
+            $a = $a.'.'.$request->isi.$i;
+        }
+        
+        // $ingredients_code = $request->input(preg_match('/^isi\d*/'));
+        $keys = '';
+        foreach (Input::get() as $key => $value) {
+            $keys .= '.'.$key;
+        }
+        $matches = array();
+        preg_match_all('/\d+./', $keys, $matches);
+        $cocok = '';
+        foreach ($matches[0] as $match) {
+            $cocok .= $match;
+        }
+        $ingredients_code = substr_replace($cocok,"",-1);
+
+        // Create new Order
+        $order = new Order;
+        $order->user_id              = $profil->id;
+        $order->menu_type            = $request->menu_type;
+        $order->menu_id              = $request->menu_id;
+        $order->order_number         = $order_number;
+        $order->ingredients_code     = $ingredients_code;
+        $order->quantity             = $request->kuantitas;
+        $order->phone_number         = $request->no_hp;
+        $order->delivery_date        = $request->date;
+        $order->payment_method       = $request->payment;
+        $order->payment_location     = $request->lokasi_ketemuan;
+        $order->shipment_method      = $request->shipment;
+        $order->shipment_subdistrict = $request->kecamatan;
+        $order->shipment_location    = $request->alamat_lengkap;
+        $order->save();
+        dd('saved');
     }
 
     /**

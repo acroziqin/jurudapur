@@ -19,6 +19,7 @@
 				</div>
 
 				{{-- kuantitas --}}
+				{{-- ingredients_code = isio1, isix1, dll --}}
 				<div class="p-1 p-md-3 mb-3 item-order">
 					<img src="https://www.bing.com/th?id=OIP.JTajyakNyf3yl72b6cmBAgHaE8&pid=Api&w=5616&h=3744&rs=1&p=0" alt="" class="mini-img">
 					<div class="title">{{ $menu['nama'] }}
@@ -30,18 +31,20 @@
 						@php $j = 0 @endphp
 						@for ($i = 0; $i < count($isi); $i++)
 							@if ($input_type[$i] == 'x')
-								@php $type = 'checkbox'; $name = 'isix'. $i; $checked = true @endphp
+								@php $type = 'checkbox'; $checked = true @endphp
 							@else
-								@php $type = 'radio'; $name = 'isio' . $input_type[$i] @endphp
+								@php $type = 'radio'; @endphp
 								@if ($j == 0)
 									@php $checked = true @endphp
 								@else
 									@php $checked = false @endphp
 								@endif	
 							@endif
-							{!! Form::$type($name, $isi[$i], $checked, ['id' => 'isi'.$i]) !!}
+							{!! Form::$type('isi'.$isi_makanan[$i], $isi_makanan[$i], $checked, ['id' => 'isi'.$i]) !!}
 							@php $j++ @endphp
-							<label class="form-check-label" for="isi{{ $i }}">{{ $isi[$i] }}</label><br>
+							{{-- <label class="form-check-label" for="isi{{ $i }}">{{ $isi[$i] }}</label><br> --}}
+							{!! Form::label('isi', $isi[$i], ['class' => 'form-check-label', 'for' => 'isi'.$i]) !!}
+							<br>
 							@if ($i < count($isi)-1)
 								@if ($menu['kode_isi'][$i] == '1')
 									@php $hr = '<hr>'; $j = 0 @endphp
@@ -59,17 +62,18 @@
 				{{-- no_hp --}}
 				<div class="form-group">
 					<h3>Nomor HP</h3>
-					<input id="no_hp" type="tel" name="no_hp" class="form-control" placeholder="Nomor Handphone" required>
+					<input id="no_hp" type="tel" name="no_hp" class="form-control" placeholder="Nomor Handphone">
 				</div>
 
 				{{-- date --}}
 				<div class="form-group">
 					<h3>Waktu</h3>
-					<input id="date" type="text" name="date" class="form-control" placeholder="HH:mm DD/MM/YYYY" required>
+					{{-- <input id="date" type="text" name="date" class="form-control" placeholder="HH:mm DD/MM/YYYY" required> --}}
+					{!! Form::text('date', null, ['id' => 'date', 'class' => 'form-control', 'placeholder' => 'HH:mm DD/MM/YYYY']) !!}
 				</div>
 
 				{{-- payment = cod --}}
-				{{-- lokasi-ketemuan --}}
+				{{-- lokasi_ketemuan --}}
 				<div class="form-group payment">
 					<h3>Metode Pembayaran</h3>
 					{{-- <div class="form-check">
@@ -91,17 +95,18 @@
 					</div> --}}
 					<div class="form-check">
 						{{-- <input class="form-check-input" type="radio" name="payment" id="cod" value="cod"> --}}
-						<input class="form-check-input" type="hidden" name="payment" id="cod" value="cod" required>
-						<label class="form-check-label" for="cod">
+						{{-- <input class="form-check-input" type="hidden" name="payment" id="cod" value="cod" required> --}}
+						{!! Form::hidden('payment', 'cod') !!}
+						<label class="form-check-label" for="lokasi_ketemuan">
 							Cash On Delivery <b>(COD)</b>
 						</label>
 						<div {{--class="collapse" id="collapseCOD"--}}>
 							<div class="card card-body">
 								<div class="form-group">
-									<label for="exampleInputEmail1">Lokasi Ketemuan</label>
-									<input type="text" class="form-control" id="lokasi-ketemuan" name="lokasi-ketemuan" required>
-									<small id="emailHelp" class="form-text text-muted">Pembayaran DP minimal 50%. Pembayaran DP dilakukan sebelum
-										hari H.</small>
+									<label for="lokasi_ketemuan">Lokasi Ketemuan</label>
+									{{-- <input type="text" class="form-control" id="lokasi-ketemuan" name="lokasi-ketemuan" required> --}}
+									{!! Form::text('lokasi_ketemuan', null, ['id' => 'lokasi_ketemuan', 'class' => 'form-control']) !!}
+									<small id="emailHelp" class="form-text text-muted">Pembayaran DP minimal 50%. Pembayaran DP dilakukan sebelum hari H.</small>
 								</div>
 							</div>
 						</div>
@@ -112,7 +117,8 @@
 				<div class="form-group shipment">
 					<h3>Metode Pengantaran</h3>
 					<div class="form-check">
-						<input class="form-check-input" type="radio" name="shipment" id="antar" value="antar" required>
+						{{-- <input class="form-check-input" type="radio" name="shipment" id="antar" value="antar" required> --}}
+						{!! Form::radio('shipment', 'antar', false, ['id'=> 'antar', 'class' => 'form-check-input']) !!}
 						<label class="form-check-label" for="antar">Diantar ke Lokasi (Ongkir) * Kota Malang</label>
 						<div class="collapse" id="collapseAntar">
 							<div class="card card-body">
@@ -120,18 +126,26 @@
 									<div class="col-12">
 										<div class="form-group">
 											<label for="kecamatan">Kecamatan</label>
-											<select class="form-control" id="kecamatan" name="kecamatan">
+											{{-- <select class="form-control" id="kecamatan" name="kecamatan">
 												<option value="" selected>-- Pilih Kecamatan --</option>
 												<option value="Blimbing">Blimbing</option>
 												<option value="Kedungkandang">Kedungkandang</option>
 												<option value="Klojen">Klojen</option>
 												<option value="Lowokwaru">Lowokwaru</option>
 												<option value="Sukun">Sukun</option>
-											</select>
+											</select> --}}
+											{!! Form::select('kecamatan', [
+												'Blimbing' => 'Blimbing',
+												'Kedungkandang' => 'Kedungkandang',
+												'Klojen' => 'Klojen',
+												'Lowokwaru' => 'Lowokwaru',
+												'Sukun' => 'Sukun',
+											], null, ['placeholder' => '-- Pilih Kecamatan --', 'id' => 'kecamatan', 'class' => 'form-control']) !!}
 										</div>
 										<div class="form-group">
 											<label for="alamat_lengkap">Alamat Lengkap</label>
-											<textarea name="alamat_lengkap" placeholder="Alamat Lengkap" class="form-control" id="alamat_lengkap"></textarea>
+											{{-- <textarea name="alamat_lengkap" placeholder="Alamat Lengkap" class="form-control" id="alamat_lengkap"></textarea> --}}
+											{!! Form::textarea('alamat_lengkap', null, ['id' => 'alamat_lengkap', 'class' => 'form-control', 'placeholder' => 'Alamat Lengkap', 'rows' => 3]) !!}
 										</div>
 										<div>
 											<b>Ongkir : Rp. </b><b class="ongkir" id="ong"></b>
@@ -142,22 +156,26 @@
 						</div>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="radio" name="shipment" id="ambil" value="ambil">
+						{{-- <input class="form-check-input" type="radio" name="shipment" id="ambil" value="ambil"> --}}
+						{!! Form::radio('shipment', 'ambil', false, ['id'=> 'ambil', 'class' => 'form-check-input']) !!}
 						<label class="form-check-label" for="ambil">
 							Ambil Sendiri
 						</label>
 						<div class="collapse" id="collapseAmbil">
-							<div class="card card-body">
+							{{-- <div class="card card-body">
 								Pengambilan langsung di Rumah {{ $dapur['nama'] }}
-							</div>
+							</div> --}}
+							{!! Form::hidden('kecamatan', $dapur['lokasi']) !!}
+							{!! Form::text('alamat_lengkap', $dapur['alamat'], ['id' => 'date', 'class' => 'form-control', 'readonly']) !!}
 						</div>
 					</div>
 				</div>
-
+				
 				<button type="submit" class="btn btn-primary btn-block" role="button">Pesan</button>
 				{{ csrf_field() }}
-				<input type="hidden" name="_method" value="PUT">
-				<input type="hidden" name="_method" value="PUT">
+				{!! Form::hidden('menu_type', $jenis_menu) !!}
+				{!! Form::hidden('menu_id', $menu_id) !!}
+				{{-- <input type="hidden" name="_method" value="PUT"> --}}
 				{{-- </form> --}}
 				{!! Form::close() !!}
 			</div>

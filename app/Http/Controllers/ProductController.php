@@ -78,8 +78,8 @@ class ProductController extends Controller
 
         $isi = [];
         $inputType = null;
+        $isi_makanan = IsiMakanan::where('id_makanan', $id)->get()->toArray();
         if ($jenis_menu == 'makanan') {
-            $isi_makanan = IsiMakanan::where('id_makanan', $id)->get()->toArray();
             for ($i=0; $i < count($isi_makanan); $i++) { 
                 array_push($isi, Isi::where('id', $isi_makanan[$i]['id_isi'])->pluck('nama')->toArray()[0]);
             }
@@ -140,9 +140,16 @@ class ProductController extends Controller
             $verified = NULL;
         }
 
+        $isiMakanan = [];
+        for ($i=0; $i < count($isi_makanan); $i++) { 
+            array_push($isiMakanan, $isi_makanan[$i]['id_isi']);
+        }
+
         $data = [
             'jenis_menu' => $jenis_menu,
+            'isi_makanan' => $isiMakanan,
             'menu' => $menu,
+            'menu_id' => $id,
             'dapur' => $dapur,
             'verified' => $verified,
             'isi' => $isi,

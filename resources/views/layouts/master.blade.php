@@ -84,6 +84,7 @@
 			</div>
 		</div>
     </nav>
+    @include('layouts.messages')
 
     @yield('content')
 
