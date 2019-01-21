@@ -84,6 +84,7 @@
 			</div>
 		</div>
     </nav>
+    @include('layouts.messages')
 
     @yield('content')
 
@@ -117,7 +118,7 @@
                 <div class="col-6 col-md-4 d-flex justify-content-center">
                     <ul>
                         <li><a href="#">{{ __('Dapur') }}</a></li>
-                        <li><a href="#">{{ __('Syarat dan Ketentuan') }}</a></li>
+                        <li><a href="{{ url('syarat-ketentuan') }}">{{ __('Syarat dan Ketentuan') }}</a></li>
                         <li><a href="#">{{ __('Kebijakan Privasi') }}</a></li>
                         <li><a href="#">{{ __('Tentang Kami') }}</a></li>
                         <li><a href="#">{{ __('Hubungi Kami') }}</a></li>
