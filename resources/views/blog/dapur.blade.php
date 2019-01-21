@@ -24,19 +24,61 @@
                 <div id="shared"></div>
             </div>
         </div>
-	</div>
+    </div>
+    <br>
+    <h2>Makanan</h2>
     <section class="menu menu-dapur">
-		@foreach ($menus as $menu)
-			<a href="{{ route('products.detail', $menu['id']) }}" class="menu-item">
+        @foreach ($makanans as $makanan)
+			<a href = "{{ route('products.detail', [ 'menu'=>'makanan', 'id' => $makanan['id'] ]) }}" class = "menu-item">
 				<div>
 					<img class="img lazyload" src="https://placehold.it/200x150&text=1" data-src="https://craftlog.com/m/i/1939076=s1280=h960" alt="">
 					<div class="content">
-						<div class="title">{{ $menu['nama'] }}</div>
+						<div class="title">{{ $makanan['nama'] }}</div>
 						<div class="desc">
-							<div>{{ $menu['jenis'] }}</div>
+							<div>{{ $makanan['jenis'] }}</div>
 						</div>
 						{{-- <div class="price ori">{{ $makan->jenis }}</div> --}}
-						<div class="price dis">{{ $menu['harga']}}
+						<div class="price dis">{{ $makanan['harga']}}
+							<div class="ket"> / Pax</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		@endforeach
+    </section>
+    <h2>Minuman</h2>
+    <section class="menu menu-dapur">
+		@foreach ($minumans as $minuman)
+			<a href = "{{ route('products.detail', [ 'menu'=>'makanan', 'id' => $minuman['id'] ]) }}" class = "menu-item">
+				<div>
+					<img class="img lazyload" src="https://placehold.it/200x150&text=1" data-src="https://craftlog.com/m/i/1939076=s1280=h960" alt="">
+					<div class="content">
+						<div class="title">{{ $minuman['nama'] }}</div>
+						<div class="desc">
+							<div>{{ $minuman['jenis'] }}</div>
+						</div>
+						{{-- <div class="price ori">{{ $makan->jenis }}</div> --}}
+						<div class="price dis">{{ $minuman['harga']}}
+							<div class="ket"> / Pax</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		@endforeach
+    </section>
+    <h2>Kue</h2>
+    <section class="menu menu-dapur">
+		@foreach ($kues as $kue)
+			<a href = "{{ route('products.detail', [ 'menu'=>'makanan', 'id' => $kue['id'] ]) }}" class = "menu-item">
+				<div>
+					<img class="img lazyload" src="https://placehold.it/200x150&text=1" data-src="https://craftlog.com/m/i/1939076=s1280=h960" alt="">
+					<div class="content">
+						<div class="title">{{ $kue['nama'] }}</div>
+						<div class="desc">
+							<div>{{ $kue['jenis'] }}</div>
+						</div>
+						{{-- <div class="price ori">{{ $makan->jenis }}</div> --}}
+						<div class="price dis">{{ $kue['harga']}}
 							<div class="ket"> / Pax</div>
 						</div>
 					</div>

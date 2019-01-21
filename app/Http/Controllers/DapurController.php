@@ -19,10 +19,11 @@ class DapurController extends Controller
         $makanan = Makanan::where('id_dapur', $dapur->id)->get()->toArray();
         $minuman = Minuman::where('id_dapur', $dapur->id)->get()->toArray();
         $kue = Kue::where('id_dapur', $dapur->id)->get()->toArray();
-        $menus = array_merge($makanan, $minuman, $kue);
         $data = [
-            'dapur'=> $dapur,
-            'menus' => $menus,
+            'dapur'   => $dapur,
+            'makanans' => $makanan,
+            'minumans' => $minuman,
+            'kues'     => $kue,
         ];
         return view('blog/dapur', $data);
     }
