@@ -40,6 +40,7 @@ Route::get('login/{sevice}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{sevice}/callback', 'Auth\LoginController@handleProviderCallback');
 
 Route::get('/kecamatan', 'ProductController@kecamatanAjax')->name('kecamatan');
+Route::post('search', 'ProductController@search')->name('search');
 
 Route::resource('orders', 'OrdersController')->except([
     'index', 'create'

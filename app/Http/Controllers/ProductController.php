@@ -174,18 +174,22 @@ class ProductController extends Controller
         return response()->json($data);
     }
 
-    public function checkout(Request $request)
+    public function search(Request $request)
     {
-        // "isix0" => "Nasi Putih"
-        // "isio0" => "Tumis Tempe"
-        // "isix3" => "Sayur"
-        // "isix4" => "Sambal"
-        // "kuantitas" => "20"
-        // "date" => "10:15 - 15/01/2019"
-        // "payment" => "cod"
-        // "lokasi-ketemuan" => "Jl. Mawar"
-        // "shipment" => "antar"
-        // "kecamatan" => "Blimbing"
-        dd($request);
+        $makanan = Makanan::all();
+        $minuman = Minuman::all();
+        $kue = Kue::all();
+        $dapur_makanan = [];
+        foreach ($makanan as $makan) {
+            $dapur = Dapur::where('id', $makan->id_dapur)->pluck('nama')->toArray();
+            array_push($dapur_makanan, $dapur[0]);
+        }
+        $data = [
+            'makanan' => $makanan,
+            'minuman' => $minuman,
+            'kue'     => $kue,
+            'dapmakanan' => $dapur_makanan,
+        ];
+        return view('blog/search')->with($data);
     }
 }
