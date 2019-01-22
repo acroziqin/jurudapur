@@ -47,10 +47,8 @@ class OrdersController extends Controller
         // Ingredients Code
         $a = '';
         for ($i=0; $i < 5; $i++) { 
-            $a = $a.'.'.$request->isi.$i;
+            $a .= '.'.$request->isi.$i;
         }
-        
-        // $ingredients_code = $request->input(preg_match('/^isi\d*/'));
         $keys = '';
         foreach (Input::get() as $key => $value) {
             $keys .= '.'.$key;
