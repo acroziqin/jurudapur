@@ -29,7 +29,7 @@
     <h2>Makanan</h2>
     <section class="menu menu-dapur">
         @foreach ($makanans as $makanan)
-			<a href = "{{ route('products.detail', [ 'menu'=>'makanan', 'id' => $makanan['id'] ]) }}" class = "menu-item">
+			<a href = "{{ route('product.detail', [ 'menu'=>'makanan', 'id' => $makanan['id'] ]) }}" class = "menu-item">
 				<div>
 					<img class="img lazyload" src="https://placehold.it/200x150&text=1" data-src="https://craftlog.com/m/i/1939076=s1280=h960" alt="">
 					<div class="content">
@@ -49,7 +49,7 @@
     <h2>Minuman</h2>
     <section class="menu menu-dapur">
 		@foreach ($minumans as $minuman)
-			<a href = "{{ route('products.detail', [ 'menu'=>'makanan', 'id' => $minuman['id'] ]) }}" class = "menu-item">
+			<a href = "{{ route('product.detail', [ 'menu'=>'makanan', 'id' => $minuman['id'] ]) }}" class = "menu-item">
 				<div>
 					<img class="img lazyload" src="https://placehold.it/200x150&text=1" data-src="https://craftlog.com/m/i/1939076=s1280=h960" alt="">
 					<div class="content">
@@ -69,7 +69,7 @@
     <h2>Kue</h2>
     <section class="menu menu-dapur">
 		@foreach ($kues as $kue)
-			<a href = "{{ route('products.detail', [ 'menu'=>'makanan', 'id' => $kue['id'] ]) }}" class = "menu-item">
+			<a href = "{{ route('product.detail', [ 'menu'=>'makanan', 'id' => $kue['id'] ]) }}" class = "menu-item">
 				<div>
 					<img class="img lazyload" src="https://placehold.it/200x150&text=1" data-src="https://craftlog.com/m/i/1939076=s1280=h960" alt="">
 					<div class="content">

@@ -1,3 +1,6 @@
+@php
+use Illuminate\Support\Facades\Input;
+@endphp
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
@@ -26,9 +29,11 @@
 				</button>
 				<!-- Search -->
 				<div class="d-flex" style="flex: 1; margin: 0 10px">
-					<form class="form-inline">
-						<input class="form-control search-input" type="search" placeholder="{{ __('Cari Menu') }}" aria-label="Search">
-						<button class="form-control search-btn" type="submit"><i class="fas fa-search"></i></button>
+                    <form class="form-inline" action="/search" method="GET">
+                        <input class="form-control search-input" name="query" type="search" placeholder="{{ __('Cari Menu') }}" aria-label="Search"
+                        value="{{ Input::get('query') }}">
+                        <input type="hidden" name="type" value="menu">
+						<button class="form-control search-btn" type="submit" style="cursor: pointer"><i class="fas fa-search"></i></button>
 					</form>
 				</div>
 			</div>
@@ -41,9 +46,11 @@
 				<div class="row nav-menu">
 					<!-- Search -->
 					<div class="col-12 col-md-8 d-none d-md-flex">
-						<form class="form-inline my-2 my-lg-0 mx-0 mx-lg-3 w-lg-50 w-100 d-flex">
-							<input class="form-control search-input" type="search" placeholder="Cari Menu" aria-label="Search">
-							<button class="form-control search-btn" type="submit"><i class="fas fa-search"></i></button>
+						<form class="form-inline my-2 my-lg-0 mx-0 mx-lg-3 w-lg-50 w-100 d-flex" action="/search" method="GET">
+                            <input class="form-control search-input" name="query" type="search" placeholder="{{ __('Cari Menu') }}" aria-label="Search"
+                            value="{{ Input::get('query') }}">
+                            <input type="hidden" name="type" value="menu">
+							<button class="form-control search-btn" type="submit" style="cursor: pointer"><i class="fas fa-search"></i></button>
 						</form>
 					</div>
 					<!-- Right Menu -->

@@ -19,6 +19,7 @@ class CreateKueTable extends Migration
             $table->integer('harga')->nullable();
             $table->string('jenis')->nullable();
             $table->integer('id_dapur');
+            $table->string('tipe', 10)->default('makanan');
             $table->timestamps();
         });
 
