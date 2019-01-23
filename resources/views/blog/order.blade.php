@@ -175,6 +175,7 @@
 				{{ csrf_field() }}
 				{!! Form::hidden('menu_type', $jenis_menu) !!}
 				{!! Form::hidden('menu_id', $menu_id) !!}
+				{!! Form::hidden('total_price', '21', ['id' => 'total']) !!}
 				{{-- <input type="hidden" name="_method" value="PUT"> --}}
 				{{-- </form> --}}
 				{!! Form::close() !!}

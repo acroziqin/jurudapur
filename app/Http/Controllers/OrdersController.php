@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Mail;
 use App\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -71,8 +72,28 @@ class OrdersController extends Controller
         $order->shipment_method      = $request->shipment;
         $order->shipment_subdistrict = $request->kecamatan;
         $order->shipment_location    = $request->alamat_lengkap;
-        $order->save();
-        dd('saved');
+        $order->total_price          = $request->total_price;
+        // $order->save();
+
+        // Kirim Email
+        try{
+            Mail::send('blog/email', [
+                'nama'          => $profil->name, 
+                'order_number'  => $order_number,
+                // 'delivery_date' => $request->date,
+                // 'total_price'   => $request->total_price
+            ], function ($message) use ($profil)
+            {
+                $message->subject('Tagihan dan Petunjuk Pembayaran - [Jurudapur]');
+                $message->from('mail@noreply.jurudapur.com', 'Jurudapur');
+                $message->to('achmadchoirurroziqin@gmail.com');
+            });
+            dd('saved');
+            return view('blog/selesai_order');
+        }
+        catch (Exception $e){
+            return response (['status' => false,'errors' => $e->getMessage()]);
+        }
     }
 
     /**
