@@ -22,8 +22,8 @@
 				{{-- ingredients_code = isio1, isix1, dll --}}
 				<div class="p-1 p-md-3 mb-3 item-order">
 					<img src="https://www.bing.com/th?id=OIP.JTajyakNyf3yl72b6cmBAgHaE8&pid=Api&w=5616&h=3744&rs=1&p=0" alt="" class="mini-img">
-					<div class="title">{{ $menu['nama'] }}
-						<br>
+					<div class="title"><b>{{ $menu['nama'] }}</b>
+						<br><br>
 						@if ($jenis_menu == 'makanan')
                             Pilihan Isi :
                         @endif
@@ -103,7 +103,7 @@
 						<div {{--class="collapse" id="collapseCOD"--}}>
 							<div class="card card-body">
 								<div class="form-group">
-									<label for="lokasi_ketemuan">Lokasi Ketemuan</label>
+									<label for="lokasi_ketemuan">Waktu dan Tempat ketemuan</label>
 									{{-- <input type="text" class="form-control" id="lokasi-ketemuan" name="lokasi-ketemuan" required> --}}
 									{!! Form::text('lokasi_ketemuan', null, ['id' => 'lokasi_ketemuan', 'class' => 'form-control']) !!}
 									<small id="emailHelp" class="form-text text-muted">Pembayaran DP minimal 50%. Pembayaran DP dilakukan sebelum hari H.</small>
@@ -165,7 +165,7 @@
 							{{-- <div class="card card-body">
 								Pengambilan langsung di Rumah {{ $dapur['nama'] }}
 							</div> --}}
-							{!! Form::hidden('kecamatan', $dapur['lokasi']) !!}
+							{{-- {!! Form::hidden('kecamatan', $dapur['lokasi']) !!} --}}
 							{!! Form::text('alamat_lengkap', $dapur['alamat'], ['id' => 'date', 'class' => 'form-control', 'readonly']) !!}
 						</div>
 					</div>

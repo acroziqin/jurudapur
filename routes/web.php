@@ -30,9 +30,9 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::put('/dashboard', 'ProfilController@update')->name('profil.edit');
 
-Route::get('/products/{menu}/{id}/detail', 'ProductController@detail')->name('products.detail');
-Route::get('/products/{menu}/{id}/order', 'ProductController@order')->name('products.order');
-Route::put('/products/{id}/checkout', 'ProductController@checkout')->name('products.checkout');
+Route::get('/product/{menu}/{id}/detail', 'ProductController@detail')->name('product.detail');
+Route::get('/product/{menu}/{id}/order', 'ProductController@order')->name('product.order');
+Route::put('/product/{id}/checkout', 'ProductController@checkout')->name('product.checkout');
 
 Route::get('/dapur/{dapur_name}', 'DapurController@show')->name('dapur.show');
 
@@ -40,8 +40,9 @@ Route::get('login/{sevice}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{sevice}/callback', 'Auth\LoginController@handleProviderCallback');
 
 Route::get('/kecamatan', 'ProductController@kecamatanAjax')->name('kecamatan');
-Route::post('search', 'ProductController@search')->name('search');
 
 Route::resource('orders', 'OrdersController')->except([
     'index', 'create'
 ]);
+
+Route::get('search', 'SearchController@search')->name('search');

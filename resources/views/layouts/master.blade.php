@@ -1,3 +1,6 @@
+@php
+use Illuminate\Support\Facades\Input;
+@endphp
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
@@ -26,9 +29,11 @@
 				</button>
 				<!-- Search -->
 				<div class="d-flex" style="flex: 1; margin: 0 10px">
-					<form class="form-inline">
-						<input class="form-control search-input" type="search" placeholder="{{ __('Cari Menu') }}" aria-label="Search">
-						<button class="form-control search-btn" type="submit"><i class="fas fa-search"></i></button>
+                    <form class="form-inline" action="/search" method="GET">
+                        <input class="form-control search-input" name="query" type="search" placeholder="{{ __('Cari Menu') }}" aria-label="Search"
+                        value="{{ Input::get('query') }}">
+                        <input type="hidden" name="type" value="menu">
+						<button class="form-control search-btn" type="submit" style="cursor: pointer"><i class="fas fa-search"></i></button>
 					</form>
 				</div>
 			</div>
@@ -47,7 +52,7 @@
                         </form> --}}
                         {!! Form::open(['route' => 'search', 'class' => 'form-inline my-2 my-lg-0 mx-0 mx-lg-3 w-lg-50 w-100 d-flex']) !!}
                             @csrf
-                            {!! Form::text('search', null, ['class' => 'form-control search-input', 'placeholder' => __('Cari Menu'), 'aria-label' => 'Search']) !!}
+                            {!! Form::text('query', null, ['class' => 'form-control search-input', 'placeholder' => __('Cari Menu'), 'aria-label' => 'Search']) !!}
                             {!! Form::button('<i class="fas fa-search"></i>', ['type' => 'submit', 'class' => 'form-control search-btn']); !!}
                         {!! Form::close() !!}
 					</div>

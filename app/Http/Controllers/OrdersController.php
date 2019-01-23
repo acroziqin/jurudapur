@@ -8,6 +8,11 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use App\Makanan;
+use App\Minuman;
+use App\Kue;
+use App\Ongkir;
+use App\Dapur;
 
 class OrdersController extends Controller
 {
@@ -73,7 +78,35 @@ class OrdersController extends Controller
         $order->shipment_subdistrict = $request->kecamatan;
         $order->shipment_location    = $request->alamat_lengkap;
         $order->total_price          = $request->total_price;
-        // $order->save();
+        $order->save();
+        
+        $subTotal = 0;
+        $total = 0;
+        $ongkir = 0;
+        $menu;
+        if($request->menu_type == 'makanan'){
+            $menu = Makanan::where('id',$request->menu_id)->first();
+            $subTotal = $request->kuantitas * $menu->harga;
+        }else if($request->menu_type == 'minuman'){
+            $menu = Minuman::where('id',$request->menu_id)->first();
+            $subTotal = $request->kuantitas * $menu->harga;
+        }else if($request->menu_type == 'kue'){
+            $menu = Kue::where('id',$request->menu_id)->first();
+            $subTotal = $request->kuantitas * $menu->harga;
+        }
+
+        if($request->shipment == 'antar'){
+            $dapur = Dapur::find($menu->id_dapur)->first();
+            $ongkir = Ongkir::where([
+                        ['dapur','=', $dapur->lokasi],
+                        ['lokasi','=', $request->kecamatan]
+                    ])->first();
+            $ongkir = $ongkir->ongkos;
+            $total = $subTotal + $ongkir;
+
+        }else{
+            $total = $subTotal;
+        }
 
         // Kirim Email
         try{
@@ -88,8 +121,15 @@ class OrdersController extends Controller
                 $message->from('mail@noreply.jurudapur.com', 'Jurudapur');
                 $message->to('achmadchoirurroziqin@gmail.com');
             });
-            dd('saved');
-            return view('blog/selesai_order');
+            return view('blog.selesai_order', [
+                'order'    => $order,
+                'harga'    => $menu->harga,
+                'antar'    => $request->shipment == 'antar',
+                'ongkir'   => $ongkir,
+                'subTotal' => $subTotal,
+                'total'    => $total,
+                'menu'     => $menu
+            ]);
         }
         catch (Exception $e){
             return response (['status' => false,'errors' => $e->getMessage()]);
