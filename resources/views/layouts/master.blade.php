@@ -28,32 +28,36 @@ use Illuminate\Support\Facades\Input;
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<!-- Search -->
-				<div class="d-flex" style="flex: 1; margin: 0 10px">
-                    <form class="form-inline" action="/search" method="GET">
-                        <input class="form-control search-input" name="query" type="search" placeholder="{{ __('Cari Menu') }}" aria-label="Search"
-                        value="{{ Input::get('query') }}">
-                        <input type="hidden" name="type" value="menu">
-						<button class="form-control search-btn" type="submit" style="cursor: pointer"><i class="fas fa-search"></i></button>
-					</form>
-				</div>
+                <div class="d-flex" style="flex: 1; margin: 0 10px">
+                    {!! Form::open(['route' => 'search', 'class' => 'form-inline']) !!}
+                    {{-- <form class="form-inline" action="{{ URL::route('search') }}" method="post"> --}}
+                        <input class="form-control search-input" name="kueri" type="search" placeholder="{{ __('Cari Menu') }}" aria-label="Search">
+                        {{-- {!! Form::text('query', null, ['class' => 'form-control search-input', 'placeholder' => '{{ __("Cari Menu") }}", 'aria-label' => 'Search']) !!} --}}
+                        {{-- <input type="hidden" name="type" value="menu"> --}}
+                        <button class="form-control search-btn" type="submit" style="cursor: pointer"><i class="fas fa-search"></i></button>
+                        {{ csrf_field() }}
+                        {!! Form::hidden('type', 'menu') !!}
+                        {!! Form::close() !!}
+                    </div>
 			</div>
-
+            
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<!-- Logo -->
+                <!-- Logo -->
 				<a class="navbar-brand" href="/">
 					<img class="logo" src="{{ URL::asset('images/logo.png') }}" alt="logo" />
 				</a>
 				<div class="row nav-menu">
 					<!-- Search -->
 					<div class="col-12 col-md-8 d-none d-md-flex">
-						{{-- <form class="form-inline my-2 my-lg-0 mx-0 mx-lg-3 w-lg-50 w-100 d-flex">
-							<input class="form-control search-input" type="search" placeholder="Cari Menu" aria-label="Search">
+                        {{-- <form class="form-inline my-2 my-lg-0 mx-0 mx-lg-3 w-lg-50 w-100 d-flex">
+                            <input class="form-control search-input" type="search" placeholder="Cari Menu" aria-label="Search">
 							<button class="form-control search-btn" type="submit"><i class="fas fa-search"></i></button>
                         </form> --}}
-                        {!! Form::open(['route' => 'search', 'class' => 'form-inline my-2 my-lg-0 mx-0 mx-lg-3 w-lg-50 w-100 d-flex']) !!}
+                        {!! Form::open(['method' => 'get', 'route' => 'search', 'class' => 'form-inline my-2 my-lg-0 mx-0 mx-lg-3 w-lg-50 w-100 d-flex']) !!}
                             @csrf
-                            {!! Form::text('query', null, ['class' => 'form-control search-input', 'placeholder' => __('Cari Menu'), 'aria-label' => 'Search']) !!}
+                            {!! Form::text('query', Input::get('query'), ['class' => 'form-control search-input', 'placeholder' => __('Cari Menu'), 'aria-label' => 'Search']) !!}
                             {!! Form::button('<i class="fas fa-search"></i>', ['type' => 'submit', 'class' => 'form-control search-btn']); !!}
+                            {!! Form::hidden('type', 'menu') !!}
                         {!! Form::close() !!}
 					</div>
 					<!-- Right Menu -->
@@ -66,12 +70,17 @@ use Illuminate\Support\Facades\Input;
                                     @if (is_null(Auth::user()->avatar))
                                         <i class="fas fa-user" style="font-size: 1.2rem; margin-right: .5rem;"></i>
                                     @else
-                                        <img src="{{ Auth::user()->avatar }}" alt="avatar"  style="width: 40px; height: 40px; border-radius: 50px">
+                                        @if (is_null(Auth::user()->provider_id))
+                                            @php $src = url('storage/avatars/'.Auth::user()->avatar) @endphp
+                                        @else
+                                            @php $src = Auth::user()->avatar @endphp
+                                        @endif
+                                        <img src="{{ $src }}" alt="avatar"  style="width: 40px; height: 40px; border-radius: 50px">
                                     @endif
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ URL::route('dashboard') }}"><i class="fas fa-user"></i> Profil</a>
+                                    <a class="dropdown-item" href="{{ URL::route('dashboard') }}"><i class="fas fa-user"></i> {{ Auth::user()->name }} </a>
                                     <!-- <a class="dropdown-item" href="#"><i class="fas fa-shopping-cart"></i> Pemesanan</a> -->
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -148,6 +157,8 @@ use Illuminate\Support\Facades\Input;
         </div>
     </footer>
     <!-- Footer -->
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> --}}
     <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
     <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
     @yield('jsTambahan')

@@ -29,7 +29,7 @@ class ProfilController extends Controller
                 'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
             ]);
             $path = $request->file('foto')->store('public/avatars');
-            $profil->foto = basename($path);
+            $profil->avatar = basename($path);
         }
 
         // Nama

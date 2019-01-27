@@ -55,7 +55,7 @@
                         {{ $isi }}
                         <div id="share"></div>
                     </div>
-                    <div class="price dis" style="font-size: 1.6rem">Rp.{{ number_format($menu['harga'], 0, ",", ".") }}</div>
+                    <div class="price dis" style="font-size: 1.6rem">Rp. {{ number_format($menu['harga'], 0, ",", ".") }}</div>
                     <hr>
                     <div><i class="fas fa-shopping-cart text-main"></i> Minimal Pemesanan 20 Porsi</div>
                     <div><i class="fas fa-share-square text-main"></i> Gratis ongkir (Min. Pemesanan 20 Box)</div>
