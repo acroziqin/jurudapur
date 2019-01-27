@@ -108,6 +108,15 @@ class OrdersController extends Controller
             $total = $subTotal;
         }
 
+        // return view('blog.selesai_order', [
+        //     'order'    => $order,
+        //     'harga'    => $menu->harga,
+        //     'antar'    => $request->shipment == 'antar',
+        //     'ongkir'   => $ongkir,
+        //     'subTotal' => $subTotal,
+        //     'total'    => $total,
+        //     'menu'     => $menu
+        // ]);
         // Kirim Email
         try{
             Mail::send('blog/email', [
@@ -119,7 +128,7 @@ class OrdersController extends Controller
             {
                 $message->subject('Tagihan dan Petunjuk Pembayaran - [Jurudapur]');
                 $message->from('mail@noreply.jurudapur.com', 'Jurudapur');
-                $message->to('achmadchoirurroziqin@gmail.com');
+                $message->to('avisena.abdillah98@gmail.com');
             });
             return view('blog.selesai_order', [
                 'order'    => $order,

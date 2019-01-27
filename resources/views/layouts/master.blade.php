@@ -50,7 +50,7 @@ use Illuminate\Support\Facades\Input;
 							<input class="form-control search-input" type="search" placeholder="Cari Menu" aria-label="Search">
 							<button class="form-control search-btn" type="submit"><i class="fas fa-search"></i></button>
                         </form> --}}
-                        {!! Form::open(['route' => 'search', 'class' => 'form-inline my-2 my-lg-0 mx-0 mx-lg-3 w-lg-50 w-100 d-flex']) !!}
+                        {!! Form::open(['route' => 'search', 'class' => 'form-inline my-2 my-lg-0 mx-0 mx-lg-3 w-lg-50 w-100 d-flex', 'method'=>'get']) !!}
                             @csrf
                             {!! Form::text('query', null, ['class' => 'form-control search-input', 'placeholder' => __('Cari Menu'), 'aria-label' => 'Search']) !!}
                             {!! Form::button('<i class="fas fa-search"></i>', ['type' => 'submit', 'class' => 'form-control search-btn']); !!}
