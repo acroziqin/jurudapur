@@ -64,15 +64,30 @@ class LoginController extends Controller
         $findUser = User::where('email', $user->getEmail())->first();
         if (!$findUser)
         {
-            $newUser = new User;
-            $newUser->email = $user->getEmail();
-            $newUser->name = $user->getName();
-            $newUser->password = NULL;
-            $newUser->email_verified_at = Carbon::now();;
-            $newUser->save();
+            // $newUser = new User;
+            // $newUser->email = $user->getEmail();
+            // $newUser->name = $user->getName();
+            // $newUser->password = NULL;
+            // $newUser->email_verified_at = Carbon::now();;
+            // $newUser->save();
+            // Auth::login($newUser);
+            // dd($user->getId());
+            $now = Carbon::now();
+            $findUser = User::create([
+                'email'       => $user->getEmail(),
+                'name'        => $user->getName(),
+                // 'avatar'      => $user->getAvatar(),
+                // 'provider_id' => $user->getId(),
+            ]);
+            // dd($findUser);
+            $findUser->avatar            = $user->getAvatar();
+            $findUser->provider_id       = $user->getId();
+            $findUser->email_verified_at = $now;
+            $findUser->save();
         }
-        Auth::login($newUser);
-        
+
+        Auth::login($findUser, true);
+
         return redirect()->route('home');
     }
 }

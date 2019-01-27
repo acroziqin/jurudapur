@@ -144,7 +144,7 @@ class ProductController extends Controller
         for ($i=0; $i < count($isi_makanan); $i++) { 
             array_push($isiMakanan, $isi_makanan[$i]['id_isi']);
         }
-
+        
         $data = [
             'jenis_menu' => $jenis_menu,
             'isi_makanan' => $isiMakanan,

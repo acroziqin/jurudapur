@@ -28,6 +28,7 @@ class BerandaController extends Controller
      */
     public function index()
     {
+        // dd(Auth::user()->foto);
         $characteristics = [
             'icon' => ['utensils', 'medal', 'user-shield', 'user-tie'],
             'name' => ['Ahlinya dapur', 'Kualitas Terbaik', 'Terpercaya', 'Profesional']

@@ -62,22 +62,26 @@ use Illuminate\Support\Facades\Input;
                             @auth
                             <li class="nav-item dropdown active">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-								 aria-expanded="false" style="padding-top: 8px;display: inline-block;">
-									<i class="fas fa-user" style="font-size: 1.2rem; margin-right: .5rem;"></i>
+                                 aria-expanded="false" style="padding-top: 8px;display: inline-block;">
+                                    @if (is_null(Auth::user()->avatar))
+                                        <i class="fas fa-user" style="font-size: 1.2rem; margin-right: .5rem;"></i>
+                                    @else
+                                        <img src="{{ Auth::user()->avatar }}" alt="avatar"  style="width: 40px; height: 40px; border-radius: 50px">
+                                    @endif
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ URL::route('dashboard') }}"><i class="fas fa-user"></i> Profil</a>
-                                        <!-- <a class="dropdown-item" href="#"><i class="fas fa-shopping-cart"></i> Pemesanan</a> -->
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
-                                            </div>
-                                        </li>
+                                    <a class="dropdown-item" href="{{ URL::route('dashboard') }}"><i class="fas fa-user"></i> Profil</a>
+                                    <!-- <a class="dropdown-item" href="#"><i class="fas fa-shopping-cart"></i> Pemesanan</a> -->
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                                </li>
                                     <ul class="navbar-nav ml-auto">
                                 </li>
                             @else

@@ -306,7 +306,7 @@
                                         <tr>
                                             <td width="30" style="border-collapse:collapse;border-spacing:0;font-family:&quot;Arial&quot;,sans-serif;color:#333;line-height:1.36;margin:0;padding:0"></td>
                                             <td width="540" style="border-collapse:collapse;border-spacing:0;font-family:&quot;Arial&quot;,sans-serif;color:#333;line-height:1.36;margin:0;padding:0">
-                                            <img src="{{ asset('images/logo.png') }}" style="width:176px;height:28px;line-height:100%;outline:none;text-decoration:none;border:0 none" class="CToWUd">
+                                            <img src="{{ asset('images/logo.png') }}" style="width:176px;height:45px;line-height:100%;outline:none;text-decoration:none;border:0 none" class="CToWUd">
                                             </td>
                                             <td width="30" style="border-collapse:collapse;border-spacing:0;font-family:&quot;Arial&quot;,sans-serif;color:#333;line-height:1.36;margin:0;padding:0"></td>
                                         </tr>
@@ -349,7 +349,7 @@
                                                             <div style="margin-bottom:24px">
                                                                 <p class="m_2752638577932141484gray-text" style="font-family:&quot;Arial&quot;,sans-serif;color:#999!important;line-height:1.36;font-size:14px;margin:0 0 6px;padding:0">Selesaikan pembayaran kamu sebelum:</p>
                                                                     <p class="m_2752638577932141484larger" style="font-family:&quot;Arial&quot;,sans-serif;color:#333;line-height:1.36;font-size:20px;margin:0;padding:0">
-                                                                    {{-- {{$delivery_date}} --}}
+                                                                    {{$delivery_date}}
                                                                 </p>
                                                             </div>
                                                             <div style="margin-bottom:24px">
@@ -357,12 +357,13 @@
                                                                     <p class="m_2752638577932141484gray-text" style="font-family:&quot;Arial&quot;,sans-serif;color:#999!important;line-height:1.36;font-size:14px;margin:0 0 6px;padding:0">Total harga:</p>
                                                                 </div>
                                                                     <p class="m_2752638577932141484larger" style="font-family:&quot;Arial&quot;,sans-serif;color:#333;line-height:1.36;font-size:20px;margin:0;padding:0">
-                                                                        <span class="m_2752638577932141484currency m_2752638577932141484positive" style="font-family:&quot;Arial&quot;,sans-serif;color:#333;line-height:1.36;font-size:20px;margin:0;padding:0">Rp</span><span class="m_2752638577932141484amount m_2752638577932141484positive" style="font-family:&quot;Arial&quot;,sans-serif;color:#333;line-height:1.36;font-size:20px;margin:0;padding:0">{{}}</span>
+                                                                        {{-- <span class="m_2752638577932141484currency m_2752638577932141484positive" style="font-family:&quot;Arial&quot;,sans-serif;color:#333;line-height:1.36;font-size:20px;margin:0;padding:0">Rp</span><span class="m_2752638577932141484amount m_2752638577932141484positive" style="font-family:&quot;Arial&quot;,sans-serif;color:#333;line-height:1.36;font-size:20px;margin:0;padding:0">{{$total_price}}</span> --}}
+                                                                        <span class="m_2752638577932141484currency m_2752638577932141484positive" style="font-family:&quot;Arial&quot;,sans-serif;color:#333;line-height:1.36;font-size:20px;margin:0;padding:0">{{ money($total) }}</span>
                                                                     </p>
                                                                 </div>
                                                                 <div style="margin:0">
                                                                     <p class="m_2752638577932141484gray-text" style="font-family:&quot;Arial&quot;,sans-serif;color:#999!important;line-height:1.36;font-size:14px;margin:0;padding:0">Metode Pembayaran:</p>
-                                                                    <p class="m_2752638577932141484larger" style="font-family:&quot;Arial&quot;,sans-serif;color:#333;line-height:1.36;font-size:20px;margin:0;padding:0">Transfer Virtual Account</p>
+                                                                    <p class="m_2752638577932141484larger" style="font-family:&quot;Arial&quot;,sans-serif;color:#333;line-height:1.36;font-size:20px;margin:0;padding:0">Cash On Delivery</p>
                                                                 </div>
                                                             </div>
                                                             <div class="m_2752638577932141484box" style="margin-bottom:18px;padding-bottom:18px;border-bottom-width:2px;border-bottom-color:#eee;border-bottom-style:solid">

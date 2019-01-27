@@ -31,19 +31,18 @@
 						@php $j = 0 @endphp
 						@for ($i = 0; $i < count($isi); $i++)
 							@if ($input_type[$i] == 'x')
-								@php $type = 'checkbox'; $checked = true @endphp
+								@php $type = 'checkbox'; $name = 'isix'. $i; $checked = true @endphp
 							@else
-								@php $type = 'radio'; @endphp
+								@php $type = 'radio'; $name = 'isio' . $input_type[$i] @endphp
 								@if ($j == 0)
 									@php $checked = true @endphp
 								@else
 									@php $checked = false @endphp
 								@endif	
 							@endif
-							{!! Form::$type('isi'.$isi_makanan[$i], $isi_makanan[$i], $checked, ['id' => 'isi'.$i]) !!}
+							{!! Form::$type($name, $isi_makanan[$i], $checked, ['id' => 'isi'.$i]) !!}
 							@php $j++ @endphp
-							{{-- <label class="form-check-label" for="isi{{ $i }}">{{ $isi[$i] }}</label><br> --}}
-							{!! Form::label('isi', $isi[$i], ['class' => 'form-check-label', 'for' => 'isi'.$i]) !!}
+							{!! Form::label('isi'.$i, $isi[$i], ['class' => 'form-check-label']) !!}
 							<br>
 							@if ($i < count($isi)-1)
 								@if ($menu['kode_isi'][$i] == '1')
@@ -175,7 +174,7 @@
 				{{ csrf_field() }}
 				{!! Form::hidden('menu_type', $jenis_menu) !!}
 				{!! Form::hidden('menu_id', $menu_id) !!}
-				{!! Form::hidden('total_price', '21', ['id' => 'total']) !!}
+				{{-- {!! Form::hidden('total_price', null, ['class' => 'total']) !!} --}}
 				{{-- <input type="hidden" name="_method" value="PUT"> --}}
 				{{-- </form> --}}
 				{!! Form::close() !!}
@@ -201,7 +200,7 @@
 					<tr>
 						<td colspan="2"><b>Total</b></td>
 						<td><b>Rp.</b></td>
-						<td><b id="total"></b></td>
+						<td><b class="total"></b></td>
 					</tr>
 				</table>
 			</div>
@@ -249,7 +248,7 @@
 				data: {id_dapur:id_dapur, kecamatan:kecamatan, sub_total:sub_total},
 				success:function(data){
 					$(".ongkir").html(data.success);
-					$('#total').html(data.total);
+					$('.total').html(data.total);
 				}
 			});
 		});
@@ -257,7 +256,7 @@
 			let me = $(this);
 			if(me.val() == 'ambil'){
 				$(".ongkir").html('0');
-				$('#total').html($('.subtotal').html());
+				$('.total').html($('.subtotal').html());
 				$('#kecamatan').val('');
 				$('#invoice tr:nth-child(3)').css('display','none');
 			}else{
@@ -313,7 +312,7 @@
 			});
 			var subtotal = $('[name="kuantitas"]').val() * "{{ $menu['harga'] }}";
 			$('.subtotal').html(rupiah(subtotal));
-			$('#total').html(rupiah(subtotal));
+			$('.total').html(rupiah(subtotal));
 			$('.dpui-numberPicker-increase').on('click', function () {
 				$('.kuantitas').html($('[name="kuantitas"]').val());
 				var subtotal = $('[name="kuantitas"]').val() * "{{ $menu['harga'] }}";
@@ -325,7 +324,7 @@
 				} else {
 					var total = subtotal;
 				}
-				$('#total').html(rupiah(total));
+				$('.total').html(rupiah(total));
 			});
 			$('.dpui-numberPicker-decrease').on('click', function () {
 				$('.kuantitas').html($('[name="kuantitas"]').val());

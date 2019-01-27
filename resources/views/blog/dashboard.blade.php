@@ -32,10 +32,15 @@
 		<div class="row justify-content-center">
 			<div class="col-11 col-md-8 card p-2 p-md-3">
 				<div class="profile accordion" id="profile">
-					@if (is_null(Auth::user()->foto))
+					@if (is_null(Auth::user()->avatar))
 						<img src="https://marketplace.canva.com/MACCp5vBVqY/1/thumbnail_large/canva-male-avatar-MACCp5vBVqY.png" alt="foto-profile" class="img-profile">
 					@else
-						<img src="{{ url('storage/avatars/'.Auth::user()->foto) }}" alt="foto-profile" class="img-profile">
+						@if (is_null(Auth::user()->provider_id))
+							@php $src = url('storage/avatars/'.Auth::user()->avatar) @endphp
+						@else
+						@php $src = Auth::user()->avatar @endphp
+						@endif
+						<img src="{{$src}}" alt="foto-profile" class="img-profile">
 					@endif
 					<div class="detail">
 						<div class="collapse show" id="prof" data-parent="#profile">
