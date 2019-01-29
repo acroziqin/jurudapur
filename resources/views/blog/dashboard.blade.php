@@ -9,28 +9,28 @@
 @endsection
 
 @section('content')
-@auth
-	@if (is_null($verified))
-		@if (session('resent'))
-		<div class="alert alert-success" role="alert" style="margin:0;">
-			<header class="container text-center">
-				{{ __('A fresh verification link has been sent to your email address.') }}
-				{{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
-			</header>
-		</div>
-		@else
-		<div class="alert alert-warning" role="alert" style="margin:0;">
-			<header class="container text-center">
-				{{ __('Before proceeding, please check your email for a verification link.') }}
-				{{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
-			</header>
-		</div>
+	@auth
+		@if (is_null($verified))
+			@if (session('resent'))
+			<div class="alert alert-success" role="alert" style="margin:0;">
+				<header class="container text-center">
+					{{ __('A fresh verification link has been sent to your email address.') }}
+					{{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
+				</header>
+			</div>
+			@else
+			<div class="alert alert-warning" role="alert" style="margin:0;">
+				<header class="container text-center">
+					{{ __('Before proceeding, please check your email for a verification link.') }}
+					{{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
+				</header>
+			</div>
+			@endif
 		@endif
-	@endif
-@endauth
+	@endauth
 	<main class="container">
 		<div class="row justify-content-center">
-			<div class="col-11 col-md-8 card p-2 p-md-3">
+			<div class="col col-md card p-2 p-md-3">
 				<div class="profile accordion" id="profile">
 					@if (is_null(Auth::user()->avatar))
 						<img src="https://marketplace.canva.com/MACCp5vBVqY/1/thumbnail_large/canva-male-avatar-MACCp5vBVqY.png" alt="foto-profile" class="img-profile">
@@ -111,52 +111,148 @@
 					</div>
 
 				</div>
-				<div class="my-orders table-responsive-md">
-					<p class="font-weight-bold">Riwayat Pemesanan</p>
-					<table class="table table-bordered">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col">Nomor Pemesanan</th>
-								<th scope="col">Menu</th>
-								<th scope="col">Tanggal Pemesanan</th>
-								<th scope="col">Jumlah</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th scope="row">20190101111</th>
-								<td>Jgung Bakar</td>
-								<td>1 Januari 2019</td>
-								<td>50</td>
-							</tr>
-							<tr>
-								<th scope="row">20190105111</th>
-								<td>Nasi Kotak Bu Rini</td>
-								<td>5 Januari 2019</td>
-								<td>200</td>
-							</tr>
-							<tr>
-								<th scope="row">20190110111</th>
-								<td>Box Ayam Bakar</td>
-								<td>10 Januari 2019</td>
-								<td>100</td>
-							</tr>
-						</tbody>
-					</table>
-					<nav aria-label="Page navigation example">
-						<ul class="pagination justify-content-end">
-							<li class="page-item disabled">
-								<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Sebelumnya</a>
-							</li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<!-- <li class="page-item"><a class="page-link" href="#">2</a></li> -->
-							<!-- <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-							<li class="page-item">
-								<a class="page-link" href="#">Selanjutnya</a>
-							</li>
-						</ul>
-					</nav>
+
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" id="makanan-tab" data-toggle="tab" href="#makanan" role="tab" aria-controls="makanan" aria-selected="true">Makanan</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="minuman-tab" data-toggle="tab" href="#minuman" role="tab" aria-controls="minuman" aria-selected="false">Minuman</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="kue-tab" data-toggle="tab" href="#kue" role="tab" aria-controls="kue" aria-selected="false">Kue</a>
+					</li>
+				</ul>
+
+				<div class="tab-content">
+					<div class="tab-pane fade show active" id="makanan" role="tabpanel" aria-labelledby="makanan-tab">
+						<div class="my-orders table-responsive-md">
+							<table class="table table-bordered">
+								<thead class="thead-dark">
+									<tr>
+										<th scope="col">{{ __('Nomor Pemesanan') }}</th>
+										<th scope="col">{{ __('Menu') }}</th>
+										<th scope="col">{{ __('Jenis') }}</th>
+										<th scope="col">{{ __('Dapur') }}</th>
+										<th scope="col">{{ __('Tanggal Pemesanan') }}</th>
+										<th scope="col">{{ __('Total Harga') }}</th>
+									</tr>
+								</thead>
+								
+								<tbody>
+									@foreach ($orders as $order)
+									<tr>
+										<th scope="row">{{ $order['order_number'] }}</th>
+										<td>Jgung Bakar</td>
+										<td>Nasi Bungkus</td>
+										<td>Bu Sri</td>
+										<td>{{ $order['delivery_date'] }}</td>
+										<td>{{ $order['total_price'] }}</td>
+									</tr>
+									@endforeach
+								</tbody>
+							</table>
+							<nav aria-label="Page navigation example">
+								<ul class="pagination justify-content-end">
+									<li class="page-item disabled">
+										<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Sebelumnya</a>
+									</li>
+									<li class="page-item"><a class="page-link" href="#">1</a></li>
+									<!-- <li class="page-item"><a class="page-link" href="#">2</a></li> -->
+									<!-- <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+									<li class="page-item">
+										<a class="page-link" href="#">Selanjutnya</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="minuman" role="tabpanel" aria-labelledby="minuman-tab">
+						<div class="my-orders table-responsive-md">
+							<table class="table table-bordered">
+								<thead class="thead-dark">
+									<tr>
+										<th scope="col">{{ __('Nomor Pemesanan') }}</th>
+										<th scope="col">{{ __('Menu') }}</th>
+										<th scope="col">{{ __('Jenis') }}</th>
+										<th scope="col">{{ __('Dapur') }}</th>
+										<th scope="col">{{ __('Tanggal Pemesanan') }}</th>
+										<th scope="col">{{ __('Total Harga') }}</th>
+									</tr>
+								</thead>
+								
+								<tbody>
+									@foreach ($orders as $order)
+									<tr>
+										<th scope="row">{{ $order['order_number'] }}</th>
+										<td>Jgung Bakar</td>
+										<td>{{ $order['menu_type'] }}</td>
+										<td>Bu Sri</td>
+										<td>{{ $order['delivery_date'] }}</td>
+										<td>{{ $order['total_price'] }}</td>
+									</tr>
+									@endforeach
+								</tbody>
+							</table>
+							<nav aria-label="Page navigation example">
+								<ul class="pagination justify-content-end">
+									<li class="page-item disabled">
+										<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Sebelumnya</a>
+									</li>
+									<li class="page-item"><a class="page-link" href="#">1</a></li>
+									<!-- <li class="page-item"><a class="page-link" href="#">2</a></li> -->
+									<!-- <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+									<li class="page-item">
+										<a class="page-link" href="#">Selanjutnya</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="kue" role="tabpanel" aria-labelledby="kue-tab">
+						<div class="my-orders table-responsive-md">
+							<table class="table table-bordered">
+								<thead class="thead-dark">
+									<tr>
+										<th scope="col">{{ __('Nomor Pemesanan') }}</th>
+										<th scope="col">{{ __('Menu') }}</th>
+										<th scope="col">{{ __('Jenis') }}</th>
+										<th scope="col">{{ __('Dapur') }}</th>
+										<th scope="col">{{ __('Tanggal Pemesanan') }}</th>
+										<th scope="col">{{ __('Total Harga') }}</th>
+									</tr>
+								</thead>
+								
+								<tbody>
+									@foreach ($orders as $order)
+									<tr>
+										<th scope="row">{{ $order['order_number'] }}</th>
+										<td>Jgung Bakar</td>
+										<td>{{ $order['menu_type'] }}</td>
+										<td>Bu Sri</td>
+										<td>{{ $order['delivery_date'] }}</td>
+										<td>{{ $order['total_price'] }}</td>
+									</tr>
+									@endforeach
+								</tbody>
+							</table>
+							<nav aria-label="Page navigation example">
+								<ul class="pagination justify-content-end">
+									<li class="page-item disabled">
+										<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Sebelumnya</a>
+									</li>
+									<li class="page-item"><a class="page-link" href="#">1</a></li>
+									<!-- <li class="page-item"><a class="page-link" href="#">2</a></li> -->
+									<!-- <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+									<li class="page-item">
+										<a class="page-link" href="#">Selanjutnya</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
 				</div>
+
 				<div class="my-reviews table-responsive-md">
 					<p class="font-weight-bold">Riwayat Ulasan</p>
 					<table class="table table-bordered">
@@ -223,6 +319,11 @@
 				}
 			});
 		});
+		<script>
+			$(function () {
+				$('#myTab li:last-child a').tab('show')
+			})
+		</script>
 	</script>
 	@if (Session::has('cek_password'))
 		<script src="https://unpkg.com/sweetalert2@7.17.0/dist/sweetalert2.all.js"></script>

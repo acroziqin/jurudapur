@@ -11,10 +11,11 @@ use App\Dapur;
 
 class SearchController extends Controller
 {
-    public function search()
+    public function search(Request $request)
     {
+        // dd($request);
         $query = Input::get('query');
-        $type = Input::get('type');
+        $type  = Input::get('type');
         $result = [];
         $_COOKIE['filter'] = Input::get('filter','');
         if($query != ''){
@@ -39,6 +40,7 @@ class SearchController extends Controller
                     }
                 }else{
                     $makanans = Makanan::where('nama', 'LIKE', '%'.$query.'%')->get()->toArray();
+                    // $makanans = Makanan::where('nama', 'LIKE', "%$query%")->get()->toArray();
                     $minumans = Minuman::where('nama', 'LIKE', '%'.$query.'%')->get()->toArray();
                     $kues = Kue::where('nama', 'LIKE', '%'.$query.'%')->get()->toArray();
                     $result = array_merge($result, $makanans, $minumans, $kues);

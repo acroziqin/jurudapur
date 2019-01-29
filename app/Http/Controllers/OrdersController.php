@@ -114,7 +114,7 @@ class OrdersController extends Controller
             Mail::send('blog/email', [
                 'nama'          => $profil->name, 
                 'order_number'  => $order_number,
-                'delivery_date' => Tanggal::keIndonesia($request->date),
+                'delivery_date' => $request->date,
                 'total'         => $total
             ], function ($message) use ($profil)
             {

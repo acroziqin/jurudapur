@@ -36,15 +36,18 @@ use Illuminate\Support\Facades\Input;
                     <div class="list-group">
                         <span class="list-group-item">
                             <input type="checkbox" name="filter_makanan" id="filter_makanan" class="target"
-                                {{ strpos(Input::get('filter',''), 'makanan') !== false ? 'checked' : '' }} value="makanan"> Makanan
-                        </span>
-                        <span class="list-group-item">
-                            <input type="checkbox" name="filter_minuman" id="filter_minuman" class="target"
-                                {{ strpos(Input::get('filter',''), 'minuman') !== false ? 'checked' : '' }} value="minuman"> Minuman
-                        </span>
-                        <span class="list-group-item">
-                            <input type="checkbox" name="filter_kue" id="filter_kue" class="target"
-                                {{ strpos(Input::get('filter',''), 'kue') !== false ? 'checked' : '' }} value="kue"> Kue
+                                {{ strpos(Input::get('filter',''), 'makanan') !== false ? 'checked' : '' }} value="makanan">
+                                {!! Form::label('filter_makanan', 'Makanan') !!}
+                            </span>
+                            <span class="list-group-item">
+                                <input type="checkbox" name="filter_minuman" id="filter_minuman" class="target"
+                                {{ strpos(Input::get('filter',''), 'minuman') !== false ? 'checked' : '' }} value="minuman">
+                                {!! Form::label('filter_minuman', 'Minuman') !!}
+                            </span>
+                            <span class="list-group-item">
+                                <input type="checkbox" name="filter_kue" id="filter_kue" class="target"
+                                {{ strpos(Input::get('filter',''), 'kue') !== false ? 'checked' : '' }} value="kue">
+                                {!! Form::label('filter_kue', 'Kue') !!}
                         </span>
                     </div>
                 </div>
