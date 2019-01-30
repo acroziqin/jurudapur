@@ -68,7 +68,7 @@
 				<div class="form-group">
 					<h3>Waktu</h3>
 					{{-- <input id="date" type="text" name="date" class="form-control" placeholder="HH:mm DD/MM/YYYY" required> --}}
-					{!! Form::text('date', null, ['id' => 'date', 'class' => 'form-control', 'placeholder' => 'HH:mm DD/MM/YYYY']) !!}
+					{!! Form::text('date', null, ['id' => 'date', 'class' => 'form-control', 'placeholder' => 'HH:mm DD/MM/YYYY', 'autocomplete'=>'off']) !!}
 				</div>
 
 				{{-- payment = cod --}}

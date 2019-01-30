@@ -12,4 +12,8 @@ class Makanan extends Model
     // public function user(){
     //     return $this->belongsTo('App\Dapur');
     // }
+    public function dapur()
+    {
+        return $this->belongsTo(Dapur::class, 'id_dapur', 'id');
+    }
 }

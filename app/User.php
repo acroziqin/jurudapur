@@ -16,7 +16,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','alamat', 'no_hp', 'jenis_kelamin', 'foto'
+        'name', 'email', 'password','alamat', 'no_hp', 'jenis_kelamin', 'foto', 'tipe'
     ];
 
     /**
@@ -27,4 +27,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password', 'remember_token', 
     ];
+
+    public function isAdmin()
+    {
+        return $this->tipe == 1;
+    }
 }

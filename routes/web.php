@@ -46,3 +46,22 @@ Route::resource('orders', 'OrdersController')->except([
 ]);
 
 Route::get('search', 'SearchController@search')->name('search');
+
+
+Route::group([
+	'prefix'     => 'admin',
+    'namespace'  => 'Admin',
+    'middleware' => ['auth','admin'],
+    'as'         => 'admin.'
+], function(){
+	Route::get('/','AdminController@dashboard')->name('dashboard');
+	Route::get('users','AdminController@users')->name('users');
+	Route::get('users/data', 'UserListController@users')->name('users.data');
+	Route::delete('users/{id}', 'UserListController@destroy')->name('users.delete');
+	Route::get('pesanan','AdminController@pesanan')->name('pesanan');
+	Route::get('pesanan/data','DaftarPesananController@pesanan')->name('pesanan.data');
+	Route::get('pesanan/{id}', 'DaftarPesananController@show')->name('pesanan.show');
+	Route::patch('pesanan/{id}', 'DaftarPesananController@markasdone')->name('pesanan.markasdone');
+	Route::delete('pesanan/{id}', 'DaftarPesananController@destroy')->name('pesanan.delete');
+	Route::get('menu','AdminController@dashboard')->name('menu');
+});

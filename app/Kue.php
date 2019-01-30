@@ -10,4 +10,8 @@ class Kue extends Model
 
     protected $fillable = ['kode_produk', 'nama', 'harga', 'jenis', 'id_dapur'];
 
+    public function dapur()
+    {
+        return $this->belongsTo(Dapur::class, 'id_dapur', 'id');
+    }
 }

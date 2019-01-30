@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->string('menu_type');//Ada
             $table->integer('menu_id');//Ada
             $table->string('order_number');
+            $table->boolean('isdone')->default(false);
             $table->string('ingredients_code')->nullable();
             $table->integer('quantity');//Ada
             $table->string('phone_number');//Ada

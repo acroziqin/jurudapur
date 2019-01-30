@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Input;
 
 <head>
     <link rel="icon" href="{{ URL::asset('images/favicon.png') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>@yield('title')</title>
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
