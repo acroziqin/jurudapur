@@ -21,6 +21,7 @@ class CreateMakananTable extends Migration
             $table->string('jenis')->nullable();
             $table->integer('id_dapur');
             $table->string('tipe', 10)->default('makanan');
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
 

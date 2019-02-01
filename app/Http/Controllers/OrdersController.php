@@ -106,16 +106,25 @@ class OrdersController extends Controller
         $order->shipment_method      = $request->shipment;
         $order->shipment_subdistrict = $request->kecamatan;
         $order->shipment_location    = $request->alamat_lengkap;
+        $order->description          = $request->description;
         $order->total_price          = $total;
         $order->save();
-
+        $deadlineDP = Carbon::createFromFormat('h:i - d/m/Y', $request->date)->subDays(3)->format('d F Y');
         // Kirim Email
         try{
             Mail::send('blog/email', [
-                'nama'          => $profil->name, 
-                'order_number'  => $order_number,
-                'delivery_date' => $request->date,
-                'total'         => $total
+                'nama'            => $profil->name,
+                'order_number'    => $order_number,
+                'delivery_date'   => $request->date,
+                'total'           => $total,
+                'order'           => $order,
+                'harga'           => $menu->harga,
+                'antar'           => $request->shipment == 'antar',
+                'ongkir'          => $ongkir,
+                'subTotal'        => $subTotal,
+                'menu'            => $menu,
+                'deadlineDP'      => $deadlineDP,
+                'lokasi_ketemuan' => $request->lokasi_ketemuan
             ], function ($message) use ($profil)
             {
                 $message->subject('Tagihan dan Petunjuk Pembayaran - [Jurudapur]');
@@ -129,7 +138,9 @@ class OrdersController extends Controller
                 'ongkir'   => $ongkir,
                 'subTotal' => $subTotal,
                 'total'    => $total,
-                'menu'     => $menu
+                'menu'     => $menu,
+                // 'deadlineDP' => $request->date
+                'deadlineDP' => $deadlineDP
             ]);
         }
         catch (Exception $e){

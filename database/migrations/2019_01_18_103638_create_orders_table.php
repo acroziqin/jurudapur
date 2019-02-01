@@ -29,6 +29,7 @@ class CreateOrdersTable extends Migration
             $table->string('shipment_method');//Ada
             $table->string('shipment_subdistrict')->nullable();//Ada
             $table->string('shipment_location');//Ada
+            $table->text('description')->nullable();//Ada
             $table->timestamps();
         });
     }

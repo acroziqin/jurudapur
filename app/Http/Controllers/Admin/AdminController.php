@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Dapur;
 
 class AdminController extends Controller
 {
@@ -24,5 +25,9 @@ class AdminController extends Controller
     public function pesanan()
     {
         return view('admin.pesanan');
+    }
+    public function dapur()
+    {
+        return view('admin.dapur');
     }
 }

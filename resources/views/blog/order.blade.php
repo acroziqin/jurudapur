@@ -144,7 +144,7 @@
 										<div class="form-group">
 											<label for="alamat_lengkap">Alamat Lengkap</label>
 											{{-- <textarea name="alamat_lengkap" placeholder="Alamat Lengkap" class="form-control" id="alamat_lengkap"></textarea> --}}
-											{!! Form::textarea('alamat_lengkap', null, ['id' => 'alamat_lengkap', 'class' => 'form-control', 'placeholder' => 'Alamat Lengkap', 'rows' => 3]) !!}
+											{!! Form::textarea('alamat_lengkap', null, ['id' => 'alamat_lengkap1', 'class' => 'form-control', 'placeholder' => 'Alamat Lengkap', 'rows' => 3]) !!}
 										</div>
 										<div>
 											<b>Ongkir : Rp. </b><b class="ongkir" id="ong"></b>
@@ -165,11 +165,14 @@
 								Pengambilan langsung di Rumah {{ $dapur['nama'] }}
 							</div> --}}
 							{{-- {!! Form::hidden('kecamatan', $dapur['lokasi']) !!} --}}
-							{!! Form::text('alamat_lengkap', $dapur['alamat'], ['id' => 'date', 'class' => 'form-control', 'readonly']) !!}
+							{!! Form::text('alamat_lengkap', $dapur['alamat'], ['id' => 'alamat_lengkap2', 'class' => 'form-control', 'readonly']) !!}
 						</div>
 					</div>
 				</div>
-				
+				<div class="form-group">
+					<h3>Keterangan Tambahan</h3>
+					{!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Keterangan ...', 'rows' => 3]) !!}
+				</div>
 				<button type="submit" class="btn btn-primary btn-block" role="button">Pesan</button>
 				{{ csrf_field() }}
 				{!! Form::hidden('menu_type', $jenis_menu) !!}
@@ -284,10 +287,10 @@
 				},
 			})
 			.on('submit', (val) => {
-				if(val.isAfter(moment().add(2,'days')))
+				if(val.isAfter(moment().add(3,'days')))
 					input.value = val.format("HH:mm - DD/MM/YYYY");
 				else
-					alert("Hari H setidaknya 2 hari setelah tanggal pesan (hari ini)");
+					alert("Hari H setidaknya 3 hari setelah tanggal pesan (hari ini)");
 			});
 			input.addEventListener('click', () => {
 				picker.open();
@@ -299,6 +302,21 @@
 				} else {
 					$('#collapseBT').collapse('hide');
 					$('#collapseCOD').collapse('show');
+				}
+			});
+			$('form').submit(function(e){
+				if ($('input[name="shipment"]:checked').val() === "antar") {
+					$('<input>').attr({
+						value: $('#alamat_lengkap1').val().toString(),
+						type: 'hidden',
+						name: 'alamat_lengkap'
+					}).appendTo('form');
+				}else{
+					$('<input>').attr({
+						value: $('#alamat_lengkap2').val().toString(),
+						type: 'hidden',
+						name: 'alamat_lengkap'
+					}).appendTo('form');
 				}
 			});
 			$('[name="shipment"]').on('change', function () {

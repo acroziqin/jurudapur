@@ -1,6 +1,22 @@
 # JuruDapur Template
 
 A light package for compiling Sass and running a dev server
+## Jalanakan
+
+``` php artisan migrate:refresh --seed ```
+
+## User
+=== Admin ===
+
+email : admin@jurudapur.com
+
+password : jurudapur100sukses
+
+## Halaman admin
+
+``` http://domain.test/admin ```
+
+asal telah login sebagai akun Admin diatas
 
 ### Version
 1.0.0

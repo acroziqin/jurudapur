@@ -56,6 +56,8 @@ Butuh value lokasi ketemuan dari form pemesanan sebelumnya --}}
                     </tbody>
                 </table>
                 <br>
+                <div>Selesaikan pembayaran DP sebelum : {{$deadlineDP}}</div>
+                <br>
                 <h5>Untuk selanjutnya silahkan hubungi Admin untuk konfirmasi kembali waktu dan tempat pembayaran DP.<br>Minimal
                     DP 50% dari biaya total.</h5>
                 <br>

@@ -21,7 +21,8 @@ class Order extends Model
         'shipment_method', 
         'shipment_subdistrict',
         'shipment_location',
-        'isdone'
+        'isdone',
+        'description'
     ];
 
     public function user()

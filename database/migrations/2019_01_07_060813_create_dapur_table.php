@@ -22,7 +22,7 @@ class CreateDapurTable extends Migration
             $table->integer('kuota')->nullable();
             $table->string('lokasi')->nullable();
             $table->string('foto')->nullable();
-            $table->string('foto-header')->nullable();
+            $table->string('foto_header')->nullable();
             $table->timestamps();
         });
 

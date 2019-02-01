@@ -20,6 +20,7 @@ class CreateMinumanTable extends Migration
             $table->string('jenis')->nullable();
             $table->integer('id_dapur');
             $table->string('tipe', 10)->default('minuman');
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
         DB::table('minuman')->insert(array(

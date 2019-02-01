@@ -45,7 +45,7 @@ class DaftarPesananController extends Controller
     public function destroy($id)
     {
         $order = Order::findOrFail($id);
-        $user->delete();
+        $order->delete();
     }
 
     public function pesanan()

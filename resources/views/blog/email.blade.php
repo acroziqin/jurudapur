@@ -349,7 +349,7 @@
                                                             <div style="margin-bottom:24px">
                                                                 <p class="m_2752638577932141484gray-text" style="font-family:&quot;Arial&quot;,sans-serif;color:#999!important;line-height:1.36;font-size:14px;margin:0 0 6px;padding:0">Selesaikan pembayaran kamu sebelum:</p>
                                                                     <p class="m_2752638577932141484larger" style="font-family:&quot;Arial&quot;,sans-serif;color:#333;line-height:1.36;font-size:20px;margin:0;padding:0">
-                                                                    {{$delivery_date}}
+                                                                    {{$deadlineDP}}
                                                                 </p>
                                                             </div>
                                                             <div style="margin-bottom:24px">
@@ -369,12 +369,10 @@
                                                             <div class="m_2752638577932141484box" style="margin-bottom:18px;padding-bottom:18px;border-bottom-width:2px;border-bottom-color:#eee;border-bottom-style:solid">
                                                                 <div>
                                                                     <h2 style="font-family:&quot;Arial&quot;,sans-serif;color:#333;line-height:1.36;font-size:16px;margin:0 0 18px;padding:0">
-                                                                    Petunjuk Pembayaran:
+                                                                    Lokasi Ketemuan:
                                                                     </h2>
                                                                     <p style="font-family:&quot;Arial&quot;,sans-serif;color:#333;line-height:1.36;font-size:14px;margin:0;padding:0">
-                                                                    Transfer dapat dilakukan ke nomor rekening Virtual Account BNI berikut ini:
-                                                                        <br>
-                                                                        <strong class="m_2752638577932141484text-large" style="color:#333;font-size:14px">8608523613849700</strong>
+                                                                        <strong class="m_2752638577932141484text-large" style="color:#333;font-size:14px">{{ $lokasi_ketemuan }}</strong>
                                                                         <br>
                                                                     </p>
                                                                 </div>

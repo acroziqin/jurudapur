@@ -8,7 +8,7 @@ class Kue extends Model
 {
     protected $table = 'kue';
 
-    protected $fillable = ['kode_produk', 'nama', 'harga', 'jenis', 'id_dapur'];
+    protected $fillable = ['kode_produk', 'nama', 'harga', 'jenis', 'id_dapur','foto'];
 
     public function dapur()
     {

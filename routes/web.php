@@ -58,10 +58,14 @@ Route::group([
 	Route::get('users','AdminController@users')->name('users');
 	Route::get('users/data', 'UserListController@users')->name('users.data');
 	Route::delete('users/{id}', 'UserListController@destroy')->name('users.delete');
+
 	Route::get('pesanan','AdminController@pesanan')->name('pesanan');
 	Route::get('pesanan/data','DaftarPesananController@pesanan')->name('pesanan.data');
 	Route::get('pesanan/{id}', 'DaftarPesananController@show')->name('pesanan.show');
 	Route::patch('pesanan/{id}', 'DaftarPesananController@markasdone')->name('pesanan.markasdone');
 	Route::delete('pesanan/{id}', 'DaftarPesananController@destroy')->name('pesanan.delete');
-	Route::get('menu','AdminController@dashboard')->name('menu');
+
+	// Route::get('dapur','AdminController@dapur')->name('dapur');
+	Route::resource('dapur', 'DapurController');
+	Route::get('dapur/data/json','DapurController@dapurs')->name('dapur.data');
 });
