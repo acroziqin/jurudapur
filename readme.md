@@ -5,6 +5,8 @@ A light package for compiling Sass and running a dev server
 
 ``` php artisan migrate:refresh --seed ```
 
+``` php artisan storage:link ```
+
 ## User
 === Admin ===
 
